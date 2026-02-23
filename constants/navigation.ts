@@ -49,7 +49,7 @@ export const NAV_SECTIONS: NavSection[] = [
         label: 'AI & Insights',
         items: [
             { title: 'Insights', href: '/insights', icon: BrainCircuit },
-            { title: 'Canvas', href: '/canvas', icon: BookOpen },
+            // { title: 'Canvas', href: '/canvas', icon: BookOpen },
             { title: 'Reports', href: '/reports', icon: FileText },
         ],
     },
