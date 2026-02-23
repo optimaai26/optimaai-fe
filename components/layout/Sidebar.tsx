@@ -1,0 +1,177 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+    ChevronLeft,
+    Globe,
+    Building2,
+    Settings,
+    Sparkles,
+} from 'lucide-react';
+import { cn } from '@/lib/utils/cn';
+import { NAV_SECTIONS, ADMIN_NAV_ITEMS, type NavItem } from '@/constants/navigation';
+import { useUiStore } from '@/lib/stores/ui-store';
+
+/* ==========================================
+ * Sidebar Component
+ * Desktop: fixed left panel, collapsible
+ * Mobile: handled via Sheet in the Topbar
+ * ========================================== */
+
+function SidebarLink({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
+    const pathname = usePathname();
+    const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+    return (
+        <Link
+            href={item.href}
+            className={cn(
+                'group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                collapsed && 'justify-center px-2',
+                isActive
+                    ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+            )}
+            title={collapsed ? item.title : undefined}
+        >
+            <item.icon
+                className={cn(
+                    'w-5 h-5 shrink-0 transition-colors',
+                    isActive ? 'text-primary-500' : 'text-muted-foreground group-hover:text-foreground',
+                )}
+            />
+            {!collapsed && (
+                <span className="truncate">{item.title}</span>
+            )}
+            {!collapsed && item.badge && (
+                <span className="ml-auto text-xs bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full">
+                    {item.badge}
+                </span>
+            )}
+        </Link>
+    );
+}
+
+export function Sidebar() {
+    const { sidebarCollapsed, toggleSidebar, viewScope, setViewScope } = useUiStore();
+
+    return (
+        <aside
+            className={cn(
+                'hidden lg:flex flex-col fixed left-0 top-0 bottom-0 z-40 border-r transition-all duration-300 ease-in-out',
+                'bg-[var(--sidebar-bg)] border-[var(--sidebar-border)]',
+                sidebarCollapsed ? 'w-[var(--sidebar-collapsed-width)]' : 'w-[var(--sidebar-width)]',
+            )}
+        >
+            {/* Logo + Collapse Toggle */}
+            <div className="flex items-center justify-between h-16 px-4 border-b border-[var(--sidebar-border)]">
+                {!sidebarCollapsed && (
+                    <Link href="/dashboard" className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center shrink-0">
+                            <Sparkles className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="text-lg font-bold tracking-tight">
+                            Optima<span className="text-primary-400">AI</span>
+                        </span>
+                    </Link>
+                )}
+                {sidebarCollapsed && (
+                    <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center mx-auto">
+                        <Sparkles className="w-5 h-5 text-white" />
+                    </div>
+                )}
+                <button
+                    onClick={toggleSidebar}
+                    className={cn(
+                        'p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground',
+                        sidebarCollapsed && 'absolute -right-3 top-5 bg-background border border-border shadow-sm',
+                    )}
+                    aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                    suppressHydrationWarning
+                >
+                    <ChevronLeft
+                        className={cn('w-4 h-4 transition-transform', sidebarCollapsed && 'rotate-180')}
+                    />
+                </button>
+            </div>
+
+            {/* Scope Toggle */}
+            {!sidebarCollapsed && (
+                <div className="px-4 py-3 border-b border-[var(--sidebar-border)]">
+                    <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
+                        <button
+                            onClick={() => setViewScope('global')}
+                            className={cn(
+                                'flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
+                                viewScope === 'global'
+                                    ? 'bg-background shadow-sm text-foreground'
+                                    : 'text-muted-foreground hover:text-foreground',
+                            )}
+                            suppressHydrationWarning
+                        >
+                            <Globe className="w-3.5 h-3.5" />
+                            Global
+                        </button>
+                        <button
+                            onClick={() => setViewScope('department')}
+                            className={cn(
+                                'flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
+                                viewScope === 'department'
+                                    ? 'bg-background shadow-sm text-foreground'
+                                    : 'text-muted-foreground hover:text-foreground',
+                            )}
+                            suppressHydrationWarning
+                        >
+                            <Building2 className="w-3.5 h-3.5" />
+                            Department
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Navigation Sections */}
+            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+                {NAV_SECTIONS.map((section) => (
+                    <div key={section.label}>
+                        {!sidebarCollapsed && (
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
+                                {section.label}
+                            </p>
+                        )}
+                        <div className="space-y-1">
+                            {section.items.map((item) => (
+                                <SidebarLink key={item.href} item={item} collapsed={sidebarCollapsed} />
+                            ))}
+                        </div>
+                    </div>
+                ))}
+
+                {/* Admin Section */}
+                <div>
+                    {!sidebarCollapsed && (
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
+                            Administration
+                        </p>
+                    )}
+                    {sidebarCollapsed && (
+                        <div className="border-t border-[var(--sidebar-border)] my-2" />
+                    )}
+                    <div className="space-y-1">
+                        {ADMIN_NAV_ITEMS.map((item) => (
+                            <SidebarLink key={item.href} item={item} collapsed={sidebarCollapsed} />
+                        ))}
+                    </div>
+                </div>
+            </nav>
+
+            {/* Settings Footer */}
+            <div className="border-t border-[var(--sidebar-border)] p-3">
+                <SidebarLink
+                    item={{ title: 'Settings', href: '/settings', icon: Settings }}
+                    collapsed={sidebarCollapsed}
+                />
+            </div>
+        </aside>
+    );
+}
