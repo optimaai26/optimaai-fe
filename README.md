@@ -64,7 +64,13 @@ The app will be available at `http://localhost:3000`.
 
 ## 🌿 Repository Structure & Onboarding
 
-For comprehensive team guidelines, branching strategies, please refer to:
+For a deep dive into how the project is organized and our core design patterns, see:
+👉 **[ARCHITECTURE.md](./ARCHITECTURE.md)**
+
+For historical context on major architectural decisions, see:
+👉 **[Architectural Decisions (ADR)](./DECISIONS.md)**
+
+For comprehensive team guidelines and branching strategies, please refer to:
 👉 **[CONTRIBUTING.md](./CONTRIBUTING.md)**
 
 ---
