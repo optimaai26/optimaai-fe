@@ -28,18 +28,18 @@ pnpm build
 ## 🎯 Development Roadmap
 We have prepared "Skeleton" files for upcoming features. Look for the `TODO` comments in the codebase.
 
-### Junior Assignment 1: Data Mastery
+### Task 1: Data Mastery
 Focus on the data ingestion and reporting pipeline.
 - [ ] **Datasets Inventory**: `app/(protected)/datasets/page.tsx`
 - [ ] **Dataset Details**: `app/(protected)/datasets/[id]/page.tsx`
 - [ ] **Reports**: `app/(protected)/reports/page.tsx`
 
-### Junior Assignment 2: Intelligence & Visualization
+### Task 2: Intelligence & Visualization
 Focus on making complex data intuitive.
 - [ ] **Predictions**: `app/(protected)/predictions/page.tsx`
 - [ ] **Insights**: `app/(protected)/insights/page.tsx`
 
-### Junior Assignment 3: Interactive Workflows
+### Task 3: Interactive Workflows
 Focus on user-driven strategic tools.
 - **Public Flow**: `app/(public)/signup/page.tsx`
 - **Admin Approval**: `app/(protected)/admin/access-requests/page.tsx`
@@ -83,7 +83,7 @@ We use **Conventional Commits**:
 - Do not commit `.env` files.
 - Do not commit hardcoded API keys or passwords.
 - Do not commit actual customer data (use the mock data in `lib/mocks`).
-- If you accidentally commit a secret, notify the Senior team immediately.
+- If you accidentally commit a secret, notify the engineering lead immediately.
 
 ---
 *Happy coding! – Your Senior Engineering Team*

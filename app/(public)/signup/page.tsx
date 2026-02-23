@@ -43,7 +43,7 @@ export default function SignupPage() {
                 </form>
 
                 <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/10 rounded-lg text-center">
-                    <p className="text-sm text-primary-600 dark:text-primary-300 font-medium mb-2">Junior Task:</p>
+                    <p className="text-sm text-primary-600 dark:text-primary-300 font-medium mb-2">Development Task:</p>
                     <p className="text-xs text-muted-foreground">
                         Integrate React Hook Form and Zod to handle the registration flow.
                     </p>
