@@ -1,6 +1,8 @@
 import { PageHeader } from '@/components/layout/PageHeader';
 import { KpiCard } from '@/components/data-display/KpiCard';
-import { TrendingUp, Users, DollarSign, Activity, BarChart3, PieChart } from 'lucide-react';
+import OverviewChart from '@/components/data-display/OverviewChart';
+import DistributionChart from '@/components/data-display/DistributionChart';
+import { TrendingUp, Users, DollarSign, Activity, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Dashboard' };
@@ -40,6 +42,22 @@ const kpiData = [
     },
 ];
 
+const revenueData = [
+    { name: 'Jan', total: 4500 },
+    { name: 'Feb', total: 5200 },
+    { name: 'Mar', total: 4800 },
+    { name: 'Apr', total: 6100 },
+    { name: 'May', total: 5900 },
+    { name: 'Jun', total: 7200 },
+];
+
+const userData = [
+    { name: 'New', value: 400 },
+    { name: 'Active', value: 300 },
+    { name: 'Inactive', value: 200 },
+    { name: 'Churned', value: 100 },
+];
+
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     DollarSign,
     Users,
@@ -49,14 +67,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default function DashboardPage() {
     return (
-        <div className="animate-fade-in">
+        <div className="animate-fade-in space-y-8">
             <PageHeader
                 title="Dashboard"
                 description="Overview of your key business metrics and AI insights."
             />
 
             {/* KPI Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {kpiData.map((kpi) => (
                     <KpiCard
                         key={kpi.id}
@@ -70,42 +88,47 @@ export default function DashboardPage() {
             </div>
 
             {/* Charts Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div className="glass-card rounded-xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">Revenue Trend</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="glass-card rounded-xl p-6 transition-all hover:border-primary/50">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="font-semibold text-lg">Revenue Trend</h3>
                         <BarChart3 className="w-5 h-5 text-muted-foreground" />
                     </div>
-                    <div className="h-64 flex items-center justify-center text-muted-foreground text-sm border border-dashed border-border rounded-lg">
-                        Chart placeholder — connect to Recharts
+                    <div className="h-80 w-full">
+                        <OverviewChart data={revenueData} />
                     </div>
                 </div>
 
-                <div className="glass-card rounded-xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">User Distribution</h3>
-                        <PieChart className="w-5 h-5 text-muted-foreground" />
+                <div className="glass-card rounded-xl p-6 transition-all hover:border-primary/50">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="font-semibold text-lg">User Distribution</h3>
+                        <PieChartIcon className="w-5 h-5 text-muted-foreground" />
                     </div>
-                    <div className="h-64 flex items-center justify-center text-muted-foreground text-sm border border-dashed border-border rounded-lg">
-                        Chart placeholder — connect to Recharts
+                    <div className="h-80 w-full">
+                        <DistributionChart data={userData} />
                     </div>
                 </div>
             </div>
 
             {/* Recent Activity */}
             <div className="glass-card rounded-xl p-6">
-                <h3 className="font-semibold mb-4">Recent Activity</h3>
-                <div className="space-y-3">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="font-semibold text-lg">Recent Intelligence Activity</h3>
+                    <Activity className="w-5 h-5 text-primary" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[
-                        { action: 'New dataset uploaded', time: '2 minutes ago', color: 'bg-success' },
-                        { action: 'Churn prediction completed', time: '15 minutes ago', color: 'bg-primary-400' },
-                        { action: 'AI insight generated', time: '1 hour ago', color: 'bg-info' },
-                        { action: 'Revenue forecast updated', time: '3 hours ago', color: 'bg-warning' },
+                        { action: 'New dataset "Sales_Q4.csv" uploaded', time: '2 minutes ago', color: 'bg-emerald-500' },
+                        { action: 'Churn prediction for "Enterprise tier" completed', time: '15 minutes ago', color: 'bg-indigo-500' },
+                        { action: 'AI strategic insight generated for Market Expansion', time: '1 hour ago', color: 'bg-amber-500' },
+                        { action: 'Revenue forecast updated for next quarter', time: '3 hours ago', color: 'bg-rose-500' },
                     ].map((item) => (
-                        <div key={item.action} className="flex items-center gap-3 py-2">
-                            <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                            <span className="text-sm">{item.action}</span>
-                            <span className="text-xs text-muted-foreground ml-auto">{item.time}</span>
+                        <div key={item.action} className="flex items-center gap-4 p-3 rounded-lg bg-muted/30 border border-transparent hover:border-border hover:bg-muted/50 transition-all">
+                            <div className={`w-3 h-3 rounded-full shrink-0 ${item.color} shadow-[0_0_8px_rgba(0,0,0,0.1)]`} />
+                            <div className="flex flex-col gap-0.5 min-w-0">
+                                <span className="text-sm font-medium truncate">{item.action}</span>
+                                <span className="text-xs text-muted-foreground">{item.time}</span>
+                            </div>
                         </div>
                     ))}
                 </div>
