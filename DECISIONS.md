@@ -65,4 +65,24 @@ Use **Zustand** for transient UI state and **TanStack Query** for all server-sid
 - Lightweight, boilerplate-free state management for the UI.
 
 ---
+
+## [ADR-0005] Initial CI via GitHub Actions
+**Status**: Accepted | **Date**: 2026-02-23
+
+### Context
+We need to ensure code quality and build stability as the team grows, without introducing heavy blockers that stifle velocity.
+
+### Decision
+Implement a GitHub Actions workflow that runs on every push and pull request to `master`. The workflow performs:
+1. **Dependency Installation**: Ensuring `pnpm-lock.yaml` is healthy.
+2. **Linting**: Running Biome to enforce style and safe-code rules.
+3. **Build Check**: Running `next build` to catch compilation errors early.
+
+### Consequences
+- Automated feedback on code quality for every contribution.
+- Prevents broken builds from reaching the shared development branch.
+- Keeps the environment consistent by using `--frozen-lockfile` in CI.
+
+---
 *For Git workflows, see [CONTRIBUTING.md](./CONTRIBUTING.md).*
+*For records of specific architectural decisions, see the [Decision Log](./DECISIONS.md).*
