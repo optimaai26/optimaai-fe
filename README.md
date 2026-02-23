@@ -67,6 +67,9 @@ The app will be available at `http://localhost:3000`.
 For a deep dive into how the project is organized and our core design patterns, see:
 👉 **[ARCHITECTURE.md](./ARCHITECTURE.md)**
 
+For your specific tasks and design challenges in Sprint 1, see:
+👉 **[Sprint 1 Roadmap (TASKS)](./ROADMAP.md)**
+
 For historical context on major architectural decisions, see:
 👉 **[Architectural Decisions (ADR)](./DECISIONS.md)**
 
