@@ -83,3 +83,4 @@ This document defines the specific deliverables for Sprint 1. Each feature track
 4. Verified build (`pnpm build`) with zero TypeScript errors.
 
 ---
+*Reference implementation available on `arch/base-infrastructure` branch.*
