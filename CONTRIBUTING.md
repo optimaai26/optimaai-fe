@@ -27,24 +27,19 @@ pnpm build
 ```
 
 ## 🎯 Development Roadmap
-We have prepared "Skeleton" files for upcoming features. Look for the `TODO` comments in the codebase.
 
-### Task 1: Data Mastery
-Focus on the data ingestion and reporting pipeline.
-- [ ] **Datasets Inventory**: `app/(protected)/datasets/page.tsx`
-- [ ] **Dataset Details**: `app/(protected)/datasets/[id]/page.tsx`
-- [ ] **Reports**: `app/(protected)/reports/page.tsx`
+Your specific design challenges and functional tasks for this sprint are documented in the **[Sprint 1 Roadmap](./ROADMAP.md)**. 
 
-### Task 2: Intelligence & Visualization
-Focus on making complex data intuitive.
-- [ ] **Predictions**: `app/(protected)/predictions/page.tsx`
-- [ ] **Insights**: `app/(protected)/insights/page.tsx`
+Please refer to that document for:
+- Detailed feature descriptions.
+- Formal **Acceptance Criteria (AC)**.
+- Design challenges for each "Skeleton" page.
 
-### Task 3: Interactive Workflows
-Focus on user-driven strategic tools.
-- **Public Flow**: `app/(public)/signup/page.tsx`
-- **Admin Approval**: `app/(protected)/admin/access-requests/page.tsx`
-- **Strategy Canvas**: `app/(protected)/canvas/page.tsx`
+### Current Task Areas:
+1. **Data Infrastructure**: Datasets, Profiling, Reports.
+2. **Intelligence**: Predictions, AI Insights.
+3. **Admin & Access**: Identity Management, Role Exports.
+4. **Strategy**: Business Model Canvas integration.
 
 ---
 
