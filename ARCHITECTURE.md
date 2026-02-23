@@ -61,3 +61,4 @@ When adding a new feature (e.g., "Invoices"):
 
 ---
 *For Git workflows and team roles, see [CONTRIBUTING.md](./CONTRIBUTING.md).*
+*For records of specific architectural decisions, see the [ADR directory](./docs/adr/README.md).*
