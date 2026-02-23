@@ -16,6 +16,7 @@ We use the **Next.js 15 App Router** with **Route Groups** to separate concerns:
 - **`components/layout/`**: Global shell components (Sidebar, Topbar, PageHeader).
 - **`components/ui/`**: Atomic, low-level components (Buttons, Inputs, Cards). These are mostly provided by shadcn/ui.
 - **`components/data-display/`**: High-level visual components like `KpiCard` and `DataTable`.
+- **Formatting**: We use **Biome** for consistent code quality across the team.
 
 ### 3. `features/` (The Domain Logic)
 The "Brain" of the application. Logic is grouped by feature rather than type:

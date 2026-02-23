@@ -5,6 +5,7 @@ Welcome to the OptimaAI core development team. This repository contains the arch
 ## 🏗️ Architecture Stack
 - **Framework**: Next.js 15+ (App Router)
 - **Styling**: Tailwind CSS 4 (Theme tokens in `app/globals.css`)
+- **Linting/Formatting**: [Biome](https://biomejs.dev/) (Strict mode)
 - **State Management**: Zustand (Global UI) + React Context (Auth)
 - **Data Fetching**: TanStack Query v5
 - **Forms & Validation**: React Hook Form + Zod
@@ -86,4 +87,4 @@ We use **Conventional Commits**:
 - If you accidentally commit a secret, notify the engineering lead immediately.
 
 ---
-*Happy coding! – Your Senior Engineering Team*
+*Happy coding! – *
