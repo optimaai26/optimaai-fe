@@ -64,7 +64,7 @@ The app will be available at `http://localhost:3000`.
 
 ## 🌿 Repository Structure & Onboarding
 
-For comprehensive team guidelines, branching strategies, and junior tasks, please refer to:
+For comprehensive team guidelines, branching strategies, please refer to:
 👉 **[CONTRIBUTING.md](./CONTRIBUTING.md)**
 
 ---
