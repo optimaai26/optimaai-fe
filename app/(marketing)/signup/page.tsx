@@ -2,123 +2,60 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Eye, EyeOff, Sparkles } from 'lucide-react';
+import { Sparkles, Loader2, ArrowRight } from 'lucide-react';
 
 export default function SignupPage() {
-    const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        // TODO: Implement registration logic with Zod validation
+        setTimeout(() => setIsLoading(false), 2000);
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-            {/* Background orbs */}
-            <div className="absolute top-1/4 right-1/3 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl" />
-
-            <div className="relative w-full max-w-md animate-fade-in">
-                {/* Logo */}
+            <div className="max-w-md w-full glass-card rounded-2xl p-8 relative z-10 border-dashed border-2">
                 <div className="text-center mb-8">
-                    <Link href="/" className="inline-flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
-                            <Sparkles className="w-6 h-6 text-white" />
-                        </div>
-                        <span className="text-2xl font-bold tracking-tight">
-                            Optima<span className="text-primary-400">AI</span>
-                        </span>
-                    </Link>
-                    <p className="text-muted-foreground mt-2">Create your OptimaAI account</p>
+                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4">
+                        <Sparkles className="w-7 h-7 text-white" />
+                    </div>
+                    <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
+                        Create Account
+                    </h1>
+                    <p className="text-muted-foreground mt-2">Join OptimaAI and transform your data.</p>
                 </div>
 
-                {/* Card */}
-                <div className="glass-card rounded-2xl p-8">
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            // TODO: Implement signup
-                        }}
-                        className="space-y-5"
-                    >
-                        {/* Name */}
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-1.5">
-                                Full Name
-                            </label>
-                            <input
-                                id="name"
-                                type="text"
-                                placeholder="John Doe"
-                                required
-                                className="w-full px-4 py-2.5 rounded-lg bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
-                            />
-                        </div>
+                {/* 
+                    TODO: Implement Signup Form with React Hook Form + Zod.
+                    - Add fields: Full Name, Email, Password, Company.
+                    - Implement validation (min length, email format).
+                    - Handle 'Success' state with a confirmation message.
+                */}
+                <form onSubmit={handleSubmit} className="space-y-4 opacity-50 pointer-events-none">
+                    <div className="h-10 bg-muted rounded animate-pulse" />
+                    <div className="h-10 bg-muted rounded animate-pulse" />
+                    <div className="h-10 bg-muted rounded animate-pulse" />
+                    <button disabled className="w-full py-2.5 rounded-lg bg-primary-500/50 text-white font-semibold">
+                        Sign Up
+                    </button>
+                </form>
 
-                        {/* Email */}
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-                                Work Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="you@company.com"
-                                required
-                                className="w-full px-4 py-2.5 rounded-lg bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
-                            />
-                        </div>
+                <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/10 rounded-lg text-center">
+                    <p className="text-sm text-primary-600 dark:text-primary-300 font-medium mb-2">Junior Task:</p>
+                    <p className="text-xs text-muted-foreground">
+                        Integrate React Hook Form and Zod to handle the registration flow.
+                    </p>
+                </div>
 
-                        {/* Password */}
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium mb-1.5">
-                                Password
-                            </label>
-                            <div className="relative">
-                                <input
-                                    id="password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder="Min. 8 characters"
-                                    required
-                                    minLength={8}
-                                    className="w-full px-4 py-2.5 rounded-lg bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all pr-10"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                                >
-                                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Terms */}
-                        <div className="flex items-start gap-2 text-sm">
-                            <input type="checkbox" required className="rounded border-input mt-0.5" />
-                            <span className="text-muted-foreground">
-                                I agree to the{' '}
-                                <a href="#" className="text-primary-400 hover:text-primary-300 font-medium">
-                                    Terms of Service
-                                </a>{' '}
-                                and{' '}
-                                <a href="#" className="text-primary-400 hover:text-primary-300 font-medium">
-                                    Privacy Policy
-                                </a>
-                            </span>
-                        </div>
-
-                        {/* Submit */}
-                        <button
-                            type="submit"
-                            className="w-full py-2.5 rounded-lg gradient-primary text-white font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-primary-400/20"
-                        >
-                            Create Account
-                        </button>
-                    </form>
-
-                    {/* Divider */}
-                    <div className="mt-6 text-center text-sm text-muted-foreground">
+                <div className="mt-8 text-center">
+                    <p className="text-sm text-muted-foreground">
                         Already have an account?{' '}
-                        <Link href="/login" className="text-primary-400 hover:text-primary-300 font-medium transition-colors">
-                            Sign in
+                        <Link href="/login" className="text-primary-600 hover:underline font-medium">
+                            Log in
                         </Link>
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>

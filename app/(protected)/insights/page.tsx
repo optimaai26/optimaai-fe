@@ -1,96 +1,55 @@
 import { PageHeader } from '@/components/layout/PageHeader';
-import { BrainCircuit, Sparkles, ArrowRight, Star, AlertCircle, TrendingUp } from 'lucide-react';
+import { Lightbulb, ArrowRight, BrainCircuit } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'AI Insights' };
-
-const insights = [
-    {
-        id: '1',
-        title: 'High Churn Risk in Enterprise Segment',
-        content: 'Enterprise customers with less than 3 logins/month show 4.2x higher churn probability. Consider implementing an automated engagement campaign targeting inactive enterprise accounts.',
-        category: 'strategic',
-        priority: 'critical',
-        icon: AlertCircle,
-    },
-    {
-        id: '2',
-        title: 'Revenue Growth Opportunity in APAC',
-        content: 'APAC region shows 23% higher conversion rates but only receives 12% of marketing spend. Reallocating 8% of budget could yield an estimated $45K/month incremental revenue.',
-        category: 'financial',
-        priority: 'high',
-        icon: TrendingUp,
-    },
-    {
-        id: '3',
-        title: 'Product Feature Optimization',
-        content: 'Users who engage with the export feature within their first week show 67% higher retention. Consider surfacing export capabilities in the onboarding flow.',
-        category: 'operational',
-        priority: 'medium',
-        icon: Star,
-    },
-];
-
-const priorityStyles: Record<string, string> = {
-    critical: 'bg-danger/10 text-danger border-danger/20',
-    high: 'bg-warning/10 text-warning border-warning/20',
-    medium: 'bg-info/10 text-info border-info/20',
-    low: 'bg-muted text-muted-foreground border-border',
-};
-
-const categoryLabels: Record<string, string> = {
-    strategic: 'Strategic',
-    financial: 'Financial',
-    operational: 'Operational',
-    growth: 'Growth',
-};
 
 export default function InsightsPage() {
     return (
         <div className="animate-fade-in">
             <PageHeader
-                title="AI Insights"
-                description="LLM-generated strategic recommendations based on your data."
-                actions={
-                    <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg gradient-primary text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                        <Sparkles className="w-4 h-4" />
-                        Generate New Insights
-                    </button>
-                }
+                title="Strategic Insights"
+                description="LLM-powered analysis of your business performance and market positioning."
             />
 
-            {/* Insight Cards */}
-            <div className="grid gap-6">
-                {insights.map((insight) => (
-                    <div
-                        key={insight.id}
-                        className="glass-card rounded-xl p-6 hover:border-primary-400/20 transition-all duration-200 group"
-                    >
-                        <div className="flex items-start gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center shrink-0">
-                                <BrainCircuit className="w-5 h-5 text-primary-400" />
-                            </div>
-                            <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                    <h3 className="font-semibold">{insight.title}</h3>
-                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${priorityStyles[insight.priority]}`}>
-                                        {insight.priority}
-                                    </span>
-                                    <span className="px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
-                                        {categoryLabels[insight.category]}
-                                    </span>
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <div className="lg:col-span-3 space-y-6">
+                    {/* 
+                        TODO: Implement Strategic Insight Cards.
+                        - Fetch AI insights from the backend (mock for now).
+                        - Use a 'Card' layout with categorized insights (Growth, Optimization, Risks).
+                        - Add 'Copy to Clipboard' and 'Apply to Canvas' actions.
+                    */}
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="glass-card rounded-xl p-6 border-dashed border-2">
+                            <div className="flex gap-4">
+                                <div className="w-10 h-10 shrink-0 rounded-full bg-warning/10 flex items-center justify-center">
+                                    <Lightbulb className="w-5 h-5 text-warning" />
                                 </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                                    {insight.content}
-                                </p>
-                                <button className="inline-flex items-center gap-1.5 text-sm text-primary-400 hover:text-primary-300 font-medium transition-colors">
-                                    View details
-                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                                </button>
+                                <div>
+                                    <div className="h-4 w-48 bg-muted rounded animate-pulse mb-3" />
+                                    <div className="space-y-2">
+                                        <div className="h-3 w-full bg-muted rounded animate-pulse" />
+                                        <div className="h-3 w-3/4 bg-muted rounded animate-pulse" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    ))}
+                </div>
+
+                <div className="space-y-6">
+                    <div className="glass-card rounded-xl p-6 bg-primary-500 text-white border-0 shadow-lg shadow-primary-500/20">
+                        <BrainCircuit className="w-8 h-8 mb-4" />
+                        <h3 className="text-lg font-bold mb-2">AI Consultant</h3>
+                        <p className="text-primary-50 text-sm mb-4">
+                            Ask specific questions about your business data and get instant strategic advice.
+                        </p>
+                        <button className="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                            Open Chat <ArrowRight className="w-4 h-4" />
+                        </button>
                     </div>
-                ))}
+                </div>
             </div>
         </div>
     );
