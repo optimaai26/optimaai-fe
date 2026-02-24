@@ -62,6 +62,60 @@ The app will be available at `http://localhost:3000`.
 
 ---
 
+## 🐳 Docker Deployment
+
+### Quick Start with Docker Compose
+The easiest way to run the application with Docker:
+
+```bash
+# Build and run the container
+docker-compose up --build
+
+# Run in detached mode (background)
+docker-compose up -d --build
+```
+
+The app will be available at `http://localhost:3006`.
+
+### Manual Docker Build
+If you prefer to build and run manually:
+
+```bash
+# Build the Docker image
+docker build -t optimai-frontend .
+
+# Run the container on port 3006
+docker run -p 3006:3000 optimai-frontend
+```
+
+### Environment Variables
+To pass environment variables to Docker:
+
+```bash
+# Using docker-compose (uncomment env_file in docker-compose.yml)
+docker-compose up --build
+
+# Or pass directly
+docker run -p 3006:3000 -e NEXT_PUBLIC_API_URL=http://api:8000 optimai-frontend
+```
+
+### Docker Commands Reference
+```bash
+# Stop containers
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild without cache
+docker-compose build --no-cache
+
+# List running containers
+docker ps
+```
+
+---
+
 ## 🌿 Repository Structure & Onboarding
 
 For a deep dive into how the project is organized and our core design patterns, see:

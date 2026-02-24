@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3000"
+    environment:
+      - NODE_ENV=production
+      # Add your environment variables here or use .env file
+      # - NEXT_PUBLIC_API_URL=http://api:8000
+    restart: unless-stopped
+    # Uncomment to use environment variables from .env file
+    # env_file:
+    #   - .env
