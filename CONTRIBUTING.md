@@ -20,7 +20,7 @@ Before contributing, ensure you have **pnpm** installed.
 pnpm install
 
 # Start development
-pnpm dev
+pnpm devpodman-compose up --build
 
 # Build for production
 pnpm build
