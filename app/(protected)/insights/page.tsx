@@ -45,144 +45,220 @@ export default function InsightsPage() {
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6 xl:gap-0 items-start">
         {/* LEFT SIDE */}
         <div className="space-y-4 xl:pr-6">
-          {/* Card 1 */}
-          <article className="w-full rounded-xl border border-gray-200 bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-gray-900">Cost Structure Alert</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                    FINANCIAL
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-50 text-red-700">
-                    HIGH IMPACT
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                    92% Confidence
-                  </span>
-                </div>
+{/* Card 1 */}
+<article className="w-full rounded-xl border border-gray-200 bg-white p-4">
+  <div className="flex items-start gap-3">
+    <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
+    <div className="w-full">
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-semibold text-gray-900">Cost Structure Alert</h3>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+          FINANCIAL
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-50 text-red-700">
+          HIGH IMPACT
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+          92% Confidence
+        </span>
+      </div>
 
-                <p className="text-sm text-gray-700 mt-2">
-                  Supply chain logistics costs have risen{' '}
-                  <span className="font-semibold text-red-600">8% MoM</span>. Based on current
-                  contracts, renegotiating with &apos;SpeedyShip&apos; or switching to regional
-                  providers could save an estimated{' '}
-                  <span className="font-semibold">$12k/quarter</span>.
-                </p>
+      <p className="text-sm text-gray-700 mt-2">
+        Supply chain logistics costs have risen{' '}
+        <span className="font-semibold text-red-600">8% MoM</span>. Based on current contracts,
+        renegotiating with &apos;SpeedyShip&apos; or switching to regional providers could save
+        an estimated <span className="font-semibold">$12k/quarter</span>.
+      </p>
 
-                <button
-                  type="button"
-                  className="mt-3 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800"
-                >
-                  Update Cost Structure
-                </button>
-              </div>
-            </div>
-          </article>
+      {/* ✅ Actions row (Update + Share with Dept) */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+        >
+          Update Cost Structure
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M6 3L11 8L6 13"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </svg>
+        </button>
 
-          {/* Card 2 */}
-          <article className="w-full rounded-xl border border-gray-200 bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-gray-900">Customer Segment Opportunity</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                    GROWTH
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
-                    MEDIUM IMPACT
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                    88% Confidence
-                  </span>
-                </div>
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M12.5 11.2c-.6 0-1.1.2-1.5.6L6.7 9.3c.1-.2.1-.4.1-.6s0-.4-.1-.6L11 5.6c.4.4.9.6 1.5.6 1.2 0 2.2-1 2.2-2.2S13.7 1.8 12.5 1.8s-2.2 1-2.2 2.2c0 .2 0 .4.1.6L6.1 7.1c-.4-.4-.9-.6-1.5-.6C3.4 6.5 2.4 7.5 2.4 8.7s1 2.2 2.2 2.2c.6 0 1.1-.2 1.5-.6l4.3 2.5c-.1.2-.1.4-.1.6 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2-1-2.2-2.2-2.2Z"
+              fill="currentColor"
+              opacity="0.9"
+            />
+          </svg>
+          Share with Dept
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
 
-                <p className="text-sm text-gray-700 mt-2">
-                  Recent sales data indicates a surge in B2B micro-transactions. Targeting{' '}
-                  <span className="font-semibold text-indigo-600">
-                    &apos;Local Cafes &amp; Coworking Spaces&apos;
-                  </span>{' '}
-                  specifically could increase revenue by 15% in Q3.
-                </p>
+{/* Card 2 */}
+<article className="w-full rounded-xl border border-gray-200 bg-white p-4">
+  <div className="flex items-start gap-3">
+    <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
+    <div className="w-full">
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-semibold text-gray-900">Customer Segment Opportunity</h3>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+          GROWTH
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
+          MEDIUM IMPACT
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+          88% Confidence
+        </span>
+      </div>
 
-                <button
-                  type="button"
-                  className="mt-3 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800"
-                >
-                  Add to Segments
-                </button>
-              </div>
-            </div>
-          </article>
+      <p className="text-sm text-gray-700 mt-2">
+        Recent sales data indicates a surge in B2B micro-transactions. Targeting{' '}
+        <span className="font-semibold text-indigo-600">
+          &apos;Local Cafes &amp; Coworking Spaces&apos;
+        </span>{' '}
+        specifically could increase revenue by 15% in Q3.
+      </p>
 
-          {/* Card 3 */}
-          <article className="w-full rounded-xl border border-gray-200 bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-gray-900">Inventory Turnover</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                    OPERATIONS
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-700">
-                    LOW IMPACT
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                    75% Confidence
-                  </span>
-                </div>
+      {/* ✅ Actions row (Primary + Share with Dept) */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+        >
+          Add to Segments
+        </button>
 
-                <p className="text-sm text-gray-700 mt-2">
-                  Product category &apos;Accessories&apos; has a low turnover rate (3.2).
-                  Consider bundling these items or running a clearance campaign to free up
-                  capital.
-                </p>
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M12.5 11.2c-.6 0-1.1.2-1.5.6L6.7 9.3c.1-.2.1-.4.1-.6s0-.4-.1-.6L11 5.6c.4.4.9.6 1.5.6 1.2 0 2.2-1 2.2-2.2S13.7 1.8 12.5 1.8s-2.2 1-2.2 2.2c0 .2 0 .4.1.6L6.1 7.1c-.4-.4-.9-.6-1.5-.6C3.4 6.5 2.4 7.5 2.4 8.7s1 2.2 2.2 2.2c.6 0 1.1-.2 1.5-.6l4.3 2.5c-.1.2-.1.4-.1.6 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2-1-2.2-2.2-2.2Z"
+              fill="currentColor"
+              opacity="0.9"
+            />
+          </svg>
+          Share with Dept
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
 
-                <button
-                  type="button"
-                  className="mt-3 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800"
-                >
-                  View Inventory Details
-                </button>
-              </div>
-            </div>
-          </article>
+{/* Card 3 */}
+<article className="w-full rounded-xl border border-gray-200 bg-white p-4">
+  <div className="flex items-start gap-3">
+    <Lightbulb className="w-5 h-5 text-gray-700 mt-0.5" />
+    <div className="w-full">
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-semibold text-gray-900">Inventory Turnover</h3>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+          OPERATIONS
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-700">
+          LOW IMPACT
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+          75% Confidence
+        </span>
+      </div>
 
-          {/* Card 4 Placeholder */}
-          <article className="w-full rounded-xl border border-dashed border-gray-300 bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-gray-400 mt-0.5" />
-              <div className="w-full">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-gray-700">Placeholder Recommendation</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
-                    PLACEHOLDER
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">
-                    TBD IMPACT
-                  </span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">
-                    TBD Confidence
-                  </span>
-                </div>
+      <p className="text-sm text-gray-700 mt-2">
+        Product category &apos;Accessories&apos; has a low turnover rate (3.2). Consider bundling
+        these items or running a clearance campaign to free up capital.
+      </p>
 
-                <p className="text-sm text-gray-500 mt-2">
-                  Add your next AI recommendation here (placeholder).
-                </p>
+      {/* ✅ Actions row (Primary + Share with Dept) */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+        >
+          View Inventory Details
+        </button>
 
-                <button
-                  type="button"
-                  className="mt-3 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-600 cursor-not-allowed"
-                  disabled
-                >
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-          </article>
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M12.5 11.2c-.6 0-1.1.2-1.5.6L6.7 9.3c.1-.2.1-.4.1-.6s0-.4-.1-.6L11 5.6c.4.4.9.6 1.5.6 1.2 0 2.2-1 2.2-2.2S13.7 1.8 12.5 1.8s-2.2 1-2.2 2.2c0 .2 0 .4.1.6L6.1 7.1c-.4-.4-.9-.6-1.5-.6C3.4 6.5 2.4 7.5 2.4 8.7s1 2.2 2.2 2.2c.6 0 1.1-.2 1.5-.6l4.3 2.5c-.1.2-.1.4-.1.6 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2-1-2.2-2.2-2.2Z"
+              fill="currentColor"
+              opacity="0.9"
+            />
+          </svg>
+          Share with Dept
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
+
+{/* Card 4 Placeholder */}
+<article className="w-full rounded-xl border border-dashed border-gray-300 bg-white p-4">
+  <div className="flex items-start gap-3">
+    <Lightbulb className="w-5 h-5 text-gray-400 mt-0.5" />
+    <div className="w-full">
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-semibold text-gray-700">Placeholder Recommendation</h3>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+          PLACEHOLDER
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">
+          TBD IMPACT
+        </span>
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">
+          TBD Confidence
+        </span>
+      </div>
+
+      <p className="text-sm text-gray-500 mt-2">
+        Add your next AI recommendation here (placeholder).
+      </p>
+
+      {/* ✅ Actions row (Coming soon + Share with Dept) */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-600 cursor-not-allowed"
+          disabled
+        >
+          Coming Soon
+        </button>
+
+        <button
+          type="button"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M12.5 11.2c-.6 0-1.1.2-1.5.6L6.7 9.3c.1-.2.1-.4.1-.6s0-.4-.1-.6L11 5.6c.4.4.9.6 1.5.6 1.2 0 2.2-1 2.2-2.2S13.7 1.8 12.5 1.8s-2.2 1-2.2 2.2c0 .2 0 .4.1.6L6.1 7.1c-.4-.4-.9-.6-1.5-.6C3.4 6.5 2.4 7.5 2.4 8.7s1 2.2 2.2 2.2c.6 0 1.1-.2 1.5-.6l4.3 2.5c-.1.2-.1.4-.1.6 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2-1-2.2-2.2-2.2Z"
+              fill="currentColor"
+              opacity="0.9"
+            />
+          </svg>
+          Share with Dept
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
         </div>
 
 
