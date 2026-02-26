@@ -2,6 +2,7 @@ import {
     BarChart3,
     BookOpen,
     BrainCircuit,
+    Building2,
     Database,
     FileText,
     LayoutDashboard,
@@ -60,6 +61,7 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     { title: 'Users', href: '/admin/users', icon: Users },
     { title: 'Roles', href: '/admin/roles', icon: Shield },
     { title: 'Access Requests', href: '/admin/access-requests', icon: UserCog },
+    { title: "Organization Management", href: "/org", icon: Building2  },
 ];
 
 /** Quick-access routes */
@@ -77,4 +79,5 @@ export const ROUTE_PATHS = {
     adminUsers: '/admin/users',
     adminRoles: '/admin/roles',
     adminAccessRequests: '/admin/access-requests',
+    org: "/org",
 } as const;

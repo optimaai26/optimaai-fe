@@ -1,20 +1,18 @@
-import { Search, Filter, Download, ChevronDown, MoreVertical } from "lucide-react";
+import { Search, Filter, Download, MoreVertical } from "lucide-react";
+import { PageHeader } from '@/components/layout/PageHeader';
+export default function Page() {
+  return <OrgManagement />;
+}
 
 export function OrgManagement() {
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Organization Management</h1>
-          <p className="text-gray-600">Configure your global workforce, access levels, and infrastructure.</p>
-        </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
-          <span className="text-xl leading-none">+</span>
-          Add User
-        </button>
-      </div>
 
+    <div className="animate-fade-in space-y-6">
+      <PageHeader
+        title="Organization Management"
+        description="Configure your global workforce, access levels, and infrastructure."
+      />
+    
       {/* Stats */}
       <div className="flex items-center gap-6">
         <div className="relative">
@@ -84,7 +82,12 @@ export function OrgManagement() {
           <div className="flex items-center gap-2 mb-2">
             <div className="size-8 rounded-lg bg-indigo-100 flex items-center justify-center">
               <svg className="size-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
               </svg>
             </div>
             <h3 className="font-bold">Security Score</h3>
@@ -94,21 +97,19 @@ export function OrgManagement() {
         </div>
       </div>
 
+      {/* add user button */}
+      <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
+          <span className="text-xl leading-none">+</span>
+          Add User
+      </button>
+
       {/* Tabs */}
       <div className="border-b border-gray-200">
         <div className="flex gap-8">
-          <button className="pb-3 border-b-2 border-indigo-600 text-indigo-600 font-medium">
-            Users
-          </button>
-          <button className="pb-3 text-gray-600 hover:text-gray-900">
-            Roles & Permissions
-          </button>
-          <button className="pb-3 text-gray-600 hover:text-gray-900">
-            Departments
-          </button>
-          <button className="pb-3 text-gray-600 hover:text-gray-900">
-            Billing
-          </button>
+          <button className="pb-3 border-b-2 border-indigo-600 text-indigo-600 font-medium">Users</button>
+          <button className="pb-3 text-gray-600 hover:text-gray-900">Roles & Permissions</button>
+          <button className="pb-3 text-gray-600 hover:text-gray-900">Departments</button>
+          <button className="pb-3 text-gray-600 hover:text-gray-900">Billing</button>
         </div>
       </div>
 
@@ -196,12 +197,8 @@ export function OrgManagement() {
         <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
           <div className="text-sm text-gray-600">Showing 4 of 42 members</div>
           <div className="flex gap-2">
-            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">
-              Previous
-            </button>
-            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">
-              Next
-            </button>
+            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">Previous</button>
+            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">Next</button>
           </div>
         </div>
       </div>
@@ -267,9 +264,7 @@ function UserRow({
         <span className={roleColor || ""}>{role}</span>
       </td>
       <td className="px-6 py-4">
-        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${departmentColor}`}>
-          {department}
-        </span>
+        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${departmentColor}`}>{department}</span>
       </td>
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
