@@ -29,7 +29,7 @@ export default function InsightsPage() {
         </div>
       </div>
 
-      {/* ✅ Strategic Recommendations header row (like the photo) */}
+      {/*  Strategic Recommendations header row (like the photo) */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BrainCircuit className="w-5 h-5 text-indigo-600" />
@@ -41,7 +41,7 @@ export default function InsightsPage() {
         </span>
       </div>
 
-      {/* ✅ Main layout like the photo: left cards + vertical divider + right canvas */}
+      {/*  Main layout like the photo: left cards + vertical divider + right canvas */}
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6 xl:gap-0 items-start">
         {/* LEFT SIDE */}
         <div className="space-y-4 xl:pr-6">
@@ -70,7 +70,7 @@ export default function InsightsPage() {
         an estimated <span className="font-semibold">$12k/quarter</span>.
       </p>
 
-      {/* ✅ Actions row (Update + Share with Dept) */}
+      {/*  Actions row (Update + Share with Dept) */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -133,7 +133,7 @@ export default function InsightsPage() {
         specifically could increase revenue by 15% in Q3.
       </p>
 
-      {/* ✅ Actions row (Primary + Share with Dept) */}
+      {/*  Actions row (Primary + Share with Dept) */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -183,7 +183,7 @@ export default function InsightsPage() {
         these items or running a clearance campaign to free up capital.
       </p>
 
-      {/* ✅ Actions row (Primary + Share with Dept) */}
+      {/*  Actions row (Primary + Share with Dept) */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -232,7 +232,7 @@ export default function InsightsPage() {
         Add your next AI recommendation here (placeholder).
       </p>
 
-      {/* ✅ Actions row (Coming soon + Share with Dept) */}
+      {/*  Actions row (Coming soon + Share with Dept) */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
