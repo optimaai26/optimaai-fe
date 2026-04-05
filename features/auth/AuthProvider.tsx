@@ -1,75 +1,77 @@
 'use client';
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
-import type { User } from '@/types';
-
-/* ==========================================
- * Auth Context – Client-side auth state
- * Replace with actual auth provider (NextAuth, Clerk, etc.)
- * ========================================== */
+import { apiClient, clearAuthToken, getStoredAuthToken, persistAuthToken } from '@/lib/api/api-client';
+import type { ApiResponse, User } from '@/types';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 interface AuthState {
     user: User | null;
     isLoading: boolean;
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
+    register: (payload: { fullName: string; email: string; password: string }) => Promise<void>;
     logout: () => void;
+    refreshSession: () => Promise<void>;
 }
+
+type AuthPayload = { token: string; user: User };
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const login = async (email: string, password: string) => {
-        setIsLoading(true);
+    const refreshSession = useCallback(async () => {
+        const token = getStoredAuthToken();
+        if (!token) {
+            setUser(null);
+            setIsLoading(false);
+            return;
+        }
         try {
-            // Mock delay
-            await new Promise((resolve) => setTimeout(resolve, 800));
-
-            // TODO: Replace with actual API call
-            const mockUser: User = {
-                id: '1',
-                email,
-                name: 'Demo User',
-                role: {
-                    id: '1',
-                    name: 'admin',
-                    permissions: [],
-                },
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-            };
-
-            // Set mock cookie for middleware
-            document.cookie = 'auth_token=mock-token; path=/';
-
-            setUser(mockUser);
+            const response = await apiClient.get<ApiResponse<User>>('/auth/me');
+            setUser(response.data);
+        } catch {
+            clearAuthToken();
+            setUser(null);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
 
-    const logout = () => {
-        // Clear mock cookie
-        document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    useEffect(() => {
+        void refreshSession();
+    }, [refreshSession]);
+
+    const login = useCallback(async (email: string, password: string) => {
+        setIsLoading(true);
+        try {
+            const response = await apiClient.post<ApiResponse<AuthPayload>>('/auth/login', { email, password });
+            persistAuthToken(response.data.token);
+            setUser(response.data.user);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const register = useCallback(async ({ fullName, email, password }: { fullName: string; email: string; password: string }) => {
+        setIsLoading(true);
+        try {
+            await apiClient.post<ApiResponse<AuthPayload>>('/auth/register', { fullName, email, password });
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const logout = useCallback(() => {
+        clearAuthToken();
         setUser(null);
-    };
+    }, []);
 
-    return (
-        <AuthContext.Provider
-            value={{
-                user,
-                isLoading,
-                isAuthenticated: !!user,
-                login,
-                logout,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
-    );
+    const value = useMemo<AuthState>(() => ({ user, isLoading, isAuthenticated: !!user, login, register, logout, refreshSession }), [user, isLoading, login, register, logout, refreshSession]);
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
