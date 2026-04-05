@@ -3,7 +3,9 @@
  * Typed fetch wrapper with base URL, error handling, and auth header injection.
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api';
+export const AUTH_TOKEN_KEY = 'auth_token';
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? '/api/v1';
 
 export class ApiError extends Error {
     constructor(
@@ -20,9 +22,25 @@ interface RequestOptions extends Omit<RequestInit, 'body'> {
     body?: Record<string, unknown> | FormData;
 }
 
+export function persistAuthToken(token: string): void {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    document.cookie = `${AUTH_TOKEN_KEY}=${token}; path=/; max-age=86400; samesite=lax`;
+}
+
+export function clearAuthToken(): void {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    document.cookie = `${AUTH_TOKEN_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT; samesite=lax`;
+}
+
+export function getStoredAuthToken(): string | null {
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem(AUTH_TOKEN_KEY);
+}
+
 async function getAuthHeaders(): Promise<Record<string, string>> {
-    // TODO: Replace with actual auth token retrieval
-    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    const token = getStoredAuthToken();
     return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -36,7 +54,6 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
         ...((customHeaders as Record<string, string>) ?? {}),
     };
 
-    // Only set Content-Type for JSON bodies (not FormData)
     if (body && !(body instanceof FormData)) {
         headers['Content-Type'] = 'application/json';
     }
@@ -44,6 +61,7 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         ...restOptions,
         headers,
+        credentials: 'include',
         body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
     });
 
@@ -52,7 +70,6 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
         throw new ApiError(response.status, response.statusText, errorBody);
     }
 
-    // Handle 204 No Content
     if (response.status === 204) {
         return undefined as T;
     }
