@@ -1,8 +1,28 @@
-import type { PermissionKey, RoleName } from '@/types';
-
 /* ==========================================
  * Permission & Role Constants
  * ========================================== */
+
+export const ROLE_NAMES = ['admin', 'manager', 'analyst', 'viewer'] as const;
+
+export type RoleName = (typeof ROLE_NAMES)[number];
+
+export const PERMISSIONS = [
+    'datasets:read',
+    'datasets:write',
+    'datasets:delete',
+    'predictions:read',
+    'predictions:run',
+    'insights:read',
+    'canvas:read',
+    'canvas:write',
+    'reports:read',
+    'reports:export',
+    'admin:users',
+    'admin:roles',
+    'admin:access-requests',
+] as const;
+
+export type PermissionKey = (typeof PERMISSIONS)[number];
 
 /** Map roles to their default permission sets */
 export const ROLE_PERMISSIONS: Record<RoleName, PermissionKey[]> = {
