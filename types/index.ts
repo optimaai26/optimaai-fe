@@ -8,7 +8,6 @@ export type { PermissionKey, RoleName } from '@/constants/permissions';
 
 export type ISODateString = string;
 
-/** User & RBAC */
 export interface User {
     id: string;
     email: string;
@@ -44,7 +43,6 @@ export interface AccessRequest {
     updatedAt: ISODateString;
 }
 
-/** Datasets */
 export interface Dataset {
     id: string;
     name: string;
@@ -68,7 +66,6 @@ export interface DatasetColumn {
     uniqueCount: number;
 }
 
-/** Predictions & ML */
 export interface Prediction {
     id: string;
     datasetId: string;
@@ -87,7 +84,6 @@ export interface PredictionResult {
     chartConfig?: ChartConfig;
 }
 
-/** AI Insights */
 export interface Insight {
     id: string;
     datasetId?: string;
@@ -99,7 +95,6 @@ export interface Insight {
     createdAt: ISODateString;
 }
 
-/** Reports */
 export interface Report {
     id: string;
     title: string;
@@ -113,7 +108,6 @@ export interface Report {
     updatedAt: ISODateString;
 }
 
-/** Charts & KPIs */
 export interface KpiCardData {
     id: string;
     title: string;
@@ -122,6 +116,18 @@ export interface KpiCardData {
     changePercent?: number;
     trend: 'up' | 'down' | 'neutral';
     icon?: string;
+}
+
+export interface DashboardActivity {
+    id: string;
+    action: string;
+    time: string;
+    color: string;
+}
+
+export interface DashboardOverview {
+    kpis: KpiCardData[];
+    recentActivity: DashboardActivity[];
 }
 
 export type ChartType = 'bar' | 'line' | 'area' | 'pie' | 'donut' | 'scatter' | 'funnel';
@@ -137,7 +143,6 @@ export interface ChartConfig {
     alternativeTypes?: ChartType[];
 }
 
-/** Business Model Canvas */
 export interface CanvasBlock {
     id: string;
     section: CanvasSection;
@@ -156,7 +161,6 @@ export type CanvasSection =
     | 'cost_structure'
     | 'revenue_streams';
 
-/** API Response Wrappers */
 export interface PaginatedResponse<T> {
     data: T[];
     total: number;
