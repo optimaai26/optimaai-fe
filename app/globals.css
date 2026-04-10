@@ -54,6 +54,7 @@
  * CSS Variables for Light/Dark Modes
  * ========================================== */
 :root {
+  color-scheme: light;
   --background: var(--color-surface-50);
   --foreground: var(--color-surface-900);
   --card: #ffffff;
@@ -78,6 +79,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: var(--color-surface-900);
   --foreground: var(--color-surface-50);
   --card: var(--color-surface-800);
