@@ -1,11 +1,23 @@
-/**
- * Vitest + Testing Library setup
- * Loaded automatically by vitest via vitest.config.ts
- */
 import '@testing-library/jest-dom';
+import { beforeAll, afterEach, afterAll } from 'vitest';
+import { setupServer } from 'msw/node';
+import { handlers } from '@/mocks/handlers';
 
-// MSW setup (uncomment when ready)
-// import { server } from './mocks/server';
-// beforeAll(() => server.listen());
-// afterEach(() => server.resetHandlers());
-// afterAll(() => server.close());
+// Setup Mock Service Worker for testing environments
+export const server = setupServer(...handlers);
+
+beforeAll(() => {
+    // Start MSW Server before all tests
+    server.listen({ onUnhandledRequest: 'error' });
+});
+
+afterEach(() => {
+    // Reset any request handlers that we may add during the tests,
+    // so they don't affect other tests.
+    server.resetHandlers();
+});
+
+afterAll(() => {
+    // Clean up after the tests are finished.
+    server.close();
+});

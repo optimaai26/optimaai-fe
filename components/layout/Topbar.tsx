@@ -21,6 +21,8 @@ import { cn } from '@/lib/utils/cn';
 import { useUiStore } from '@/lib/stores/ui-store';
 import { NAV_SECTIONS, ADMIN_NAV_ITEMS } from '@/constants/navigation';
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useGlobalSearch } from '@/hooks/useGlobalSearch';
+import { GlobalSearch } from '@/components/GlobalSearch';
 
 /* ==========================================
  * Mobile Sidebar Drawer
@@ -155,17 +157,18 @@ export function Topbar() {
                             <Menu className="w-5 h-5" />
                         </button>
 
-                        <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-muted text-muted-foreground w-64">
-                            <Search className="w-4 h-4" />
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                className="bg-transparent text-sm outline-none w-full placeholder:text-muted-foreground"
-                            />
-                            <kbd className="hidden md:inline-flex text-[10px] font-mono bg-background rounded px-1.5 py-0.5 border border-border">
+                        <button 
+                            onClick={() => useGlobalSearch.getState().toggle()}
+                            className="hidden sm:flex items-center justify-between px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted border border-transparent shadow-sm text-muted-foreground w-64 transition-colors group cursor-pointer text-left"
+                        >
+                            <span className="flex items-center gap-2 text-sm group-hover:text-foreground transition-colors">
+                                <Search className="w-4 h-4" />
+                                Search...
+                            </span>
+                            <kbd className="hidden md:inline-flex text-[10px] font-mono bg-background rounded px-1.5 py-0.5 border border-border text-muted-foreground shadow-sm">
                                 ⌘K
                             </kbd>
-                        </div>
+                        </button>
                     </div>
 
                     {/* Right: Actions */}
@@ -210,14 +213,14 @@ export function Topbar() {
                                         <p className="text-xs text-muted-foreground">user@company.com</p>
                                     </div>
                                     <Link
-                                        href="#"
+                                        href="/profile"
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                                     >
                                         <User className="w-4 h-4" />
                                         Profile
                                     </Link>
                                     <Link
-                                        href="#"
+                                        href="/settings"
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                                     >
                                         <Settings className="w-4 h-4" />
@@ -237,6 +240,7 @@ export function Topbar() {
                     </div>
                 </div>
             </header>
+            <GlobalSearch />
         </>
     );
 }
