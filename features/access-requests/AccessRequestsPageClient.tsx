@@ -6,9 +6,49 @@ import { useAccessRequests, useReviewAccessRequest } from '@/features/access-req
 import type { AccessRequest } from '@/types';
 import { Check, Loader2, X } from 'lucide-react';
 
+import { useToast } from '@/components/ui/Toast';
+
 function ActionButtons({ requestId }: { requestId: string }) {
     const review = useReviewAccessRequest();
-    return <div className="flex items-center gap-2"><button onClick={() => review.mutate({ id: requestId, status: 'approved' })} className="inline-flex items-center gap-1 text-success text-sm"><Check className="w-4 h-4" />Approve</button><button onClick={() => review.mutate({ id: requestId, status: 'rejected' })} className="inline-flex items-center gap-1 text-danger text-sm"><X className="w-4 h-4" />Reject</button></div>;
+    const { toast } = useToast();
+
+    const handleReview = (status: 'approved' | 'rejected') => {
+        review.mutate(
+            { id: requestId, status },
+            {
+                onSuccess: () => {
+                    toast({
+                        title: status === 'approved' ? 'Request Approved' : 'Request Rejected',
+                        message: status === 'approved' 
+                            ? 'The user has been granted elevated access.' 
+                            : 'The access request was rejected.',
+                        type: 'success',
+                    });
+                }
+            }
+        );
+    };
+
+    return (
+        <div className="flex items-center gap-2">
+            <button 
+                onClick={() => handleReview('approved')} 
+                className="inline-flex items-center gap-1 text-success text-sm"
+                disabled={review.isPending}
+            >
+                <Check className="w-4 h-4" />
+                Approve
+            </button>
+            <button 
+                onClick={() => handleReview('rejected')} 
+                className="inline-flex items-center gap-1 text-danger text-sm"
+                disabled={review.isPending}
+            >
+                <X className="w-4 h-4" />
+                Reject
+            </button>
+        </div>
+    );
 }
 
 const columns: Column<AccessRequest>[] = [

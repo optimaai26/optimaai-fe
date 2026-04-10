@@ -52,3 +52,17 @@ export function useUpdateDataset() {
         },
     });
 }
+
+/** Create a dataset */
+export function useCreateDataset() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: Omit<Dataset, 'id' | 'createdAt' | 'updatedAt'>) =>
+            apiClient.post<ApiResponse<Dataset>>('/datasets', data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+        },
+    });
+}
+

@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { DataTable, type Column } from '@/components/data-display/DataTable';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { DatasetUploader } from '@/components/feature/DatasetUploader';
+import { UploadDatasetModal } from '@/features/datasets/UploadDatasetModal';
 import { useCreateDataset, useDatasets, useDeleteDataset } from '@/features/datasets/useDatasets';
 import type { Dataset } from '@/types';
 import { Database, Loader2, Trash2, Upload } from 'lucide-react';
@@ -25,6 +26,7 @@ function DeleteDatasetButton({ id }: { id: string }) {
 export function DatasetsPageClient() {
     const { data, isLoading, isError } = useDatasets();
     const createDataset = useCreateDataset();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const datasets = data?.data ?? [];
 
     const handleUploadComplete = (fileName: string) => {
@@ -41,9 +43,21 @@ export function DatasetsPageClient() {
 
     return (
         <div className="animate-fade-in space-y-6">
-            <PageHeader title="Datasets" description="Upload and manage your raw data for AI analysis." actions={<button className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold"><Upload className="w-4 h-4" />Upload Data</button>} />
-            <DatasetUploader onUploadComplete={handleUploadComplete} />
-            {isLoading ? <div className="min-h-[240px] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin" /></div> : isError ? <div className="text-sm text-danger">Failed to load datasets.</div> : datasets.length === 0 ? <div className="min-h-[320px] border-2 border-dashed border-border rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-muted/20"><div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4"><Database className="w-8 h-8 text-muted-foreground" /></div><h3 className="text-lg font-semibold mb-2">No Datasets Found</h3><p className="text-sm text-muted-foreground max-w-sm">Upload a file to create the first dataset in this mock session.</p></div> : <DataTable columns={columns} data={datasets} keyExtractor={(row) => row.id} />}
+            <PageHeader 
+                title="Datasets" 
+                description="Upload and manage your raw data for AI analysis." 
+                actions={
+                    <button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors"
+                    >
+                        <Upload className="w-4 h-4" />
+                        Upload Data
+                    </button>
+                } 
+            />
+            {isLoading ? <div className="min-h-[240px] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin" /></div> : isError ? <div className="text-sm text-danger">Failed to load datasets.</div> : datasets.length === 0 ? <div className="min-h-[320px] border-2 border-dashed border-border rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-muted/20"><div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4"><Database className="w-8 h-8 text-muted-foreground" /></div><h3 className="text-lg font-semibold mb-2">No Datasets Found</h3><p className="text-sm text-muted-foreground max-w-sm mb-4">Upload a file to create the first dataset in this mock session.</p><button onClick={() => setIsModalOpen(true)} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium">Upload File</button></div> : <DataTable columns={columns} data={datasets} keyExtractor={(row) => row.id} />}
+            <UploadDatasetModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 }

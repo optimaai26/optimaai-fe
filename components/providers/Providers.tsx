@@ -3,13 +3,15 @@
 import { QueryClientProvider } from '@/lib/api/query-client';
 import { ThemeProvider } from 'next-themes';
 import { AuthProvider } from '@/features/auth/AuthProvider';
+import { Toaster } from '@/components/ui/Toast';
 import { useEffect, useState, type ReactNode } from 'react';
 
 function MswProvider({ children }: { children: ReactNode }) {
-    const [ready, setReady] = useState(process.env.NODE_ENV !== 'development');
+    const isMockEnabled = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_ENABLE_MSW === 'true';
+    const [ready, setReady] = useState(!isMockEnabled);
 
     useEffect(() => {
-        if (process.env.NODE_ENV !== 'development') {
+        if (!isMockEnabled) {
             return;
         }
 
@@ -61,7 +63,10 @@ export function Providers({ children }: { children: ReactNode }) {
         >
             <QueryClientProvider>
                 <MswProvider>
-                    <AuthProvider>{children}</AuthProvider>
+                    <AuthProvider>
+                        {children}
+                        <Toaster />
+                    </AuthProvider>
                 </MswProvider>
             </QueryClientProvider>
         </ThemeProvider>
