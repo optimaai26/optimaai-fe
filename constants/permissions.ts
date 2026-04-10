@@ -20,6 +20,7 @@ export const PERMISSIONS = [
     'admin:users',
     'admin:roles',
     'admin:access-requests',
+    'view:department',
 ] as const;
 
 export type PermissionKey = (typeof PERMISSIONS)[number];
@@ -33,6 +34,7 @@ export const ROLE_PERMISSIONS: Record<RoleName, PermissionKey[]> = {
         'canvas:read', 'canvas:write',
         'reports:read', 'reports:export',
         'admin:users', 'admin:roles', 'admin:access-requests',
+        'view:department',
     ],
     manager: [
         'datasets:read', 'datasets:write',
@@ -41,6 +43,7 @@ export const ROLE_PERMISSIONS: Record<RoleName, PermissionKey[]> = {
         'canvas:read', 'canvas:write',
         'reports:read', 'reports:export',
         'admin:access-requests',
+        'view:department',
     ],
     analyst: [
         'datasets:read', 'datasets:write',
@@ -91,5 +94,9 @@ export const PERMISSION_GROUPS = [
     {
         label: 'Administration',
         permissions: ['admin:users', 'admin:roles', 'admin:access-requests'] as PermissionKey[],
+    },
+    {
+        label: 'Dashboard',
+        permissions: ['view:department'] as PermissionKey[],
     },
 ];

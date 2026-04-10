@@ -57,7 +57,7 @@ export interface Dataset {
     updatedAt: ISODateString;
 }
 
-export type DatasetStatus = 'uploading' | 'processing' | 'ready' | 'error';
+export type DatasetStatus = 'uploading' | 'processing' | 'ready' | 'error' | 'failed';
 
 export interface DatasetColumn {
     name: string;
@@ -75,7 +75,7 @@ export interface Prediction {
     createdAt: ISODateString;
 }
 
-export type PredictionType = 'churn' | 'revenue_forecast' | 'growth_scoring';
+export type PredictionType = 'churn' | 'revenue_forecast' | 'growth_scoring' | 'support_nlp';
 
 export interface PredictionResult {
     summary: string;
@@ -125,12 +125,19 @@ export interface DashboardActivity {
     color: string;
 }
 
+export interface ChartDataPoint {
+    name: string;
+    revenue: number;
+    users: number;
+}
+
 export interface DashboardOverview {
     kpis: KpiCardData[];
     recentActivity: DashboardActivity[];
+    chartData: ChartDataPoint[];
 }
 
-export type ChartType = 'bar' | 'line' | 'area' | 'pie' | 'donut' | 'scatter' | 'funnel';
+export type ChartType = 'bar' | 'line' | 'Area' | 'pie' | 'donut' | 'scatter' | 'funnel';
 
 export interface ChartConfig {
     type: ChartType;
@@ -159,7 +166,9 @@ export type CanvasSection =
     | 'channels'
     | 'customer_segments'
     | 'cost_structure'
-    | 'revenue_streams';
+    | 'revenue_streams'
+    | 'problems'
+    | 'key_metrics';
 
 export interface PaginatedResponse<T> {
     data: T[];

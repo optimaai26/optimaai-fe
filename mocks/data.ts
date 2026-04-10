@@ -22,9 +22,16 @@ type DashboardActivity = {
     color: string;
 };
 
+export interface ChartDataPoint {
+    name: string;
+    revenue: number;
+    users: number;
+}
+
 export interface DashboardOverview {
     kpis: KpiCardData[];
     recentActivity: DashboardActivity[];
+    chartData: ChartDataPoint[];
 }
 
 function clone<T>(value: T): T {
@@ -90,6 +97,28 @@ const initialUsers: AuthUserRecord[] = [
         updatedAt: '2026-04-01T08:45:00.000Z',
         password: 'Password123!',
     },
+    {
+        id: 'user-5',
+        email: 'engineer@optima.ai',
+        name: 'Kareem Ahmed',
+        avatarUrl: '',
+        role: initialRoles[1],
+        departmentId: 'engineering',
+        createdAt: '2026-04-02T09:12:00.000Z',
+        updatedAt: '2026-04-02T09:12:00.000Z',
+        password: 'Password123!',
+    },
+    {
+        id: 'user-6',
+        email: 'marketing@optima.ai',
+        name: 'Lina Saeed',
+        avatarUrl: '',
+        role: initialRoles[2],
+        departmentId: 'marketing',
+        createdAt: '2026-04-03T11:45:00.000Z',
+        updatedAt: '2026-04-03T11:45:00.000Z',
+        password: 'Password123!',
+    }
 ];
 
 const initialDatasets: Dataset[] = [
@@ -132,6 +161,32 @@ const initialDatasets: Dataset[] = [
         createdAt: '2026-04-01T11:20:00.000Z',
         updatedAt: '2026-04-01T11:20:00.000Z',
     },
+    {
+        id: 'dataset-4',
+        name: 'Support Ticket Analysis',
+        description: 'NLP classification dataset for customer support queries.',
+        fileName: 'support-nlp-q4.csv',
+        fileUrl: '/mock/support-nlp-q4.csv',
+        rowCount: 32050,
+        columnCount: 8,
+        status: 'ready',
+        uploadedBy: 'user-5',
+        createdAt: '2026-04-02T14:30:00.000Z',
+        updatedAt: '2026-04-02T14:35:00.000Z',
+    },
+    {
+        id: 'dataset-5',
+        name: 'Marketing Campaign ROI',
+        description: 'Historical ROI data for social media campaigns.',
+        fileName: 'marketing-roi-2025.csv',
+        fileUrl: '/mock/marketing-roi-2025.csv',
+        rowCount: 1240,
+        columnCount: 24,
+        status: 'failed',
+        uploadedBy: 'user-6',
+        createdAt: '2026-04-03T09:15:00.000Z',
+        updatedAt: '2026-04-03T09:20:00.000Z',
+    }
 ];
 
 const initialPredictions: Prediction[] = [
@@ -161,6 +216,25 @@ const initialPredictions: Prediction[] = [
         status: 'queued',
         createdAt: '2026-04-01T12:35:00.000Z',
     },
+    {
+        id: 'prediction-4',
+        datasetId: 'dataset-4',
+        type: 'support_nlp',
+        status: 'completed',
+        result: {
+            summary: 'Significant spike in login-related issues identified.',
+            confidence: 0.88,
+            data: { loginIssues: 450, billingIssues: 120 },
+        },
+        createdAt: '2026-04-02T15:00:00.000Z',
+    },
+    {
+        id: 'prediction-5',
+        datasetId: 'dataset-1',
+        type: 'churn',
+        status: 'failed',
+        createdAt: '2026-04-03T10:00:00.000Z',
+    }
 ];
 
 const initialInsights: Insight[] = [
@@ -183,6 +257,25 @@ const initialInsights: Insight[] = [
         priority: 'medium',
         createdAt: '2026-04-01T13:00:00.000Z',
     },
+    {
+        id: 'insight-3',
+        datasetId: 'dataset-4',
+        predictionId: 'prediction-4',
+        title: 'Support SLA misses predicted',
+        content: 'Current staffing levels will likely fail to meet SLA requirements given the forecasted 25% spike in volume.',
+        category: 'operational',
+        priority: 'critical',
+        createdAt: '2026-04-02T16:00:00.000Z',
+    },
+    {
+        id: 'insight-4',
+        datasetId: 'dataset-2',
+        title: 'Q2 Revenue Exceeding Expectations',
+        content: 'Current run-rate suggests Q2 revenue will exceed targets by 12% if expansion velocity is maintained.',
+        category: 'strategic',
+        priority: 'low',
+        createdAt: '2026-04-04T09:00:00.000Z',
+    }
 ];
 
 const initialCanvasBlocks: CanvasBlock[] = [
@@ -204,6 +297,18 @@ const initialCanvasBlocks: CanvasBlock[] = [
         content: 'Subscription tiers, enterprise onboarding, and advisory analytics.',
         order: 3,
     },
+    {
+        id: 'canvas-4',
+        section: 'problems',
+        content: 'Companies have data but lack actionable AI forecasting insights.',
+        order: 1,
+    },
+    {
+        id: 'canvas-5',
+        section: 'key_metrics',
+        content: 'Monthly Recurring Revenue (MRR), Customer Acquisition Cost (CAC), Churn Rate.',
+        order: 1,
+    }
 ];
 
 const initialReports: Report[] = [
@@ -230,6 +335,18 @@ const initialReports: Report[] = [
         createdAt: '2026-04-01T14:00:00.000Z',
         updatedAt: '2026-04-01T14:10:00.000Z',
     },
+    {
+        id: 'report-3',
+        title: 'Support SLA Optimization Plan',
+        summary: 'Review of current support bottlenecks and automated triaging solutions.',
+        datasetId: 'dataset-4',
+        predictionId: 'prediction-4',
+        createdBy: 'user-5',
+        status: 'published',
+        blocks: [clone(initialCanvasBlocks[3])],
+        createdAt: '2026-04-03T10:00:00.000Z',
+        updatedAt: '2026-04-03T11:00:00.000Z',
+    }
 ];
 
 const initialAccessRequests: AccessRequest[] = [
@@ -254,6 +371,17 @@ const initialAccessRequests: AccessRequest[] = [
         createdAt: '2026-04-01T10:00:00.000Z',
         updatedAt: '2026-04-01T11:00:00.000Z',
     },
+    {
+        id: 'access-3',
+        userId: 'user-6',
+        user: { id: 'user-6', name: 'Lina Saeed', email: 'marketing@optima.ai' },
+        requestedRole: 'admin',
+        justification: 'Requires cross-functional access to configure global integrations.',
+        status: 'rejected',
+        reviewedBy: 'user-1',
+        createdAt: '2026-04-04T09:00:00.000Z',
+        updatedAt: '2026-04-04T10:30:00.000Z',
+    }
 ];
 
 const initialDashboardOverview: DashboardOverview = {
@@ -296,8 +424,85 @@ const initialDashboardOverview: DashboardOverview = {
         { id: 'activity-2', action: 'Churn prediction completed', time: '15 minutes ago', color: 'bg-primary-400' },
         { id: 'activity-3', action: 'AI insight generated', time: '1 hour ago', color: 'bg-info' },
         { id: 'activity-4', action: 'Revenue forecast updated', time: '3 hours ago', color: 'bg-warning' },
+        { id: 'activity-5', action: 'Bob joined as an Analyst', time: '4 hours ago', color: 'bg-success' },
+        { id: 'activity-6', action: 'Marketing dataset processing failed', time: '5 hours ago', color: 'bg-danger' },
+    ],
+    chartData: [
+        { name: 'Jan', revenue: 40000, users: 400 },
+        { name: 'Feb', revenue: 45000, users: 510 },
+        { name: 'Mar', revenue: 52000, users: 800 },
+        { name: 'Apr', revenue: 64000, users: 1100 },
+        { name: 'May', revenue: 78000, users: 1540 },
+        { name: 'Jun', revenue: 95000, users: 2010 },
+        { name: 'Jul', revenue: 124500, users: 2340 }
     ],
 };
+
+const STATUSES = ['ready', 'processing', 'failed', 'uploading', 'error'] as const;
+const PREDICTION_TYPES = ['churn', 'revenue_forecast', 'growth_scoring', 'support_nlp'] as const;
+const DEPARTMENTS = ['engineering', 'finance', 'sales', 'marketing', 'analytics', 'ops'];
+
+// --- BULK SEEDING GENERATOR ---
+for (let i = 1; i <= 25; i++) {
+    // Seed Additional Datasets
+    initialDatasets.push({
+        id: `dataset-seed-${i}`,
+        name: `Automated Backfill Dataset ${i}`,
+        description: `Synthetic data generated for bulk load testing and UI population (Batch ${i}).`,
+        fileName: `data-batch-${i}.csv`,
+        fileUrl: `/mock/data-batch-${i}.csv`,
+        rowCount: Math.floor(Math.random() * 50000) + 1000,
+        columnCount: Math.floor(Math.random() * 50) + 5,
+        status: STATUSES[i % STATUSES.length],
+        uploadedBy: `user-${(i % 5) + 1}`,
+        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
+        updatedAt: new Date(Date.now() - i * 42000000).toISOString(),
+    });
+
+    // Seed Additional Users
+    const roleIdx = i % initialRoles.length;
+    initialUsers.push({
+        id: `user-seed-${i}`,
+        email: `demo-user-${i}@optima.ai`,
+        name: `Synthetic User ${i}`,
+        avatarUrl: '',
+        role: initialRoles[roleIdx],
+        departmentId: DEPARTMENTS[i % DEPARTMENTS.length],
+        createdAt: new Date(Date.now() - i * 186400000).toISOString(),
+        updatedAt: new Date().toISOString(),
+        password: 'Password123!',
+    });
+
+    // Seed Additional Predictions
+    if (i <= 15) {
+        initialPredictions.push({
+            id: `prediction-seed-${i}`,
+            datasetId: `dataset-seed-${i}`,
+            type: PREDICTION_TYPES[i % PREDICTION_TYPES.length],
+            status: i % 4 === 0 ? 'failed' : i % 3 === 0 ? 'running' : 'completed',
+            result: i % 3 !== 0 && i % 4 !== 0 ? {
+                summary: `Prediction generated AI summary ${i} indicating anomalous behavioral scoring.`,
+                confidence: 0.65 + (Math.random() * 0.3),
+                data: { metricA: i * 10, metricB: i * 1.5 }
+            } : undefined,
+            createdAt: new Date(Date.now() - i * 10000000).toISOString(),
+        });
+    }
+
+    // Seed Access Requests
+    if (i <= 12) {
+        initialAccessRequests.push({
+            id: `access-seed-${i}`,
+            userId: `user-seed-${i}`,
+            user: { id: `user-seed-${i}`, name: `Synthetic User ${i}`, email: `demo-user-${i}@optima.ai` },
+            requestedRole: roleIdx === 0 ? 'admin' : 'manager',
+            justification: `Need elevated access to view analytics dashboards and approve reports. (Auto Request ${i})`,
+            status: i < 3 ? 'approved' : i > 10 ? 'rejected' : 'pending',
+            createdAt: new Date(Date.now() - i * 4000000).toISOString(),
+            updatedAt: new Date().toISOString(),
+        });
+    }
+}
 
 let roles = clone(initialRoles);
 let users = clone(initialUsers);
@@ -495,6 +700,22 @@ export function updateCanvasBlock(id: string, content: string): CanvasBlock | un
         blocks: report.blocks.map((item) => (item.id === id ? { ...item, content } : item)),
     }));
     return block;
+}
+
+export function addCanvasBlock(block: Omit<CanvasBlock, 'id'>): CanvasBlock {
+    const newBlock: CanvasBlock = {
+        ...block,
+        id: nextId('canvas'),
+    };
+    canvasBlocks.push(newBlock);
+    return newBlock;
+}
+
+export function deleteCanvasBlock(id: string): boolean {
+    const next = canvasBlocks.filter((item) => item.id !== id);
+    if (next.length === canvasBlocks.length) return false;
+    canvasBlocks = next;
+    return true;
 }
 
 export function getAccessRequests(): AccessRequest[] {

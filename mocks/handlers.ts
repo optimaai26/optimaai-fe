@@ -5,6 +5,8 @@ import {
     authenticateUser,
     getAccessRequests,
     getCanvasBlocks,
+    addCanvasBlock,
+    deleteCanvasBlock,
     getDashboardOverview,
     getDatasetById,
     getDatasets,
@@ -188,6 +190,24 @@ export const handlers = [
             return HttpResponse.json({ message: 'Canvas block not found' }, { status: 404 });
         }
         return HttpResponse.json({ data: block });
+    }),
+
+    http.post(`${API_PREFIX}/canvas`, async ({ request }) => {
+        const body = (await request.json()) as Partial<CanvasBlock>;
+        const block = addCanvasBlock({
+            section: body.section ?? 'value_propositions',
+            content: body.content ?? '',
+            order: body.order ?? 99,
+        });
+        return HttpResponse.json({ data: block }, { status: 201 });
+    }),
+
+    http.delete(`${API_PREFIX}/canvas/:id`, ({ params }) => {
+        const deleted = deleteCanvasBlock(String(params.id));
+        if (!deleted) {
+            return HttpResponse.json({ message: 'Canvas block not found' }, { status: 404 });
+        }
+        return new HttpResponse(null, { status: 204 });
     }),
 
     http.get(`${API_PREFIX}/access-requests`, () => {
