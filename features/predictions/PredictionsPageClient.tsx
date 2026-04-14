@@ -51,6 +51,7 @@ export function PredictionsPageClient() {
 				description="Forecast business outcomes using advanced ML models."
 				actions={
 					<button
+						type="button"
 						onClick={() => setIsModalOpen(true)}
 						className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold"
 					>
@@ -71,10 +72,11 @@ export function PredictionsPageClient() {
 			) : (
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 					{predictions.map((prediction) => (
-						<div
+						<button
+							type="button"
 							key={prediction.id}
 							onClick={() => setSelectedPrediction(prediction)}
-							className="glass-card rounded-2xl p-6 border border-border group hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all flex flex-col h-full cursor-pointer"
+							className="text-left glass-card rounded-2xl p-6 border border-border group hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all flex flex-col h-full cursor-pointer w-full"
 						>
 							<div className="flex items-start justify-between mb-4">
 								<div>
@@ -125,7 +127,7 @@ export function PredictionsPageClient() {
 									</div>
 								</div>
 							)}
-						</div>
+						</button>
 					))}
 					{predictions.length === 0 && (
 						<div className="col-span-full min-h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-2xl text-muted-foreground">

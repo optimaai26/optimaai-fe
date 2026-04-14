@@ -62,13 +62,14 @@
 	"files": {
 		"ignoreUnknown": true,
 		"ignore": [
-			"**/*.css",
-			"**/mockServiceWorker.js",
+			"app/globals.css",
+			"public/mockServiceWorker.js",
 			"node_modules",
 			".next",
 			"dist",
 			"coverage",
-			"**/*.config.mjs"
+			"vitest.config.ts",
+			"tailwind.config.ts"
 		]
 	}
 }

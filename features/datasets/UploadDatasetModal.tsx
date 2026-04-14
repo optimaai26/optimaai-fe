@@ -159,7 +159,10 @@ export function UploadDatasetModal({
 
 					<div className="space-y-5 pt-2 border-t border-border/50">
 						<div>
-							<label htmlFor="dataset-name" className="block text-sm font-medium text-foreground mb-1">
+							<label
+								htmlFor="dataset-name"
+								className="block text-sm font-medium text-foreground mb-1"
+							>
 								Dataset Name
 							</label>
 							<input
@@ -174,7 +177,10 @@ export function UploadDatasetModal({
 						</div>
 
 						<div>
-							<label htmlFor="dataset-description" className="block text-sm font-medium text-foreground mb-1">
+							<label
+								htmlFor="dataset-description"
+								className="block text-sm font-medium text-foreground mb-1"
+							>
 								Description (Optional)
 							</label>
 							<textarea

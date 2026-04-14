@@ -76,7 +76,10 @@ export function RunPredictionModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					<div>
-						<label htmlFor="source-dataset" className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="source-dataset"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Source Dataset
 						</label>
 						<Select
@@ -89,7 +92,10 @@ export function RunPredictionModal({
 					</div>
 
 					<div>
-						<label htmlFor="model-type" className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="model-type"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							AI Model Type
 						</label>
 						<Select
@@ -101,7 +107,10 @@ export function RunPredictionModal({
 					</div>
 
 					<div>
-						<label htmlFor="run-description" className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="run-description"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Description / Notes (Optional)
 						</label>
 						<textarea

@@ -24,7 +24,7 @@ export function useExport() {
 	/**
 	 * Exports an array of objects to a CSV file.
 	 */
-	const exportAsCSV = async <T extends Record<string, any>>(
+	const exportAsCSV = async <T extends Record<string, unknown>>(
 		data: T[],
 		filename: string = "export.csv",
 	) => {
@@ -72,7 +72,10 @@ export function useExport() {
 	/**
 	 * Exports an array of objects or an object to a JSON file.
 	 */
-	const exportAsJSON = async (data: any, filename: string = "export.json") => {
+	const exportAsJSON = async (
+		data: unknown,
+		filename: string = "export.json",
+	) => {
 		if (!data) {
 			toast({
 				type: "error",

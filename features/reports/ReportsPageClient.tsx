@@ -30,6 +30,7 @@ export function ReportsPageClient() {
 	const actions = (
 		<div className="flex items-center gap-3">
 			<button
+				type="button"
 				onClick={() => exportAsCSV(reports, "reports_export.csv")}
 				disabled={isExporting || reports.length === 0}
 				className="inline-flex items-center gap-2 px-4 py-2 bg-muted text-foreground hover:bg-muted/80 rounded-lg text-sm font-semibold transition-colors disabled:opacity-50"
@@ -38,6 +39,7 @@ export function ReportsPageClient() {
 				Export CSV
 			</button>
 			<button
+				type="button"
 				onClick={() => exportAsJSON(reports, "reports_export.json")}
 				disabled={isExporting || reports.length === 0}
 				className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-semibold transition-colors disabled:opacity-50"
