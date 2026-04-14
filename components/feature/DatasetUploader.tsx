@@ -121,6 +121,7 @@ export function DatasetUploader({
 									{statusIcon[status]}
 									{status !== "uploading" && status !== "processing" && (
 										<button
+											type="button"
 											onClick={reset}
 											className="p-1 hover:bg-muted rounded-md transition-colors"
 										>

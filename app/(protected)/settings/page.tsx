@@ -38,7 +38,8 @@ export default function SettingsPage() {
 						const Icon = tab.icon;
 						const isActive = activeTab === tab.id;
 						return (
-							<button type="button"
+							<button
+								type="button"
 								key={tab.id}
 								onClick={() => setActiveTab(tab.id)}
 								className={`w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -95,7 +96,10 @@ export default function SettingsPage() {
 							</div>
 
 							<div className="flex justify-end mt-6">
-								<button type="button" className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm">
+								<button
+									type="button"
+									className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm"
+								>
 									Save Preferences
 								</button>
 							</div>

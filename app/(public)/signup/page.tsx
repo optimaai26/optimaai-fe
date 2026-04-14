@@ -129,7 +129,7 @@ export default function SignupPage() {
 							{successMessage}
 						</div>
 					)}
-					<button type="button"
+					<button
 						type="submit"
 						disabled={isLoading}
 						className="w-full py-2.5 rounded-lg gradient-primary text-white font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"

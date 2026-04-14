@@ -98,6 +98,7 @@ export function Sidebar() {
 					</div>
 				)}
 				<button
+					type="button"
 					onClick={toggleSidebar}
 					className={cn(
 						"p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground",
@@ -121,6 +122,7 @@ export function Sidebar() {
 				<div className="px-4 py-3 border-b border-[var(--sidebar-border)]">
 					<div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
 						<button
+							type="button"
 							onClick={() => setViewScope("global")}
 							className={cn(
 								"flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
@@ -134,6 +136,7 @@ export function Sidebar() {
 							Global
 						</button>
 						<button
+							type="button"
 							onClick={() => setViewScope("department")}
 							className={cn(
 								"flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",

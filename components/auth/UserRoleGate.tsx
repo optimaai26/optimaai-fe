@@ -19,8 +19,7 @@ export function UserRoleGate({
 	permissions,
 	requireAllPermissions = false,
 }: UserRoleGateProps) {
-	const { hasRole, hasAllPermissions, hasAnyPermission } =
-		useRbac();
+	const { hasRole, hasAllPermissions, hasAnyPermission } = useRbac();
 
 	let allowed = true;
 

@@ -43,7 +43,7 @@ export function KpiCard({
 		},
 	};
 
-	const { icon: TrendIcon, color, bg, label } = trendConfig[trend];
+	const { icon: TrendIcon, color, bg } = trendConfig[trend];
 
 	return (
 		<div

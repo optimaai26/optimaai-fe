@@ -31,7 +31,8 @@ export default function ProtectedError({
 				</pre>
 			)}
 
-			<button type="button"
+			<button
+				type="button"
 				onClick={reset}
 				className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg gradient-primary text-white font-medium hover:opacity-90 transition-opacity"
 			>

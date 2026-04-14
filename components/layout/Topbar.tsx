@@ -51,8 +51,10 @@ function MobileDrawer({
 	return (
 		<>
 			{/* Backdrop */}
-			<div
-				className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden"
+			<button
+				type="button"
+				className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden w-full h-full border-none cursor-default"
+				aria-label="Close Sidebar"
 				onClick={onClose}
 			/>
 			{/* Drawer */}
@@ -180,6 +182,7 @@ export function Topbar() {
 					{/* Left: Mobile toggle + Search */}
 					<div className="flex items-center gap-3">
 						<button
+							type="button"
 							onClick={() => setMobileSidebarOpen(true)}
 							className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
 							aria-label="Open navigation"
@@ -189,6 +192,7 @@ export function Topbar() {
 						</button>
 
 						<button
+							type="button"
 							onClick={() => useGlobalSearch.getState().toggle()}
 							className="hidden sm:flex items-center justify-between px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted border border-transparent shadow-sm text-muted-foreground w-64 transition-colors group cursor-pointer text-left"
 						>
@@ -209,6 +213,7 @@ export function Topbar() {
 					<div className="flex items-center gap-2">
 						{/* Theme toggle */}
 						<button
+							type="button"
 							onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
 							className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
 							aria-label="Toggle theme"
