@@ -65,6 +65,7 @@ export function PredictionDetailModal({
 						</h2>
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
 					>
@@ -150,6 +151,7 @@ export function PredictionDetailModal({
 
 				<div className="p-4 border-t border-border/50 bg-muted/10 flex justify-end">
 					<button
+						type="button"
 						onClick={onClose}
 						className="px-6 py-2 text-sm font-semibold text-foreground bg-background hover:bg-surface-100 dark:hover:bg-surface-800 border border-border rounded-lg transition-all"
 					>
@@ -174,6 +176,7 @@ function SparkleIcon() {
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		>
+			<title>Sparkle Icon</title>
 			<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
 		</svg>
 	);

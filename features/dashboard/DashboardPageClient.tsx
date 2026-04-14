@@ -14,7 +14,7 @@ import { KpiCard } from "@/components/data-display/KpiCard";
 import { SmartChart } from "@/components/data-display/SmartChart";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { RequestAccessModal } from "@/features/access-requests/RequestAccessModal";
-import { useAuth } from "@/features/auth/AuthProvider";
+
 import { useDashboard } from "@/features/dashboard/useDashboard";
 import { useRbac } from "@/hooks/useRbac";
 import { useUiStore } from "@/lib/stores/ui-store";

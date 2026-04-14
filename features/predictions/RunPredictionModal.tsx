@@ -76,10 +76,11 @@ export function RunPredictionModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label htmlFor="source-dataset" className="block text-sm font-medium text-foreground mb-1">
 							Source Dataset
 						</label>
 						<Select
+							id="source-dataset"
 							value={datasetId}
 							onChange={setDatasetId}
 							options={datasetOptions}
@@ -88,10 +89,11 @@ export function RunPredictionModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label htmlFor="model-type" className="block text-sm font-medium text-foreground mb-1">
 							AI Model Type
 						</label>
 						<Select
+							id="model-type"
 							value={modelType}
 							onChange={setModelType}
 							options={modelOptions}
@@ -99,10 +101,11 @@ export function RunPredictionModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label htmlFor="run-description" className="block text-sm font-medium text-foreground mb-1">
 							Description / Notes (Optional)
 						</label>
 						<textarea
+							id="run-description"
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							placeholder="What are you trying to identify?"

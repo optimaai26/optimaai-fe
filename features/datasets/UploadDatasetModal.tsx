@@ -91,6 +91,7 @@ export function UploadDatasetModal({
 						Upload Data Source
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>
@@ -101,11 +102,19 @@ export function UploadDatasetModal({
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					{!file ? (
 						<div
+							role="button"
+							tabIndex={0}
 							className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer ${isDragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/50"}`}
 							onDragOver={handleDragOver}
 							onDragLeave={handleDragLeave}
 							onDrop={handleDrop}
 							onClick={() => fileInputRef.current?.click()}
+							onKeyDown={(e) => {
+								if (e.key === "Enter" || e.key === " ") {
+									e.preventDefault();
+									fileInputRef.current?.click();
+								}
+							}}
 						>
 							<input
 								type="file"
@@ -150,10 +159,11 @@ export function UploadDatasetModal({
 
 					<div className="space-y-5 pt-2 border-t border-border/50">
 						<div>
-							<label className="block text-sm font-medium text-foreground mb-1">
+							<label htmlFor="dataset-name" className="block text-sm font-medium text-foreground mb-1">
 								Dataset Name
 							</label>
 							<input
+								id="dataset-name"
 								type="text"
 								value={name}
 								onChange={(e) => setName(e.target.value)}
@@ -164,10 +174,11 @@ export function UploadDatasetModal({
 						</div>
 
 						<div>
-							<label className="block text-sm font-medium text-foreground mb-1">
+							<label htmlFor="dataset-description" className="block text-sm font-medium text-foreground mb-1">
 								Description (Optional)
 							</label>
 							<textarea
+								id="dataset-description"
 								value={description}
 								onChange={(e) => setDescription(e.target.value)}
 								placeholder="Add context about this dataset..."

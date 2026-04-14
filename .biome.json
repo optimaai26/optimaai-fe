@@ -49,7 +49,8 @@
 	},
 	"css": {
 		"parser": {
-			"cssModules": false
+			"cssModules": false,
+			"tailwindDirectives": true
 		},
 		"formatter": {
 			"enabled": false
@@ -59,14 +60,15 @@
 		}
 	},
 	"files": {
+		"ignoreUnknown": true,
 		"ignore": [
-			"node_modules/**",
-			".next/**",
-			"dist/**",
-			"coverage/**",
-			"**/*.config.mjs",
 			"**/*.css",
-			"public/mockServiceWorker.js"
+			"**/mockServiceWorker.js",
+			"node_modules",
+			".next",
+			"dist",
+			"coverage",
+			"**/*.config.mjs"
 		]
 	}
 }
