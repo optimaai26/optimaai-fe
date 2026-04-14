@@ -45,6 +45,7 @@ function DeleteDatasetButton({ id }: { id: string }) {
 	const mutation = useDeleteDataset();
 	return (
 		<button
+			type="button"
 			onClick={() => mutation.mutate(id)}
 			className="inline-flex items-center gap-1 text-danger hover:opacity-80"
 			disabled={mutation.isPending}
@@ -80,6 +81,7 @@ export function DatasetsPageClient() {
 				description="Upload and manage your raw data for AI analysis."
 				actions={
 					<button
+						type="button"
 						onClick={() => setIsModalOpen(true)}
 						className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors"
 					>
@@ -104,6 +106,7 @@ export function DatasetsPageClient() {
 						Upload a file to create the first dataset in this mock session.
 					</p>
 					<button
+						type="button"
 						onClick={() => setIsModalOpen(true)}
 						className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium"
 					>

@@ -59,15 +59,14 @@
 		}
 	},
 	"files": {
-		"includes": [
-			"**",
-			"!**/node_modules",
-			"!**/.next",
-			"!**/dist",
-			"!**/coverage",
-			"!**/*.config.mjs",
-			"!**/*.css",
-			"!**/public/mockServiceWorker.js"
+		"ignore": [
+			"node_modules/**",
+			".next/**",
+			"dist/**",
+			"coverage/**",
+			"**/*.config.mjs",
+			"**/*.css",
+			"public/mockServiceWorker.js"
 		]
 	}
 }

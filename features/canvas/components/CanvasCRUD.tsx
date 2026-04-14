@@ -108,6 +108,7 @@ export function CanvasCRUD({ blocks }: { blocks: CanvasBlock[] }) {
 		<div className="space-y-6 relative pb-20">
 			<div className="flex justify-end">
 				<button
+					type="button"
 					onClick={handleAdd}
 					disabled={addBlock.isPending}
 					className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold"
@@ -144,6 +145,7 @@ export function CanvasCRUD({ blocks }: { blocks: CanvasBlock[] }) {
 							unsaved block(s)
 						</div>
 						<button
+							type="button"
 							onClick={() => setEdits({})}
 							disabled={isSavingAll}
 							className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
@@ -151,6 +153,7 @@ export function CanvasCRUD({ blocks }: { blocks: CanvasBlock[] }) {
 							Discard
 						</button>
 						<button
+							type="button"
 							onClick={handleSaveAll}
 							disabled={isSavingAll}
 							className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-full text-sm font-semibold hover:bg-primary/90 transition-all disabled:opacity-50"
@@ -216,6 +219,7 @@ function CanvasBlockEditor({
 			/>
 			<div className="flex items-center justify-between pt-2 border-t border-border/30">
 				<button
+					type="button"
 					onClick={handleDelete}
 					disabled={deleteBlock.isPending}
 					className="inline-flex items-center gap-1.5 text-danger/70 hover:text-danger text-sm font-medium px-2 py-1.5 rounded-lg hover:bg-danger/10 transition-colors"

@@ -28,7 +28,7 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
 
 export function DashboardPageClient() {
 	const { data, isLoading, isError } = useDashboard();
-	const { user } = useAuth();
+
 	const { hasPermission } = useRbac();
 	const { viewScope } = useUiStore();
 	const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
@@ -65,6 +65,7 @@ export function DashboardPageClient() {
 						organization administrator.
 					</p>
 					<button
+						type="button"
 						onClick={() => setIsRequestModalOpen(true)}
 						className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm"
 					>
@@ -98,8 +99,8 @@ export function DashboardPageClient() {
 				))}
 			</div>
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-				{(data.data?.charts ?? []).map((chartConfig, i) => (
-					<SmartChart key={`chart-${i}`} config={chartConfig} />
+				{(data.data?.charts ?? []).map((chartConfig) => (
+					<SmartChart key={crypto.randomUUID()} config={chartConfig} />
 				))}
 			</div>
 			<div className="glass-card rounded-xl p-6">

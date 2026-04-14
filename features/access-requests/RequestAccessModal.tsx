@@ -70,7 +70,7 @@ export function RequestAccessModal({
 						<Select
 							id="role-select"
 							value={role}
-							onChange={(val) => setRole(val as any)}
+							onChange={(val) => setRole(val as "admin" | "analyst" | "viewer")}
 							options={roleOptions}
 						/>
 					</div>
