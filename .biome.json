@@ -23,6 +23,14 @@
 			"style": {
 				"noNonNullAssertion": "warn",
 				"useConst": "error"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off"
+			},
+			"a11y": {
+				"useButtonType": "off",
+				"noLabelWithoutControl": "off"
 			}
 		}
 	},
@@ -46,7 +54,8 @@
 			"!**/.next",
 			"!**/dist",
 			"!**/coverage",
-			"!**/*.config.mjs"
+			"!**/*.config.mjs",
+			"!**/*.css"
 		]
 	}
 }

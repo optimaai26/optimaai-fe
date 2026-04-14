@@ -15,10 +15,14 @@ describe("Toast Component", () => {
 
 	it("should render a success toast based on state", () => {
 		render(<Toast />);
-        
-        act(() => {
-            useToast.getState().toast({ type: 'success', title: 'Task Formatted', message: 'It worked' });
-        });
+
+		act(() => {
+			useToast.getState().toast({
+				type: "success",
+				title: "Task Formatted",
+				message: "It worked",
+			});
+		});
 
 		expect(screen.getByText("Task Formatted")).toBeInTheDocument();
 		expect(screen.getByText("It worked")).toBeInTheDocument();
@@ -26,10 +30,12 @@ describe("Toast Component", () => {
 
 	it("should automatically dismiss the toast", async () => {
 		render(<Toast />);
-        
-        act(() => {
-            useToast.getState().toast({ type: 'info', title: 'Ephemeral', duration: 10 });
-        });
+
+		act(() => {
+			useToast
+				.getState()
+				.toast({ type: "info", title: "Ephemeral", duration: 10 });
+		});
 
 		expect(screen.getByText("Ephemeral")).toBeInTheDocument();
 

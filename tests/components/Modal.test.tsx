@@ -4,13 +4,26 @@ import type { Modal } from "@/components/ui/Modal";
 
 describe("Modal Component", () => {
 	it("does not render if isOpen is false", () => {
-		render(<Modal isOpen={false} onClose={() => {}} title="Hidden">Content</Modal>);
+		render(
+			<Modal isOpen={false} onClose={() => {}} title="Hidden">
+				Content
+			</Modal>,
+		);
 		expect(screen.queryByText("Hidden")).not.toBeInTheDocument();
 		expect(screen.queryByText("Content")).not.toBeInTheDocument();
 	});
 
 	it("renders accessibility features correctly when open", () => {
-		render(<Modal isOpen={true} onClose={() => {}} title="Aria Modal" description="Sample desc">Test text</Modal>);
+		render(
+			<Modal
+				isOpen={true}
+				onClose={() => {}}
+				title="Aria Modal"
+				description="Sample desc"
+			>
+				Test text
+			</Modal>,
+		);
 
 		const dialog = screen.getByRole("dialog");
 		expect(dialog).toBeInTheDocument();
@@ -22,7 +35,11 @@ describe("Modal Component", () => {
 
 	it("fires onClose when clicking the background overlay", () => {
 		const onCloseMock = vi.fn();
-		render(<Modal isOpen={true} onClose={onCloseMock} title="Click Test">Content</Modal>);
+		render(
+			<Modal isOpen={true} onClose={onCloseMock} title="Click Test">
+				Content
+			</Modal>,
+		);
 
 		// The background overlay is the first div with a backdrop-blur
 		const background =
@@ -38,7 +55,11 @@ describe("Modal Component", () => {
 
 	it("fires onClose when clicking the X icon", () => {
 		const onCloseMock = vi.fn();
-		render(<Modal isOpen={true} onClose={onCloseMock} title="X Button Test">Content</Modal>);
+		render(
+			<Modal isOpen={true} onClose={onCloseMock} title="X Button Test">
+				Content
+			</Modal>,
+		);
 
 		const closeButton = screen.getByLabelText("Close modal");
 		fireEvent.click(closeButton);
