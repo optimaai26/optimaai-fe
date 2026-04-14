@@ -34,9 +34,13 @@ export function CreateRoleModal({
 		const allSelected = keys.every((k) => selectedPermissions.has(k));
 		const next = new Set(selectedPermissions);
 		if (allSelected) {
-			keys.forEach((k) => next.delete(k));
+			keys.forEach((k) => {
+				next.delete(k);
+			});
 		} else {
-			keys.forEach((k) => next.add(k));
+			keys.forEach((k) => {
+				next.add(k);
+			});
 		}
 		setSelectedPermissions(next);
 	};
@@ -68,6 +72,7 @@ export function CreateRoleModal({
 						Create Custom Role
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>
@@ -80,10 +85,14 @@ export function CreateRoleModal({
 					className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6"
 				>
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="role-name"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Role Name
 						</label>
 						<input
+							id="role-name"
 							type="text"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
@@ -94,12 +103,12 @@ export function CreateRoleModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-3 flex items-center justify-between">
+						<div className="block text-sm font-medium text-foreground mb-3 flex items-center justify-between">
 							<span>Permissions</span>
 							<span className="text-xs font-normal text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
 								{selectedPermissions.size} selected
 							</span>
-						</label>
+						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							{PERMISSION_GROUPS.map((group) => {
 								const allSelected = group.permissions.every((p) =>
@@ -193,6 +202,7 @@ function CheckIcon() {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
+			<title>Check</title>
 			<path
 				d="M10 3L4.5 8.5L2 6"
 				stroke="currentColor"

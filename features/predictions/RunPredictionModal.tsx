@@ -67,6 +67,7 @@ export function RunPredictionModal({
 						Run New Prediction
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>

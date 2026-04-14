@@ -101,10 +101,10 @@ export function UploadDatasetModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					{!file ? (
-						<div
-							role="button"
+						<button
+							type="button"
 							tabIndex={0}
-							className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer ${isDragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/50"}`}
+							className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer w-full ${isDragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/50"}`}
 							onDragOver={handleDragOver}
 							onDragLeave={handleDragLeave}
 							onDrop={handleDrop}
@@ -133,7 +133,7 @@ export function UploadDatasetModal({
 								Support for a single or bulk upload. Strictly prohibit from
 								uploading company data or other band files.
 							</p>
-						</div>
+						</button>
 					) : (
 						<div className="border border-primary/30 bg-primary/5 rounded-xl p-4 flex items-center gap-4">
 							<div className="p-3 bg-background rounded-lg border border-border shadow-sm">

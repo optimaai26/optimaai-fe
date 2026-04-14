@@ -39,6 +39,7 @@ export function AdminUsersPageClient() {
 			header: "",
 			render: (row) => (
 				<button
+					type="button"
 					onClick={() => setEditingUser(row)}
 					className="p-2 text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-primary/10"
 					title="Edit Role"
@@ -56,6 +57,7 @@ export function AdminUsersPageClient() {
 				description="Manage your team members and their organizational access."
 				actions={
 					<button
+						type="button"
 						onClick={() => setIsInviteOpen(true)}
 						className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold"
 					>

@@ -62,6 +62,7 @@ export function EditUserRoleModal({
 						Edit User Role
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>
@@ -81,10 +82,14 @@ export function EditUserRoleModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1 mt-2">
+						<label
+							htmlFor="assign-role"
+							className="block text-sm font-medium text-foreground mb-1 mt-2"
+						>
 							Assign New Role
 						</label>
 						<Select
+							id="assign-role"
 							value={role}
 							onChange={(val) => setRole(val as RoleName)}
 							options={roleOptions}
