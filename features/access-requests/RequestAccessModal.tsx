@@ -37,9 +37,9 @@ export function RequestAccessModal({
 	};
 
 	const roleOptions = [
-		{ value: "analyst", label: ROLE_LABELS["analyst"] },
-		{ value: "manager", label: ROLE_LABELS["manager"] },
-		{ value: "admin", label: ROLE_LABELS["admin"] },
+		{ value: "analyst", label: ROLE_LABELS.analyst },
+		{ value: "manager", label: ROLE_LABELS.manager },
+		{ value: "admin", label: ROLE_LABELS.admin },
 	];
 
 	return (

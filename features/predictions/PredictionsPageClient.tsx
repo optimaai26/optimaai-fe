@@ -5,7 +5,6 @@ import {
 	CheckCircle2,
 	Clock,
 	Loader2,
-	Play,
 	Sparkles,
 	TrendingUp,
 } from "lucide-react";

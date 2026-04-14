@@ -1,6 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
-import { type Toast, useToast } from "@/components/ui/Toast";
+import { useToast } from "@/components/ui/Toast";
 
 describe("Toast Component", () => {
 	beforeEach(() => {

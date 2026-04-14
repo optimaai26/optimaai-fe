@@ -142,7 +142,6 @@ export function SmartChart({ config }: SmartChartProps) {
 						)}
 					</AreaChart>
 				);
-			case "line":
 			default:
 				return (
 					<LineChart

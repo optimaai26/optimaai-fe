@@ -5,7 +5,7 @@ import { useRbac } from "@/hooks/useRbac";
 
 describe("useRbac logic", () => {
 	it("returns false for everything if there is no user", () => {
-		vi.spyOn(authStore, "useAuth").mockReturnValue({ user: null } as any);
+		vi.spyOn(authStore, "useAuth").mockReturnValue({ user: null } as never);
 
 		const { result } = renderHook(() => useRbac());
 
@@ -17,7 +17,7 @@ describe("useRbac logic", () => {
 	it("returns true if the user has the required role", () => {
 		vi.spyOn(authStore, "useAuth").mockReturnValue({
 			user: { role: { name: "admin" } },
-		} as any);
+		} as never);
 
 		const { result } = renderHook(() => useRbac());
 
@@ -30,7 +30,7 @@ describe("useRbac logic", () => {
 		// Manager role definition
 		vi.spyOn(authStore, "useAuth").mockReturnValue({
 			user: { role: { name: "manager" } },
-		} as any);
+		} as never);
 
 		const { result } = renderHook(() => useRbac());
 

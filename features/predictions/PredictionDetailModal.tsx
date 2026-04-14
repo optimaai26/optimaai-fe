@@ -6,7 +6,6 @@ import {
 	CheckCircle2,
 	Clock,
 	Database,
-	TrendingUp,
 	X,
 } from "lucide-react";
 import type { Prediction } from "@/types";

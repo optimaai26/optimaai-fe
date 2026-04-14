@@ -1,12 +1,9 @@
 import {
-	BarChart3,
-	BookOpen,
 	BrainCircuit,
 	Database,
 	FileText,
 	LayoutDashboard,
 	type LucideIcon,
-	Settings,
 	Shield,
 	TrendingUp,
 	UserCog,

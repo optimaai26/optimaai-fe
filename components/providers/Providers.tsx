@@ -42,7 +42,7 @@ function MswProvider({ children }: { children: ReactNode }) {
 		return () => {
 			active = false;
 		};
-	}, []);
+	}, [isMockEnabled]);
 
 	if (!ready) {
 		return null;

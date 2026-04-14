@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileJson, FileSpreadsheet, Loader2 } from "lucide-react";
+import { FileJson, FileSpreadsheet, Loader2 } from "lucide-react";
 import { type Column, DataTable } from "@/components/data-display/DataTable";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useExport } from "@/features/reports/useExport";

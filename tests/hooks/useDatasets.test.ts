@@ -29,7 +29,7 @@ describe("useDatasets integration", () => {
 			storageSize: "1MB",
 		};
 
-		result.current.mutate(testPayload as any);
+		result.current.mutate(testPayload as never);
 
 		await waitFor(() => {
 			expect(result.current.isSuccess).toBe(true);

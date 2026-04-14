@@ -70,9 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			);
 			persistAuthToken(response.data.token);
 			setUser(response.data.user);
-		} catch (error) {
-			// Re-throw so the LoginForm can display the error message
-			throw error;
 		} finally {
 			setIsLoading(false);
 		}
@@ -97,9 +94,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 				// Auto-login: persist token and hydrate user after successful registration
 				persistAuthToken(response.data.token);
 				setUser(response.data.user);
-			} catch (error) {
-				// Re-throw so the SignupForm can display the error message
-				throw error;
 			} finally {
 				setIsLoading(false);
 			}

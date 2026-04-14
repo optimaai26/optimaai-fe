@@ -58,7 +58,7 @@ export function useExport() {
 				title: "Export Successful",
 				message: `${filename} downloaded.`,
 			});
-		} catch (error) {
+		} catch (_error) {
 			toast({
 				type: "error",
 				title: "Export Failed",
@@ -94,7 +94,7 @@ export function useExport() {
 				title: "Export Successful",
 				message: `${filename} downloaded.`,
 			});
-		} catch (error) {
+		} catch (_error) {
 			toast({
 				type: "error",
 				title: "Export Failed",

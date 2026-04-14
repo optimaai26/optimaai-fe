@@ -20,7 +20,7 @@ export default function ProfilePage() {
 					<div className="space-y-4">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div>
-								<label className="text-sm font-medium text-muted-foreground block mb-1.5">
+								<label htmlFor="field" className="text-sm font-medium text-muted-foreground block mb-1.5">
 									Full Name
 								</label>
 								<input
@@ -31,7 +31,7 @@ export default function ProfilePage() {
 								/>
 							</div>
 							<div>
-								<label className="text-sm font-medium text-muted-foreground block mb-1.5">
+								<label htmlFor="field" className="text-sm font-medium text-muted-foreground block mb-1.5">
 									Email Address
 								</label>
 								<div className="relative">
@@ -49,7 +49,7 @@ export default function ProfilePage() {
 						</div>
 
 						<div>
-							<label className="text-sm font-medium text-muted-foreground block mb-1.5">
+							<label htmlFor="field" className="text-sm font-medium text-muted-foreground block mb-1.5">
 								Bio
 							</label>
 							<textarea
@@ -59,7 +59,7 @@ export default function ProfilePage() {
 						</div>
 
 						<div className="flex justify-end mt-2">
-							<button className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm">
+							<button type="button" className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm">
 								Save Changes
 							</button>
 						</div>
@@ -86,7 +86,7 @@ export default function ProfilePage() {
 								</p>
 							</div>
 						</div>
-						<button className="border border-border hover:bg-muted text-foreground px-4 py-2 rounded-lg text-xs font-medium transition-colors">
+						<button type="button" className="border border-border hover:bg-muted text-foreground px-4 py-2 rounded-lg text-xs font-medium transition-colors">
 							Change
 						</button>
 					</div>

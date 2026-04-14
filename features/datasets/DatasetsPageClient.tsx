@@ -61,7 +61,7 @@ export function DatasetsPageClient() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const datasets = data?.data ?? [];
 
-	const handleUploadComplete = (fileName: string) => {
+	const _handleUploadComplete = (fileName: string) => {
 		createDataset.mutate({
 			name: fileName.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "),
 			fileName,

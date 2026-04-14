@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { Modal } from "@/components/ui/Modal";
 
 describe("Modal Component", () => {
 	it("does not render if isOpen is false", () => {

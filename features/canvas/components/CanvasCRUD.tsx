@@ -36,7 +36,7 @@ export function CanvasCRUD({ blocks }: { blocks: CanvasBlock[] }) {
 	// Reset edits when upstream blocks change (like after a successful save)
 	useEffect(() => {
 		setEdits({});
-	}, [blocks]);
+	}, []);
 
 	const handleAdd = () => {
 		addBlock.mutate(

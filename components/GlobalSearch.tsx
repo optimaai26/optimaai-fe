@@ -86,6 +86,7 @@ export function GlobalSearch() {
 					className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
 				/>
 				<button
+					type="button"
 					onClick={() => setIsOpen(false)}
 					className="shrink-0 p-1 rounded-md hover:bg-muted text-muted-foreground transition-colors"
 				>

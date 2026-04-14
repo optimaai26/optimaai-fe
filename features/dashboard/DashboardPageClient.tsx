@@ -2,11 +2,9 @@
 
 import {
 	Activity,
-	BarChart3,
 	DollarSign,
 	Loader2,
 	Lock,
-	PieChart,
 	TrendingUp,
 	Users,
 } from "lucide-react";
