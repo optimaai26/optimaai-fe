@@ -6,7 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "biome check components features lib hooks utils types tests middleware.ts app/**/*.ts app/**/*.tsx --no-errors-on-unmatched",
+		"lint": "biome check components features lib hooks types tests middleware.ts \"app/(protected)\" \"app/(public)\" app/api app/layout.tsx app/page.tsx --no-errors-on-unmatched",
 		"format": "biome format --write ."
 	},
 	"dependencies": {

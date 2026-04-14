@@ -53,23 +53,21 @@
 			"tailwindDirectives": true
 		},
 		"formatter": {
-			"enabled": false
+			"enabled": true
 		},
 		"linter": {
-			"enabled": false
+			"enabled": true
 		}
 	},
 	"files": {
 		"ignoreUnknown": true,
 		"ignore": [
-			"app/globals.css",
-			"public/mockServiceWorker.js",
-			"node_modules",
-			".next",
-			"dist",
-			"coverage",
-			"vitest.config.ts",
-			"tailwind.config.ts"
+			"./app/globals.css",
+			"./public/mockServiceWorker.js",
+			"./node_modules",
+			"./.next",
+			"./dist",
+			"./coverage"
 		]
 	}
 }

@@ -24,10 +24,7 @@ export function useExport() {
 	/**
 	 * Exports an array of objects to a CSV file.
 	 */
-	const exportAsCSV = async <T>(
-		data: T[],
-		filename: string = "export.csv",
-	) => {
+	const exportAsCSV = async <T>(data: T[], filename: string = "export.csv") => {
 		if (!data || data.length === 0) {
 			toast({
 				type: "error",
@@ -45,7 +42,8 @@ export function useExport() {
 				...data.map((row) =>
 					headers
 						.map(
-							(fieldName) => `"${String((row as Record<string, unknown>)[fieldName]).replace(/"/g, '""')}"`,
+							(fieldName) =>
+								`"${String((row as Record<string, unknown>)[fieldName]).replace(/"/g, '""')}"`,
 						)
 						.join(","),
 				),
