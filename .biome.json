@@ -1,5 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0/schema.json",
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -39,12 +40,13 @@
     }
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      ".next",
-      "dist",
-      "coverage",
-      "*.config.mjs"
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!**/coverage",
+      "!**/*.config.mjs"
     ]
   }
 }
