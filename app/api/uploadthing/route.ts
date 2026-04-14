@@ -10,12 +10,15 @@
 //   router: ourFileRouter,
 // });
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
-    return NextResponse.json({ status: 'uploadthing not configured yet' });
+	return NextResponse.json({ status: "uploadthing not configured yet" });
 }
 
 export async function POST() {
-    return NextResponse.json({ status: 'uploadthing not configured yet' }, { status: 501 });
+	return NextResponse.json(
+		{ status: "uploadthing not configured yet" },
+		{ status: 501 },
+	);
 }

@@ -1,46 +1,47 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
-import { useRbac } from '@/hooks/useRbac';
-import type { PermissionKey, RoleName } from '@/constants/permissions';
+import type { ReactNode } from "react";
+import type { PermissionKey, RoleName } from "@/constants/permissions";
+import { useRbac } from "@/hooks/useRbac";
 
 interface UserRoleGateProps {
-    children: ReactNode;
-    fallback?: ReactNode;
-    roles?: RoleName | RoleName[];
-    permissions?: PermissionKey | PermissionKey[];
-    requireAllPermissions?: boolean;
+	children: ReactNode;
+	fallback?: ReactNode;
+	roles?: RoleName | RoleName[];
+	permissions?: PermissionKey | PermissionKey[];
+	requireAllPermissions?: boolean;
 }
 
 export function UserRoleGate({
-    children,
-    fallback = null,
-    roles,
-    permissions,
-    requireAllPermissions = false,
+	children,
+	fallback = null,
+	roles,
+	permissions,
+	requireAllPermissions = false,
 }: UserRoleGateProps) {
-    const { hasRole, hasPermission, hasAllPermissions, hasAnyPermission } = useRbac();
+	const { hasRole, hasPermission, hasAllPermissions, hasAnyPermission } =
+		useRbac();
 
-    let allowed = true;
+	let allowed = true;
 
-    // Check roles
-    if (roles) {
-        allowed = allowed && hasRole(roles);
-    }
+	// Check roles
+	if (roles) {
+		allowed = allowed && hasRole(roles);
+	}
 
-    // Check permissions
-    if (permissions && allowed) {
-        const permsArray = Array.isArray(permissions) ? permissions : [permissions];
-        if (requireAllPermissions) {
-            allowed = allowed && hasAllPermissions(permsArray);
-        } else {
-            allowed = allowed && hasAnyPermission(permsArray);
-        }
-    }
+	// Check permissions
+	if (permissions && allowed) {
+		const permsArray = Array.isArray(permissions) ? permissions : [permissions];
+		if (requireAllPermissions) {
+			allowed = allowed && hasAllPermissions(permsArray);
+		} else {
+			allowed = allowed && hasAnyPermission(permsArray);
+		}
+	}
 
-    if (!allowed) {
-        return fallback;
-    }
+	if (!allowed) {
+		return fallback;
+	}
 
-    return <>{children}</>;
+	return <>{children}</>;
 }

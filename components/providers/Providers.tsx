@@ -1,54 +1,54 @@
-'use client';
+"use client";
 
-import { QueryClientProvider } from '@/lib/api/query-client';
-import { ThemeProvider } from 'next-themes';
-import { AuthProvider } from '@/features/auth/AuthProvider';
-import { Toaster } from '@/components/ui/Toast';
-import { useEffect, useState, type ReactNode } from 'react';
+import { ThemeProvider } from "next-themes";
+import { type ReactNode, useEffect, useState } from "react";
+import { Toaster } from "@/components/ui/Toast";
+import { AuthProvider } from "@/features/auth/AuthProvider";
+import { QueryClientProvider } from "@/lib/api/query-client";
 
 function MswProvider({ children }: { children: ReactNode }) {
-    // MSW is opt-in via NEXT_PUBLIC_ENABLE_MSW=true.
-    // Leave unset (or set to 'false') to hit the real backend instead.
-    const isMockEnabled = process.env.NEXT_PUBLIC_ENABLE_MSW === 'true';
-    const [ready, setReady] = useState(!isMockEnabled);
+	// MSW is opt-in via NEXT_PUBLIC_ENABLE_MSW=true.
+	// Leave unset (or set to 'false') to hit the real backend instead.
+	const isMockEnabled = process.env.NEXT_PUBLIC_ENABLE_MSW === "true";
+	const [ready, setReady] = useState(!isMockEnabled);
 
-    useEffect(() => {
-        if (!isMockEnabled) {
-            return;
-        }
+	useEffect(() => {
+		if (!isMockEnabled) {
+			return;
+		}
 
-        let active = true;
+		let active = true;
 
-        async function initMsw() {
-            const { worker } = await import('@/mocks/browser');
-            await worker.start({
-                onUnhandledRequest: 'bypass',
-                serviceWorker: {
-                    url: '/mockServiceWorker.js',
-                },
-            });
+		async function initMsw() {
+			const { worker } = await import("@/mocks/browser");
+			await worker.start({
+				onUnhandledRequest: "bypass",
+				serviceWorker: {
+					url: "/mockServiceWorker.js",
+				},
+			});
 
-            if (active) {
-                setReady(true);
-            }
-        }
+			if (active) {
+				setReady(true);
+			}
+		}
 
-        initMsw().catch(() => {
-            if (active) {
-                setReady(true);
-            }
-        });
+		initMsw().catch(() => {
+			if (active) {
+				setReady(true);
+			}
+		});
 
-        return () => {
-            active = false;
-        };
-    }, []);
+		return () => {
+			active = false;
+		};
+	}, []);
 
-    if (!ready) {
-        return null;
-    }
+	if (!ready) {
+		return null;
+	}
 
-    return <>{children}</>;
+	return <>{children}</>;
 }
 
 /**
@@ -56,21 +56,21 @@ function MswProvider({ children }: { children: ReactNode }) {
  * Keeps the root layout clean by isolating "use client" boundaries here.
  */
 export function Providers({ children }: { children: ReactNode }) {
-    return (
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            <QueryClientProvider>
-                <MswProvider>
-                    <AuthProvider>
-                        {children}
-                        <Toaster />
-                    </AuthProvider>
-                </MswProvider>
-            </QueryClientProvider>
-        </ThemeProvider>
-    );
+	return (
+		<ThemeProvider
+			attribute="class"
+			defaultTheme="system"
+			enableSystem
+			disableTransitionOnChange
+		>
+			<QueryClientProvider>
+				<MswProvider>
+					<AuthProvider>
+						{children}
+						<Toaster />
+					</AuthProvider>
+				</MswProvider>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
 }

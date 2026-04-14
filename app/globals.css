@@ -54,169 +54,198 @@
  * CSS Variables for Light/Dark Modes
  * ========================================== */
 :root {
-  color-scheme: light;
-  --background: var(--color-surface-50);
-  --foreground: var(--color-surface-900);
-  --card: #ffffff;
-  --card-foreground: var(--color-surface-900);
-  --popover: #ffffff;
-  --popover-foreground: var(--color-surface-900);
-  --primary: var(--color-primary-400);
-  --primary-foreground: #ffffff;
-  --secondary: var(--color-surface-100);
-  --secondary-foreground: var(--color-surface-800);
-  --muted: var(--color-surface-100);
-  --muted-foreground: var(--color-surface-500);
-  --accent: var(--color-primary-50);
-  --accent-foreground: var(--color-primary-700);
-  --destructive: var(--color-danger);
-  --destructive-foreground: #ffffff;
-  --border: var(--color-surface-200);
-  --input: var(--color-surface-200);
-  --ring: var(--color-primary-400);
-  --sidebar-bg: #ffffff;
-  --sidebar-border: var(--color-surface-200);
+	color-scheme: light;
+	--background: var(--color-surface-50);
+	--foreground: var(--color-surface-900);
+	--card: #ffffff;
+	--card-foreground: var(--color-surface-900);
+	--popover: #ffffff;
+	--popover-foreground: var(--color-surface-900);
+	--primary: var(--color-primary-400);
+	--primary-foreground: #ffffff;
+	--secondary: var(--color-surface-100);
+	--secondary-foreground: var(--color-surface-800);
+	--muted: var(--color-surface-100);
+	--muted-foreground: var(--color-surface-500);
+	--accent: var(--color-primary-50);
+	--accent-foreground: var(--color-primary-700);
+	--destructive: var(--color-danger);
+	--destructive-foreground: #ffffff;
+	--border: var(--color-surface-200);
+	--input: var(--color-surface-200);
+	--ring: var(--color-primary-400);
+	--sidebar-bg: #ffffff;
+	--sidebar-border: var(--color-surface-200);
 }
 
 .dark {
-  color-scheme: dark;
-  --background: var(--color-surface-900);
-  --foreground: var(--color-surface-50);
-  --card: var(--color-surface-800);
-  --card-foreground: var(--color-surface-50);
-  --popover: var(--color-surface-800);
-  --popover-foreground: var(--color-surface-50);
-  --primary: var(--color-primary-400);
-  --primary-foreground: #ffffff;
-  --secondary: var(--color-surface-700);
-  --secondary-foreground: var(--color-surface-100);
-  --muted: var(--color-surface-700);
-  --muted-foreground: var(--color-surface-400);
-  --accent: var(--color-primary-900);
-  --accent-foreground: var(--color-primary-200);
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --border: var(--color-surface-700);
-  --input: var(--color-surface-700);
-  --ring: var(--color-primary-400);
-  --sidebar-bg: var(--color-surface-800);
-  --sidebar-border: var(--color-surface-700);
+	color-scheme: dark;
+	--background: var(--color-surface-900);
+	--foreground: var(--color-surface-50);
+	--card: var(--color-surface-800);
+	--card-foreground: var(--color-surface-50);
+	--popover: var(--color-surface-800);
+	--popover-foreground: var(--color-surface-50);
+	--primary: var(--color-primary-400);
+	--primary-foreground: #ffffff;
+	--secondary: var(--color-surface-700);
+	--secondary-foreground: var(--color-surface-100);
+	--muted: var(--color-surface-700);
+	--muted-foreground: var(--color-surface-400);
+	--accent: var(--color-primary-900);
+	--accent-foreground: var(--color-primary-200);
+	--destructive: #dc2626;
+	--destructive-foreground: #ffffff;
+	--border: var(--color-surface-700);
+	--input: var(--color-surface-700);
+	--ring: var(--color-primary-400);
+	--sidebar-bg: var(--color-surface-800);
+	--sidebar-border: var(--color-surface-700);
 }
 
 /* ==========================================
  * Base Styles
  * ========================================== */
 * {
-  border-color: var(--border);
+	border-color: var(--border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* ==========================================
  * Glassmorphism Utilities
  * ========================================== */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+	background: rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .glass-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.1) 0%,
+		rgba(255, 255, 255, 0.04) 100%
+	);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .dark .glass {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .dark .glass-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32);
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.06) 0%,
+		rgba(255, 255, 255, 0.02) 100%
+	);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32);
 }
 
 /* ==========================================
  * Gradient Utilities
  * ========================================== */
 .gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary-400) 0%, var(--color-primary-600) 100%);
+	background: linear-gradient(
+		135deg,
+		var(--color-primary-400) 0%,
+		var(--color-primary-600) 100%
+	);
 }
 
 .gradient-subtle {
-  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-surface-50) 100%);
+	background: linear-gradient(
+		135deg,
+		var(--color-primary-50) 0%,
+		var(--color-surface-50) 100%
+	);
 }
 
 .dark .gradient-subtle {
-  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-surface-900) 100%);
+	background: linear-gradient(
+		135deg,
+		var(--color-primary-900) 0%,
+		var(--color-surface-900) 100%
+	);
 }
 
 /* ==========================================
  * Scrollbar Customization
  * ========================================== */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+	width: 6px;
+	height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+	background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-300);
-  border-radius: 3px;
+	background: var(--color-surface-300);
+	border-radius: 3px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-600);
+	background: var(--color-surface-600);
 }
 
 /* ==========================================
  * Animations
  * ========================================== */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-16px); }
-  to { opacity: 1; transform: translateX(0); }
+	from {
+		opacity: 0;
+		transform: translateX(-16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }
 
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+	animation: fade-in 0.3s ease-out;
 }
 
 .animate-slide-in-left {
-  animation: slide-in-left 0.3s ease-out;
+	animation: slide-in-left 0.3s ease-out;
 }
 
 .animate-pulse-subtle {
-  animation: pulse-subtle 2s ease-in-out infinite;
+	animation: pulse-subtle 2s ease-in-out infinite;
 }

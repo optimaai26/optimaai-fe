@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: 'OptimaAI – AI-Powered Analytics Platform',
+	title: "OptimaAI – AI-Powered Analytics Platform",
 };
 
 /**
@@ -9,13 +9,9 @@ export const metadata: Metadata = {
  * Used for landing, login, signup pages.
  */
 export default function MarketingLayout({
-    children,
+	children,
 }: {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-    return (
-        <div className="min-h-screen flex flex-col">
-            {children}
-        </div>
-    );
+	return <div className="min-h-screen flex flex-col">{children}</div>;
 }

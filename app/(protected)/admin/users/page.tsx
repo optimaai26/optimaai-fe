@@ -1,8 +1,8 @@
-import { AdminUsersPageClient } from '@/features/users/AdminUsersPageClient';
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
+import { AdminUsersPageClient } from "@/features/users/AdminUsersPageClient";
 
-export const metadata: Metadata = { title: 'Admin - Users' };
+export const metadata: Metadata = { title: "Admin - Users" };
 
 export default function AdminUsersPage() {
-    return <AdminUsersPageClient />;
+	return <AdminUsersPageClient />;
 }
