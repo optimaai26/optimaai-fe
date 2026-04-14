@@ -51,6 +51,7 @@ export function RequestAccessModal({
 						Request Elevated Access
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>
@@ -60,10 +61,14 @@ export function RequestAccessModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="role-select"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Requested Role
 						</label>
 						<Select
+							id="role-select"
 							value={role}
 							onChange={(val) => setRole(val as any)}
 							options={roleOptions}
@@ -71,10 +76,14 @@ export function RequestAccessModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="justification-input"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Business Justification
 						</label>
 						<textarea
+							id="justification-input"
 							value={justification}
 							onChange={(e) => setJustification(e.target.value)}
 							placeholder="Why do you need this level of access?"

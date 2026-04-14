@@ -36,6 +36,7 @@ function ActionButtons({ requestId }: { requestId: string }) {
 	return (
 		<div className="flex items-center gap-2">
 			<button
+				type="button"
 				onClick={() => handleReview("approved")}
 				className="inline-flex items-center gap-1 text-success text-sm"
 				disabled={review.isPending}
@@ -44,6 +45,7 @@ function ActionButtons({ requestId }: { requestId: string }) {
 				Approve
 			</button>
 			<button
+				type="button"
 				onClick={() => handleReview("rejected")}
 				className="inline-flex items-center gap-1 text-danger text-sm"
 				disabled={review.isPending}

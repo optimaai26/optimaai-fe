@@ -97,6 +97,7 @@ export function Toaster() {
 						)}
 					</div>
 					<button
+						type="button"
 						onClick={() => dismiss(t.id)}
 						className="shrink-0 rounded-full p-1 hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
 					>

@@ -47,6 +47,17 @@
 			"trailingCommas": "all"
 		}
 	},
+	"css": {
+		"parser": {
+			"cssModules": false
+		},
+		"formatter": {
+			"enabled": false
+		},
+		"linter": {
+			"enabled": false
+		}
+	},
 	"files": {
 		"includes": [
 			"**",
@@ -55,7 +66,8 @@
 			"!**/dist",
 			"!**/coverage",
 			"!**/*.config.mjs",
-			"!**/*.css"
+			"!**/*.css",
+			"!**/public/mockServiceWorker.js"
 		]
 	}
 }

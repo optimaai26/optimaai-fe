@@ -228,6 +228,7 @@ export function Topbar() {
 
 						{/* Notifications */}
 						<button
+							type="button"
 							className="relative p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
 							aria-label="Notifications"
 							suppressHydrationWarning
@@ -239,6 +240,7 @@ export function Topbar() {
 						{/* User Menu */}
 						<div className="relative" ref={menuRef}>
 							<button
+								type="button"
 								onClick={() => setUserMenuOpen(!userMenuOpen)}
 								className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-muted transition-colors"
 								suppressHydrationWarning
@@ -287,6 +289,7 @@ export function Topbar() {
 									</Link>
 									<div className="border-t border-border mt-1 pt-1">
 										<button
+											type="button"
 											onClick={handleSignOut}
 											className="flex items-center gap-2 px-4 py-2 w-full text-sm text-danger hover:bg-muted transition-colors"
 											role="menuitem"
