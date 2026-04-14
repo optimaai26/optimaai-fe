@@ -134,10 +134,10 @@ export interface ChartDataPoint {
 export interface DashboardOverview {
     kpis: KpiCardData[];
     recentActivity: DashboardActivity[];
-    chartData: ChartDataPoint[];
+    charts: ChartConfig[];
 }
 
-export type ChartType = 'bar' | 'line' | 'Area' | 'pie' | 'donut' | 'scatter' | 'funnel';
+export type ChartType = 'bar' | 'line' | 'area' | 'pie' | 'donut' | 'scatter' | 'funnel';
 
 export interface ChartConfig {
     type: ChartType;

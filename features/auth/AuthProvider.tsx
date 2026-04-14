@@ -50,6 +50,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const response = await apiClient.post<ApiResponse<AuthPayload>>('/auth/login', { email, password });
             persistAuthToken(response.data.token);
             setUser(response.data.user);
+        } catch (error) {
+            // Re-throw so the LoginForm can display the error message
+            throw error;
         } finally {
             setIsLoading(false);
         }
@@ -58,7 +61,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const register = useCallback(async ({ fullName, email, password }: { fullName: string; email: string; password: string }) => {
         setIsLoading(true);
         try {
-            await apiClient.post<ApiResponse<AuthPayload>>('/auth/register', { fullName, email, password });
+            const response = await apiClient.post<ApiResponse<AuthPayload>>('/auth/register', { fullName, email, password });
+            // Auto-login: persist token and hydrate user after successful registration
+            persistAuthToken(response.data.token);
+            setUser(response.data.user);
+        } catch (error) {
+            // Re-throw so the SignupForm can display the error message
+            throw error;
         } finally {
             setIsLoading(false);
         }

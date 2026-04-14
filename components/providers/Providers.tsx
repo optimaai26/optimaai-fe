@@ -7,7 +7,9 @@ import { Toaster } from '@/components/ui/Toast';
 import { useEffect, useState, type ReactNode } from 'react';
 
 function MswProvider({ children }: { children: ReactNode }) {
-    const isMockEnabled = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_ENABLE_MSW === 'true';
+    // MSW is opt-in via NEXT_PUBLIC_ENABLE_MSW=true.
+    // Leave unset (or set to 'false') to hit the real backend instead.
+    const isMockEnabled = process.env.NEXT_PUBLIC_ENABLE_MSW === 'true';
     const [ready, setReady] = useState(!isMockEnabled);
 
     useEffect(() => {

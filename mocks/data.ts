@@ -11,28 +11,12 @@ import type {
     Report,
     Role,
     User,
+    ChartConfig,
+    DashboardOverview,
+    DashboardActivity,
 } from '@/types';
 
 type AuthUserRecord = User & { password: string };
-
-type DashboardActivity = {
-    id: string;
-    action: string;
-    time: string;
-    color: string;
-};
-
-export interface ChartDataPoint {
-    name: string;
-    revenue: number;
-    users: number;
-}
-
-export interface DashboardOverview {
-    kpis: KpiCardData[];
-    recentActivity: DashboardActivity[];
-    chartData: ChartDataPoint[];
-}
 
 function clone<T>(value: T): T {
     return structuredClone(value);
@@ -427,14 +411,41 @@ const initialDashboardOverview: DashboardOverview = {
         { id: 'activity-5', action: 'Bob joined as an Analyst', time: '4 hours ago', color: 'bg-success' },
         { id: 'activity-6', action: 'Marketing dataset processing failed', time: '5 hours ago', color: 'bg-danger' },
     ],
-    chartData: [
-        { name: 'Jan', revenue: 40000, users: 400 },
-        { name: 'Feb', revenue: 45000, users: 510 },
-        { name: 'Mar', revenue: 52000, users: 800 },
-        { name: 'Apr', revenue: 64000, users: 1100 },
-        { name: 'May', revenue: 78000, users: 1540 },
-        { name: 'Jun', revenue: 95000, users: 2010 },
-        { name: 'Jul', revenue: 124500, users: 2340 }
+    charts: [
+        {
+            type: 'area', // Backend decided 'area' represents revenue best
+            title: 'Revenue Trend',
+            xAxis: 'name',
+            yAxis: 'revenue',
+            data: [
+                { name: 'Jan', revenue: 40000, users: 400 },
+                { name: 'Feb', revenue: 45000, users: 510 },
+                { name: 'Mar', revenue: 52000, users: 800 },
+                { name: 'Apr', revenue: 64000, users: 1100 },
+                { name: 'May', revenue: 78000, users: 1540 },
+                { name: 'Jun', revenue: 95000, users: 2010 },
+                { name: 'Jul', revenue: 124500, users: 2340 }
+            ],
+            colors: ['var(--primary)'],
+            aiRecommended: true,
+        },
+        {
+            type: 'bar', // Backend decided 'bar' represents users best
+            title: 'User Distribution',
+            xAxis: 'name',
+            yAxis: 'users',
+            data: [
+                { name: 'Jan', revenue: 40000, users: 400 },
+                { name: 'Feb', revenue: 45000, users: 510 },
+                { name: 'Mar', revenue: 52000, users: 800 },
+                { name: 'Apr', revenue: 64000, users: 1100 },
+                { name: 'May', revenue: 78000, users: 1540 },
+                { name: 'Jun', revenue: 95000, users: 2010 },
+                { name: 'Jul', revenue: 124500, users: 2340 }
+            ],
+            colors: ['var(--secondary)'],
+            aiRecommended: true,
+        }
     ],
 };
 

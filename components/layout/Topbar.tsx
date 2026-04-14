@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
     Bell,
     Menu,
@@ -12,8 +12,6 @@ import {
     LogOut,
     User,
     Settings,
-    Globe,
-    Building2,
     ChevronDown,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -23,17 +21,23 @@ import { NAV_SECTIONS, ADMIN_NAV_ITEMS } from '@/constants/navigation';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useGlobalSearch } from '@/hooks/useGlobalSearch';
 import { GlobalSearch } from '@/components/GlobalSearch';
+import { useAuth } from '@/features/auth/AuthProvider';
+import { useRbac } from '@/hooks/useRbac';
 
 /* ==========================================
  * Mobile Sidebar Drawer
  * ========================================== */
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
     const pathname = usePathname();
+    const prevPathnameRef = useRef(pathname);
+    const { canAccessAdmin } = useRbac();
 
+    // Close only when pathname *changes*, not immediately on open
     useEffect(() => {
-        if (open) {
+        if (prevPathnameRef.current !== pathname && open) {
             onClose();
         }
+        prevPathnameRef.current = pathname;
     }, [pathname, open, onClose]);
 
     if (!open) return null;
@@ -85,31 +89,33 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                             </div>
                         </div>
                     ))}
-                    <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
-                            Administration
-                        </p>
-                        <div className="space-y-1">
-                            {ADMIN_NAV_ITEMS.map((item) => {
-                                const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
-                                return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        className={cn(
-                                            'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all',
-                                            isActive
-                                                ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300'
-                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                                        )}
-                                    >
-                                        <item.icon className="w-5 h-5" />
-                                        {item.title}
-                                    </Link>
-                                );
-                            })}
+                    {canAccessAdmin && (
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
+                                Administration
+                            </p>
+                            <div className="space-y-1">
+                                {ADMIN_NAV_ITEMS.map((item) => {
+                                    const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className={cn(
+                                                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all',
+                                                isActive
+                                                    ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300'
+                                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                                            )}
+                                        >
+                                            <item.icon className="w-5 h-5" />
+                                            {item.title}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </nav>
             </div>
         </>
@@ -122,12 +128,19 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 export function Topbar() {
     const { theme, setTheme } = useTheme();
     const { mobileSidebarOpen, setMobileSidebarOpen } = useUiStore();
+    const { user, logout } = useAuth();
+    const router = useRouter();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     const closeMobileSidebar = useCallback(() => {
         setMobileSidebarOpen(false);
     }, [setMobileSidebarOpen]);
+
+    const handleSignOut = useCallback(() => {
+        logout();
+        router.push('/login');
+    }, [logout, router]);
 
     // Close user menu on outside click
     useEffect(() => {
@@ -139,6 +152,12 @@ export function Topbar() {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    // Detect platform for keyboard shortcut hint
+    const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+    const shortcutLabel = isMac ? '⌘K' : 'Ctrl+K';
+
+    const userInitial = user?.name?.[0]?.toUpperCase() ?? 'U';
 
     return (
         <>
@@ -157,7 +176,7 @@ export function Topbar() {
                             <Menu className="w-5 h-5" />
                         </button>
 
-                        <button 
+                        <button
                             onClick={() => useGlobalSearch.getState().toggle()}
                             className="hidden sm:flex items-center justify-between px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted border border-transparent shadow-sm text-muted-foreground w-64 transition-colors group cursor-pointer text-left"
                         >
@@ -165,8 +184,8 @@ export function Topbar() {
                                 <Search className="w-4 h-4" />
                                 Search...
                             </span>
-                            <kbd className="hidden md:inline-flex text-[10px] font-mono bg-background rounded px-1.5 py-0.5 border border-border text-muted-foreground shadow-sm">
-                                ⌘K
+                            <kbd className="hidden md:inline-flex text-[10px] font-mono bg-background rounded px-1.5 py-0.5 border border-border text-muted-foreground shadow-sm" suppressHydrationWarning>
+                                {shortcutLabel}
                             </kbd>
                         </button>
                     </div>
@@ -199,36 +218,47 @@ export function Topbar() {
                                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                                 className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-muted transition-colors"
                                 suppressHydrationWarning
+                                aria-label="Open user menu"
+                                aria-expanded={userMenuOpen}
                             >
-                                <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-white text-sm font-semibold">
-                                    U
+                                <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-white text-sm font-semibold" suppressHydrationWarning>
+                                    {userInitial}
                                 </div>
                                 <ChevronDown className="w-4 h-4 text-muted-foreground hidden sm:block" />
                             </button>
 
                             {userMenuOpen && (
-                                <div className="absolute right-0 top-12 w-56 rounded-xl bg-popover border border-border shadow-lg py-2 animate-fade-in">
+                                <div
+                                    className="absolute right-0 top-12 w-56 rounded-xl bg-popover border border-border shadow-lg py-2 animate-fade-in"
+                                    role="menu"
+                                >
                                     <div className="px-4 py-2 border-b border-border">
-                                        <p className="text-sm font-medium">User Name</p>
-                                        <p className="text-xs text-muted-foreground">user@company.com</p>
+                                        <p className="text-sm font-medium truncate">{user?.name ?? 'User'}</p>
+                                        <p className="text-xs text-muted-foreground truncate">{user?.email ?? ''}</p>
                                     </div>
                                     <Link
                                         href="/profile"
+                                        onClick={() => setUserMenuOpen(false)}
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                                        role="menuitem"
                                     >
                                         <User className="w-4 h-4" />
                                         Profile
                                     </Link>
                                     <Link
                                         href="/settings"
+                                        onClick={() => setUserMenuOpen(false)}
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                                        role="menuitem"
                                     >
                                         <Settings className="w-4 h-4" />
                                         Settings
                                     </Link>
                                     <div className="border-t border-border mt-1 pt-1">
                                         <button
+                                            onClick={handleSignOut}
                                             className="flex items-center gap-2 px-4 py-2 w-full text-sm text-danger hover:bg-muted transition-colors"
+                                            role="menuitem"
                                         >
                                             <LogOut className="w-4 h-4" />
                                             Sign out

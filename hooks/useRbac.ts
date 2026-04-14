@@ -48,11 +48,19 @@ export function useRbac() {
         return permissions.some(p => perms.includes(p));
     };
 
+    /** True only when the user has the 'admin' role */
+    const isAdmin = roleName === 'admin';
+
+    /** True when the user can access any part of the admin panel */
+    const canAccessAdmin = hasAnyPermission(['admin:users', 'admin:roles', 'admin:access-requests']);
+
     return {
         hasRole,
         hasPermission,
         hasAllPermissions,
         hasAnyPermission,
         currentRole: roleName,
+        isAdmin,
+        canAccessAdmin,
     };
 }

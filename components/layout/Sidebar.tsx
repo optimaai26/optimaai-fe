@@ -12,6 +12,7 @@ import {
 import { cn } from '@/lib/utils/cn';
 import { NAV_SECTIONS, ADMIN_NAV_ITEMS, type NavItem } from '@/constants/navigation';
 import { useUiStore } from '@/lib/stores/ui-store';
+import { useRbac } from '@/hooks/useRbac';
 
 /* ==========================================
  * Sidebar Component
@@ -55,6 +56,7 @@ function SidebarLink({ item, collapsed }: { item: NavItem; collapsed: boolean })
 
 export function Sidebar() {
     const { sidebarCollapsed, toggleSidebar, viewScope, setViewScope } = useUiStore();
+    const { canAccessAdmin } = useRbac();
 
     return (
         <aside
@@ -147,22 +149,24 @@ export function Sidebar() {
                     </div>
                 ))}
 
-                {/* Admin Section */}
-                <div>
-                    {!sidebarCollapsed && (
-                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
-                            Administration
-                        </p>
-                    )}
-                    {sidebarCollapsed && (
-                        <div className="border-t border-[var(--sidebar-border)] my-2" />
-                    )}
-                    <div className="space-y-1">
-                        {ADMIN_NAV_ITEMS.map((item) => (
-                            <SidebarLink key={item.href} item={item} collapsed={sidebarCollapsed} />
-                        ))}
+                {/* Admin Section — only visible to users with admin permissions */}
+                {canAccessAdmin && (
+                    <div>
+                        {!sidebarCollapsed && (
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
+                                Administration
+                            </p>
+                        )}
+                        {sidebarCollapsed && (
+                            <div className="border-t border-[var(--sidebar-border)] my-2" />
+                        )}
+                        <div className="space-y-1">
+                            {ADMIN_NAV_ITEMS.map((item) => (
+                                <SidebarLink key={item.href} item={item} collapsed={sidebarCollapsed} />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
             </nav>
 
             {/* Settings Footer */}

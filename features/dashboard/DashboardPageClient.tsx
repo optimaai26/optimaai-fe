@@ -8,9 +8,10 @@ import { Activity, BarChart3, DollarSign, PieChart, TrendingUp, Users, Loader2, 
 import { useDashboard } from '@/features/dashboard/useDashboard';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { useUiStore } from '@/lib/stores/ui-store';
+import { useRbac } from '@/hooks/useRbac';
 import { RequestAccessModal } from '@/features/access-requests/RequestAccessModal';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { SmartChart } from '@/components/data-display/SmartChart';
 
 const iconMap: Record<string, ComponentType<{ className?: string }>> = {
     DollarSign,
@@ -22,17 +23,15 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
 export function DashboardPageClient() {
     const { data, isLoading, isError } = useDashboard();
     const { user } = useAuth();
+    const { hasPermission } = useRbac();
     const { viewScope } = useUiStore();
     const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
     if (isLoading) return <div className="min-h-[40vh] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin" /></div>;
     if (isError || !data) return <div className="text-sm text-danger">Failed to load dashboard data.</div>;
 
-    const chartData = data.data?.chartData ?? [];
-
     const isDepartmentScope = viewScope === 'department';
-    const hasDepartmentViewPermission = user?.role.permissions.some(p => p.key === 'view:department');
-    const isLocked = isDepartmentScope && !hasDepartmentViewPermission;
+    const isLocked = isDepartmentScope && !hasPermission('view:department');
 
     if (isLocked) {
         return (
@@ -68,46 +67,9 @@ export function DashboardPageClient() {
                 ))}
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div className="glass-card rounded-xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">Revenue Trend</h3>
-                        <BarChart3 className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                    <div className="h-64 w-full text-sm">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                                <CartesianGrid strokeDasharray="3 3" opacity={0.1} vertical={false} />
-                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'currentColor', opacity: 0.5 }} dy={10} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'currentColor', opacity: 0.5 }} dx={-10} tickFormatter={(val) => `$${val/1000}k`} />
-                                <Tooltip 
-                                    contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
-                                    itemStyle={{ color: 'hsl(var(--foreground))' }}
-                                />
-                                <Line type="monotone" dataKey="revenue" stroke="hsl(var(--primary))" strokeWidth={3} dot={{ r: 4, fill: 'hsl(var(--primary))', strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
-                <div className="glass-card rounded-xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">User Distribution</h3>
-                        <PieChart className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                    <div className="h-64 w-full text-sm">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                                <CartesianGrid strokeDasharray="3 3" opacity={0.1} vertical={false} />
-                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'currentColor', opacity: 0.5 }} dy={10} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'currentColor', opacity: 0.5 }} dx={-10} />
-                                <Tooltip 
-                                    contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
-                                    itemStyle={{ color: 'hsl(var(--foreground))' }}
-                                />
-                                <Line type="monotone" dataKey="users" stroke="hsl(var(--secondary))" strokeWidth={3} dot={{ r: 4, fill: 'hsl(var(--secondary))', strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
+                {(data.data?.charts ?? []).map((chartConfig, i) => (
+                    <SmartChart key={`chart-${i}`} config={chartConfig} />
+                ))}
             </div>
             <div className="glass-card rounded-xl p-6">
                 <h3 className="font-semibold mb-4">Recent Activity</h3>
