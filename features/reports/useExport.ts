@@ -24,7 +24,7 @@ export function useExport() {
 	/**
 	 * Exports an array of objects to a CSV file.
 	 */
-	const exportAsCSV = async <T extends Record<string, unknown>>(
+	const exportAsCSV = async <T>(
 		data: T[],
 		filename: string = "export.csv",
 	) => {
@@ -39,13 +39,13 @@ export function useExport() {
 
 		try {
 			setIsExporting(true);
-			const headers = Object.keys(data[0]);
+			const headers = Object.keys(data[0] as object);
 			const csvContent = [
 				headers.join(","),
 				...data.map((row) =>
 					headers
 						.map(
-							(fieldName) => `"${String(row[fieldName]).replace(/"/g, '""')}"`,
+							(fieldName) => `"${String((row as Record<string, unknown>)[fieldName]).replace(/"/g, '""')}"`,
 						)
 						.join(","),
 				),
