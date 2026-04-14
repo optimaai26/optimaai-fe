@@ -71,9 +71,9 @@ export function EditUserRoleModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					<div>
-						<label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+						<div className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
 							User details
-						</label>
+						</div>
 						<div className="bg-muted/50 border border-border/50 rounded-lg p-3">
 							<div className="font-medium text-foreground">{user.name}</div>
 							<div className="text-sm text-muted-foreground">{user.email}</div>

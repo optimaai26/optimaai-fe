@@ -3,3 +3,5 @@
 dist/**
 coverage/**
 **/*.css
+app/globals.css
+public/mockServiceWorker.js

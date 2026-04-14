@@ -59,6 +59,7 @@ export function InviteUserModal({
 						Invite Team Member
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="p-1 text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
 					>
@@ -68,10 +69,14 @@ export function InviteUserModal({
 
 				<form onSubmit={handleSubmit} className="p-6 space-y-5">
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="full-name"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Full Name
 						</label>
 						<input
+							id="full-name"
 							type="text"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
@@ -82,10 +87,14 @@ export function InviteUserModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="email-address"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Email Address
 						</label>
 						<input
+							id="email-address"
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
@@ -96,10 +105,14 @@ export function InviteUserModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="role-assignment"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Role Assignment
 						</label>
 						<Select
+							id="role-assignment"
 							value={role}
 							onChange={(val) => setRole(val as RoleName)}
 							options={roleOptions}
@@ -107,10 +120,14 @@ export function InviteUserModal({
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-foreground mb-1">
+						<label
+							htmlFor="department-assignment"
+							className="block text-sm font-medium text-foreground mb-1"
+						>
 							Department (Optional)
 						</label>
 						<input
+							id="department-assignment"
 							type="text"
 							value={department}
 							onChange={(e) => setDepartment(e.target.value)}

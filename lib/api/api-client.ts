@@ -25,12 +25,14 @@ interface RequestOptions extends Omit<RequestInit, "body"> {
 export function persistAuthToken(token: string): void {
 	if (typeof window === "undefined") return;
 	localStorage.setItem(AUTH_TOKEN_KEY, token);
+	// biome-ignore lint/suspicious/noDocumentCookie: SSR requires standard cookie set bypass
 	document.cookie = `${AUTH_TOKEN_KEY}=${token}; path=/; max-age=86400; samesite=lax`;
 }
 
 export function clearAuthToken(): void {
 	if (typeof window === "undefined") return;
 	localStorage.removeItem(AUTH_TOKEN_KEY);
+	// biome-ignore lint/suspicious/noDocumentCookie: SSR requires standard cookie clear bypass
 	document.cookie = `${AUTH_TOKEN_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT; samesite=lax`;
 }
 

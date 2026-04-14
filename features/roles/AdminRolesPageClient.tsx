@@ -28,6 +28,7 @@ export function AdminRolesPageClient() {
 				description="Manage role definitions and their permission matrices."
 				actions={
 					<button
+						type="button"
 						onClick={() => setIsCreateOpen(true)}
 						className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold"
 					>
