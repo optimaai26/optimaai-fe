@@ -858,8 +858,6 @@ Use this checklist to track implementation progress:
 **Total: 23 endpoints** (3 auth + 20 domain)
 
 ---
-
-> **Questions? Contact the frontend team.**
 > - Mock data samples: see [`mocks/data.ts`](../mocks/data.ts)
 > - Type definitions: see [`types/index.ts`](../types/index.ts)
 > - API client implementation: see [`lib/api/api-client.ts`](../lib/api/api-client.ts)
