@@ -10,8 +10,10 @@ import { ROLE_PERMISSIONS } from '@/constants/permissions';
  * Usage:
  *   const { hasPermission, hasAny, hasAll } = usePermissions('admin');
  */
-export function usePermissions(role: RoleName | undefined) {
-    const permissions = role ? ROLE_PERMISSIONS[role] ?? [] : [];
+export function usePermissions(_role: RoleName | undefined) {
+    // Role-based access is temporarily disabled: always grant full access
+    // to the signed-in user until the role model is re-enabled.
+    const permissions = [...new Set(Object.values(ROLE_PERMISSIONS).flat())];
 
     /** Check single permission */
     const hasPermission = (key: PermissionKey): boolean => {
@@ -28,11 +30,8 @@ export function usePermissions(role: RoleName | undefined) {
         return keys.every((key) => permissions.includes(key));
     };
 
-    /** Check if user is an admin */
-    const isAdmin = role === 'admin';
-
-    /** Check if user can access admin panel */
-    const canAccessAdmin = hasAny('admin:users', 'admin:roles', 'admin:access-requests');
+    const isAdmin = true;
+    const canAccessAdmin = true;
 
     return {
         permissions,
