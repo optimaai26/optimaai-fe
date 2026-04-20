@@ -51,9 +51,7 @@ export default function SignupPage() {
 		<div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
 			<div className="max-w-md w-full glass-card rounded-2xl p-8 relative z-10 border border-border">
 				<div className="text-center mb-8">
-					<div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4">
-						<Sparkles className="w-7 h-7 text-white" />
-					</div>
+					<img src="/assets/logos/c4.svg" alt="OptimaAI Icon" className="h-16 w-auto mx-auto mb-4" />
 					<h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
 						Create Account
 					</h1>

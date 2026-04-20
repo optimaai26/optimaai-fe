@@ -1,4 +1,5 @@
 import {
+	BookOpen,
 	BrainCircuit,
 	Database,
 	FileText,
@@ -44,18 +45,14 @@ export const NAV_SECTIONS: NavSection[] = [
 		label: "AI & Insights",
 		items: [
 			{ title: "Insights", href: "/insights", icon: BrainCircuit },
-			// { title: 'Canvas', href: '/canvas', icon: BookOpen },
+			{ title: 'Canvas', href: '/canvas', icon: BookOpen },
 			{ title: "Reports", href: "/reports", icon: FileText },
 		],
 	},
 ];
 
 /** Admin navigation (shown only to admin/manager roles) */
-export const ADMIN_NAV_ITEMS: NavItem[] = [
-	{ title: "Users", href: "/admin/users", icon: Users },
-	{ title: "Roles", href: "/admin/roles", icon: Shield },
-	{ title: "Access Requests", href: "/admin/access-requests", icon: UserCog },
-];
+export const ADMIN_NAV_ITEMS: NavItem[] = [];
 
 /** Quick-access routes */
 export const ROUTE_PATHS = {
