@@ -13,12 +13,7 @@ export default function LoginPage() {
 			<div className="relative w-full max-w-md animate-fade-in">
 				<div className="text-center mb-8">
 					<Link href="/" className="inline-flex items-center gap-2">
-						<div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
-							<Sparkles className="w-6 h-6 text-white" />
-						</div>
-						<span className="text-2xl font-bold tracking-tight">
-							Optima<span className="text-primary-400">AI</span>
-						</span>
+						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-16 w-auto" />
 					</Link>
 					<p className="text-muted-foreground mt-2">Sign in to your account</p>
 				</div>

@@ -48,12 +48,7 @@ export default function LandingPage() {
 			<nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
 				<div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 					<Link href="/" className="flex items-center gap-2">
-						<div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-							<Sparkles className="w-5 h-5 text-white" />
-						</div>
-						<span className="text-xl font-bold tracking-tight">
-							Optima<span className="text-primary-400">AI</span>
-						</span>
+						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-12 w-auto" />
 					</Link>
 
 					<div className="flex items-center gap-4">
@@ -156,10 +151,7 @@ export default function LandingPage() {
 						© 2026 OptimaAI. All rights reserved.
 					</span>
 					<div className="flex items-center gap-2">
-						<div className="w-6 h-6 rounded-md gradient-primary flex items-center justify-center">
-							<Sparkles className="w-3.5 h-3.5 text-white" />
-						</div>
-						<span className="text-sm font-semibold">OptimaAI</span>
+						<img src="/assets/logos/c4.svg" alt="Optima AI Icon" className="h-8 w-auto" />
 					</div>
 				</div>
 			</footer>

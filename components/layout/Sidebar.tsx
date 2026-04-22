@@ -68,8 +68,6 @@ function SidebarLink({
 export function Sidebar() {
 	const { sidebarCollapsed, toggleSidebar, viewScope, setViewScope } =
 		useUiStore();
-	const { canAccessAdmin } = useRbac();
-
 	return (
 		<aside
 			className={cn(
@@ -81,20 +79,15 @@ export function Sidebar() {
 			)}
 		>
 			{/* Logo + Collapse Toggle */}
-			<div className="flex items-center justify-between h-16 px-4 border-b border-[var(--sidebar-border)]">
+			<div className="flex items-center justify-between h-20 px-4 border-b border-[var(--sidebar-border)]">
 				{!sidebarCollapsed && (
 					<Link href="/dashboard" className="flex items-center gap-2">
-						<div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center shrink-0">
-							<Sparkles className="w-5 h-5 text-white" />
-						</div>
-						<span className="text-lg font-bold tracking-tight">
-							Optima<span className="text-primary-400">AI</span>
-						</span>
+						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-12 w-auto" />
 					</Link>
 				)}
 				{sidebarCollapsed && (
-					<div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center mx-auto">
-						<Sparkles className="w-5 h-5 text-white" />
+					<div className="mx-auto flex justify-center">
+						<img src="/assets/logos/c4.svg" alt="Optima AI Icon" className="h-10 w-10 object-contain" />
 					</div>
 				)}
 				<button
@@ -117,41 +110,7 @@ export function Sidebar() {
 				</button>
 			</div>
 
-			{/* Scope Toggle */}
-			{!sidebarCollapsed && (
-				<div className="px-4 py-3 border-b border-[var(--sidebar-border)]">
-					<div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
-						<button
-							type="button"
-							onClick={() => setViewScope("global")}
-							className={cn(
-								"flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-								viewScope === "global"
-									? "bg-background shadow-sm text-foreground"
-									: "text-muted-foreground hover:text-foreground",
-							)}
-							suppressHydrationWarning
-						>
-							<Globe className="w-3.5 h-3.5" />
-							Global
-						</button>
-						<button
-							type="button"
-							onClick={() => setViewScope("department")}
-							className={cn(
-								"flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-								viewScope === "department"
-									? "bg-background shadow-sm text-foreground"
-									: "text-muted-foreground hover:text-foreground",
-							)}
-							suppressHydrationWarning
-						>
-							<Building2 className="w-3.5 h-3.5" />
-							Department
-						</button>
-					</div>
-				</div>
-			)}
+
 
 			{/* Navigation Sections */}
 			<nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
@@ -174,28 +133,7 @@ export function Sidebar() {
 					</div>
 				))}
 
-				{/* Admin Section — only visible to users with admin permissions */}
-				{canAccessAdmin && (
-					<div>
-						{!sidebarCollapsed && (
-							<p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
-								Administration
-							</p>
-						)}
-						{sidebarCollapsed && (
-							<div className="border-t border-[var(--sidebar-border)] my-2" />
-						)}
-						<div className="space-y-1">
-							{ADMIN_NAV_ITEMS.map((item) => (
-								<SidebarLink
-									key={item.href}
-									item={item}
-									collapsed={sidebarCollapsed}
-								/>
-							))}
-						</div>
-					</div>
-				)}
+
 			</nav>
 
 			{/* Settings Footer */}

@@ -35,7 +35,6 @@ function MobileDrawer({
 }) {
 	const pathname = usePathname();
 	const prevPathnameRef = useRef(pathname);
-	const { canAccessAdmin } = useRbac();
 
 	// Close only when pathname *changes*, not immediately on open
 	useEffect(() => {
@@ -58,14 +57,9 @@ function MobileDrawer({
 			/>
 			{/* Drawer */}
 			<div className="fixed inset-y-0 left-0 z-50 w-72 bg-[var(--sidebar-bg)] border-r border-[var(--sidebar-border)] lg:hidden animate-slide-in-left">
-				<div className="flex items-center h-16 px-4 border-b border-[var(--sidebar-border)]">
+				<div className="flex items-center h-20 px-4 border-b border-[var(--sidebar-border)]">
 					<Link href="/dashboard" className="flex items-center gap-2">
-						<div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-							<Sparkles className="w-5 h-5 text-white" />
-						</div>
-						<span className="text-lg font-bold">
-							Optima<span className="text-primary-400">AI</span>
-						</span>
+						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-12 w-auto" />
 					</Link>
 				</div>
 				<nav className="p-3 space-y-6 overflow-y-auto max-h-[calc(100vh-4rem)]">
@@ -98,35 +92,7 @@ function MobileDrawer({
 							</div>
 						</div>
 					))}
-					{canAccessAdmin && (
-						<div>
-							<p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
-								Administration
-							</p>
-							<div className="space-y-1">
-								{ADMIN_NAV_ITEMS.map((item) => {
-									const isActive =
-										pathname === item.href ||
-										pathname.startsWith(`${item.href}/`);
-									return (
-										<Link
-											key={item.href}
-											href={item.href}
-											className={cn(
-												"flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
-												isActive
-													? "bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300"
-													: "text-muted-foreground hover:bg-muted hover:text-foreground",
-											)}
-										>
-											<item.icon className="w-5 h-5" />
-											{item.title}
-										</Link>
-									);
-								})}
-							</div>
-						</div>
-					)}
+
 				</nav>
 			</div>
 		</>
