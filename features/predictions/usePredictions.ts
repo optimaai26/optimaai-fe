@@ -1,13 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api/api-client";
-import type { Prediction } from "@/types";
+import type { PastPrediction } from "@/types";
 
 export function usePredictions() {
-	return useQuery<{ data: Prediction[] }>({
+	return useQuery({
 		queryKey: ["predictions"],
-		queryFn: () => apiClient.get<{ data: Prediction[] }>("/predictions"),
+		queryFn: () =>
+			apiClient.get<{ data: PastPrediction[] }>("/predictions"),
 	});
 }
+
 
 export function useCreatePrediction() {
 	const queryClient = useQueryClient();

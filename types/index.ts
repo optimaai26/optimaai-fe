@@ -80,17 +80,58 @@ export interface Prediction {
 	createdAt: ISODateString;
 }
 
-export type PredictionType =
-	| "churn"
+// types/predictions.ts (or append to your main types file)
+
+export type ModelKind = "revenue" | "churn" | "growth";
+export type FrontendPredictionType =
 	| "revenue_forecast"
-	| "growth_scoring"
-	| "support_nlp";
+	| "churn"
+	| "growth_scoring";
+
+export interface MappingSuggestion {
+	model_kind: ModelKind;
+	mapping: Record<string, string | null>;
+	confidence: Record<string, number>;
+	unmapped: string[];
+	missing: string[];
+	upload_id: number;
+	table: string;
+}
+
+export interface SavedMapping {
+	id: number;
+	upload_id: number;
+	model_kind: ModelKind;
+	mapping: Record<string, string | null>;
+	created_at: string | null;
+}
 
 export interface PredictionResult {
-	summary: string;
-	confidence: number;
-	data: Record<string, unknown>;
-	chartConfig?: ChartConfig;
+	prediction_id: number;
+	model_kind: ModelKind;
+	result: {
+		prediction?: number;
+		unit?: string;
+		churn_probability?: number;
+		risk_level?: "low" | "medium" | "high";
+		forecast_3m?: number;
+	};
+	features_used: Record<string, unknown>;
+	mapping_used: Record<string, string | null>;
+	created_at: string;
+}
+
+export interface PastPrediction {
+	id: string;
+	datasetId: string | null;
+	type: FrontendPredictionType;
+	status: "completed" | "pending" | "failed";
+	result: {
+		summary: string;
+		confidence: number;
+		data: Record<string, unknown>;
+	};
+	createdAt: string | null;
 }
 
 export interface Insight {

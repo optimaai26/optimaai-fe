@@ -5,15 +5,14 @@ import {
 	ChevronDown,
 	LogOut,
 	Menu,
-	Moon,
 	Search,
 	Settings,
 	Sparkles,
-	Sun,
 	User,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GlobalSearch } from "@/components/GlobalSearch";
@@ -138,7 +137,12 @@ function MobileDrawer({
  * Topbar Component
  * ========================================== */
 export function Topbar() {
-	const { theme, setTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 	const { mobileSidebarOpen, setMobileSidebarOpen } = useUiStore();
 	const { user, logout } = useAuth();
 	const router = useRouter();
@@ -219,10 +223,10 @@ export function Topbar() {
 							aria-label="Toggle theme"
 							suppressHydrationWarning
 						>
-							{theme === "dark" ? (
-								<Sun className="w-5 h-5" />
+							{mounted ? (
+								 theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />
 							) : (
-								<Moon className="w-5 h-5" />
+								<div className="w-5 h-5" />
 							)}
 						</button>
 

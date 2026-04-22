@@ -13,13 +13,14 @@ export class ApiError extends Error {
 		public statusText: string,
 		public body?: unknown,
 	) {
-		super(`API Error ${status}: ${statusText}`);
+		// Extract FastAPI's `detail` field if present, otherwise fall back
+		const detail =
+			body && typeof body === "object" && "detail" in body
+				? String((body as { detail: unknown }).detail)
+				: statusText;
+		super(`${status}: ${detail}`);
 		this.name = "ApiError";
 	}
-}
-
-interface RequestOptions extends Omit<RequestInit, "body"> {
-	body?: Record<string, unknown> | FormData;
 }
 
 export function persistAuthToken(token: string): void {

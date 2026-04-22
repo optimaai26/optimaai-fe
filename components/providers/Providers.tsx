@@ -9,7 +9,7 @@ import { QueryClientProvider } from "@/lib/api/query-client";
 function MswProvider({ children }: { children: ReactNode }) {
 	// MSW is opt-in via NEXT_PUBLIC_ENABLE_MSW=true.
 	// Leave unset (or set to 'false') to hit the real backend instead.
-	const isMockEnabled = process.env.NEXT_PUBLIC_ENABLE_MSW === "true";
+	const isMockEnabled = process.env.NEXT_PUBLIC_ENABLE_MSW === 'true';
 	const [ready, setReady] = useState(!isMockEnabled);
 
 	useEffect(() => {

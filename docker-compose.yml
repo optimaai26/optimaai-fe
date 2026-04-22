@@ -1,18 +1,21 @@
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_ENABLE_MSW=true
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
     ports:
-      - "3006:3000"
+      - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_ENABLE_MSW=true
-      # Add your environment variables here or use .env file
-      # - NEXT_PUBLIC_API_URL=http://api:8000
+      - NODE_ENV=development
+      - NEXT_PUBLIC_ENABLE_MSW=false
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+      # host.docker.internal lets the container reach your Windows host
+      # (only used for server-side fetches; browser uses localhost directly)
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
     restart: unless-stopped
-    # Uncomment to use environment variables from .env file
-    # env_file:
-    #   - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

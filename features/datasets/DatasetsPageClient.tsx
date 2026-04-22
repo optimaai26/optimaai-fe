@@ -6,11 +6,7 @@ import { useState } from "react";
 import { type Column, DataTable } from "@/components/data-display/DataTable";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { UploadDatasetModal } from "@/features/datasets/UploadDatasetModal";
-import {
-	useCreateDataset,
-	useDatasets,
-	useDeleteDataset,
-} from "@/features/datasets/useDatasets";
+import { useDatasets, useDeleteDataset } from "@/features/datasets/useDatasets";
 import type { Dataset } from "@/types";
 
 const columns: Column<Dataset>[] = [
@@ -58,21 +54,8 @@ function DeleteDatasetButton({ id }: { id: string }) {
 
 export function DatasetsPageClient() {
 	const { data, isLoading, isError } = useDatasets();
-	const createDataset = useCreateDataset();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const datasets = data?.data ?? [];
-
-	const _handleUploadComplete = (fileName: string) => {
-		createDataset.mutate({
-			name: fileName.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "),
-			fileName,
-			fileUrl: `/uploads/${fileName}`,
-			status: "processing",
-			rowCount: 0,
-			columnCount: 0,
-			uploadedBy: "user-1",
-		});
-	};
 
 	return (
 		<div className="animate-fade-in space-y-6">
@@ -103,7 +86,7 @@ export function DatasetsPageClient() {
 					</div>
 					<h3 className="text-lg font-semibold mb-2">No Datasets Found</h3>
 					<p className="text-sm text-muted-foreground max-w-sm mb-4">
-						Upload a file to create the first dataset in this mock session.
+						Upload a file to get started.
 					</p>
 					<button
 						type="button"
