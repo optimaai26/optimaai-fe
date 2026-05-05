@@ -11,7 +11,7 @@ function hasAuthToken(token?: string): boolean {
 	return !!token && token.length > 0;
 }
 
-export function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
 	if (

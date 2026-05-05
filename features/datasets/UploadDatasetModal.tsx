@@ -47,7 +47,6 @@ export function UploadDatasetModal({
 		if (droppedFile) {
 			setFile(droppedFile);
 			if (!name) {
-				// Auto-fill name if empty
 				setName(droppedFile.name.replace(/\.[^/.]+$/, ""));
 			}
 		}
@@ -58,7 +57,6 @@ export function UploadDatasetModal({
 		if (selectedFile) {
 			setFile(selectedFile);
 			if (!name) {
-				// Auto-fill name if empty
 				setName(selectedFile.name.replace(/\.[^/.]+$/, ""));
 			}
 		}
@@ -66,20 +64,51 @@ export function UploadDatasetModal({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!file) return;
 		setIsSubmitting(true);
-		// Simulate API post and file upload
-		await new Promise((res) => setTimeout(res, 1500));
-		setIsSubmitting(false);
 
-		toast({
-			title: "Upload Successful",
-			message: `Dataset "${name}" was uploaded and is now processing.`,
-			type: "success",
-		});
+		try {
+			const formData = new FormData();
+			formData.append("file", file);
+			formData.append("user_id", "1"); // TODO: wire to auth context
+			formData.append("category", "general");
 
-		// Refresh datasets query
-		queryClient.invalidateQueries({ queryKey: ["datasets"] });
-		onClose();
+			const apiBase =
+				process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+
+			const res = await fetch(`${apiBase}/datasets/upload`, {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!res.ok) {
+				const errText = await res.text();
+				throw new Error(errText || `Upload failed (${res.status})`);
+			}
+
+			const result = await res.json();
+
+			toast({
+				title: "Upload Successful",
+				message: `"${name}" — ${result.rows} rows, ${result.columns} columns, quality ${result.quality_before}→${result.quality_after}.`,
+				type: "success",
+			});
+
+			queryClient.invalidateQueries({ queryKey: ["datasets"] });
+			setFile(null);
+			setName("");
+			setDescription("");
+			onClose();
+		} catch (err) {
+			toast({
+				title: "Upload Failed",
+				message:
+					err instanceof Error ? err.message : "Could not upload file.",
+				type: "error",
+			});
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -104,7 +133,11 @@ export function UploadDatasetModal({
 						<button
 							type="button"
 							tabIndex={0}
-							className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer w-full ${isDragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/50"}`}
+							className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer w-full ${
+								isDragging
+									? "border-primary bg-primary/5"
+									: "border-border hover:border-primary/50 hover:bg-muted/50"
+							}`}
 							onDragOver={handleDragOver}
 							onDragLeave={handleDragLeave}
 							onDrop={handleDrop}

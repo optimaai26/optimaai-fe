@@ -1,20 +1,9 @@
 "use client";
 
-import {
-	Building2,
-	ChevronLeft,
-	Globe,
-	Settings,
-	Sparkles,
-} from "lucide-react";
+import { ChevronLeft, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-	ADMIN_NAV_ITEMS,
-	NAV_SECTIONS,
-	type NavItem,
-} from "@/constants/navigation";
-import { useRbac } from "@/hooks/useRbac";
+import { NAV_SECTIONS, type NavItem } from "@/constants/navigation";
 import { useUiStore } from "@/lib/stores/ui-store";
 import { cn } from "@/lib/utils/cn";
 
@@ -22,6 +11,9 @@ import { cn } from "@/lib/utils/cn";
  * Sidebar Component
  * Desktop: fixed left panel, collapsible
  * Mobile: handled via Sheet in the Topbar
+ *
+ * Nav items live in @/constants/navigation under NAV_SECTIONS.
+ * To add the BMC entry, edit that file (NOT this one).
  * ========================================== */
 
 function SidebarLink({
@@ -66,8 +58,8 @@ function SidebarLink({
 }
 
 export function Sidebar() {
-	const { sidebarCollapsed, toggleSidebar, viewScope, setViewScope } =
-		useUiStore();
+	const { sidebarCollapsed, toggleSidebar } = useUiStore();
+
 	return (
 		<aside
 			className={cn(
@@ -82,12 +74,20 @@ export function Sidebar() {
 			<div className="flex items-center justify-between h-20 px-4 border-b border-[var(--sidebar-border)]">
 				{!sidebarCollapsed && (
 					<Link href="/dashboard" className="flex items-center gap-2">
-						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-12 w-auto" />
+						<img
+							src="/assets/logos/c3.svg"
+							alt="OptimaAI Logo"
+							className="h-12 w-auto"
+						/>
 					</Link>
 				)}
 				{sidebarCollapsed && (
 					<div className="mx-auto flex justify-center">
-						<img src="/assets/logos/c4.svg" alt="Optima AI Icon" className="h-10 w-10 object-contain" />
+						<img
+							src="/assets/logos/c4.svg"
+							alt="Optima AI Icon"
+							className="h-10 w-10 object-contain"
+						/>
 					</div>
 				)}
 				<button
@@ -110,8 +110,6 @@ export function Sidebar() {
 				</button>
 			</div>
 
-
-
 			{/* Navigation Sections */}
 			<nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
 				{NAV_SECTIONS.map((section) => (
@@ -132,8 +130,6 @@ export function Sidebar() {
 						</div>
 					</div>
 				))}
-
-
 			</nav>
 
 			{/* Settings Footer */}
