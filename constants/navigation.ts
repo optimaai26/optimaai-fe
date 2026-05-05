@@ -4,6 +4,7 @@ import {
 	Database,
 	FileText,
 	LayoutDashboard,
+	LayoutGrid,
 	type LucideIcon,
 	Shield,
 	TrendingUp,
@@ -45,7 +46,8 @@ export const NAV_SECTIONS: NavSection[] = [
 		label: "AI & Insights",
 		items: [
 			{ title: "Insights", href: "/insights", icon: BrainCircuit },
-			{ title: 'Canvas', href: '/canvas', icon: BookOpen },
+			// Auto-generated BMC inferred from uploaded data (read-only, one-click)
+			{ title: "AI Canvas", href: "/bmc", icon: LayoutGrid },
 			{ title: "Reports", href: "/reports", icon: FileText },
 		],
 	},
@@ -65,6 +67,7 @@ export const ROUTE_PATHS = {
 	predictions: "/predictions",
 	insights: "/insights",
 	canvas: "/canvas",
+	bmc: "/bmc",
 	reports: "/reports",
 	adminUsers: "/admin/users",
 	adminRoles: "/admin/roles",

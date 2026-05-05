@@ -20,7 +20,57 @@ export interface AggregateRowsResponse {
 	rows: AggregateRow[];
 }
 
-/** Auto-suggest mapping for upload + model kind */
+// ── Batch result types ─────────────────────────────────────
+
+export interface MonthlyPoint {
+	month: string;
+	predicted_revenue?: number;
+	actual_revenue?: number;
+}
+
+export interface BatchRevenueSummary {
+	n_rows: number;
+	errors: number;
+	total_predicted: number;
+	avg_row_predicted: number;
+	monthly_actual: MonthlyPoint[];
+	forward_forecast: Array<{ month: string; predicted_revenue: number }>;
+	forecast_note: string | null;
+	unit: string;
+}
+
+export interface BatchChurnRow {
+	customer_id: string;
+	churn_probability: number;
+	risk_level: "low" | "medium" | "high";
+}
+
+export interface BatchChurnSummary {
+	n_customers: number;
+	errors: number;
+	risk_counts: { high: number; medium: number; low: number };
+	rows: BatchChurnRow[];
+}
+
+export interface BatchGrowthSummary {
+	n_months_actual: number;
+	n_months_forecast: number;
+	actual: Array<{ month: string; actual_revenue: number }>;
+	forecast: Array<{ month: string; predicted_revenue: number }>;
+	unit: string;
+}
+
+export interface BatchResult<T> {
+	prediction_id: number;
+	model_kind: ModelKind;
+	summary: T;
+	created_at: string;
+}
+
+// ══════════════════════════════════════════════════════
+//  Single-row hooks (kept for backwards compat)
+// ══════════════════════════════════════════════════════
+
 export function useSuggestMapping(
 	uploadId: number | null,
 	modelKind: ModelKind,
@@ -38,7 +88,6 @@ export function useSuggestMapping(
 	});
 }
 
-/** Fetch suggestions for ALL model kinds in parallel — used by the recommendation screen */
 export function useSuggestAllMappings(uploadId: number | null) {
 	return useQueries({
 		queries: (["revenue", "churn", "growth"] as ModelKind[]).map((kind) => ({
@@ -68,7 +117,6 @@ export function useSuggestAllMappings(uploadId: number | null) {
 	});
 }
 
-/** Fetch rows from the aggregate table (customers for churn, months for growth) */
 export function useAggregateRows(
 	uploadId: number | null,
 	modelKind: ModelKind | null,
@@ -90,7 +138,6 @@ export function useAggregateRows(
 	});
 }
 
-/** Save a user-edited mapping */
 export function useSaveMapping() {
 	const queryClient = useQueryClient();
 	return useMutation({
@@ -107,7 +154,6 @@ export function useSaveMapping() {
 	});
 }
 
-/** Run a prediction using the saved mapping */
 export function useRunPrediction() {
 	const queryClient = useQueryClient();
 	return useMutation({
@@ -116,6 +162,52 @@ export function useRunPrediction() {
 			model_kind: ModelKind;
 			user_features: Record<string, unknown>;
 		}) => apiClient.post<PredictionResult>("/mapping/predict", payload),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["predictions"] });
+		},
+	});
+}
+
+// ══════════════════════════════════════════════════════
+//  Batch hooks
+// ══════════════════════════════════════════════════════
+
+export function useBatchRevenue() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (uploadId: number) =>
+			apiClient.post<BatchResult<BatchRevenueSummary>>(
+				`/mapping/predict-batch/revenue/${uploadId}`,
+				{},
+			),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["predictions"] });
+		},
+	});
+}
+
+export function useBatchChurn() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (uploadId: number) =>
+			apiClient.post<BatchResult<BatchChurnSummary>>(
+				`/mapping/predict-batch/churn/${uploadId}`,
+				{},
+			),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["predictions"] });
+		},
+	});
+}
+
+export function useBatchGrowth() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (uploadId: number) =>
+			apiClient.post<BatchResult<BatchGrowthSummary>>(
+				`/mapping/predict-batch/growth/${uploadId}`,
+				{},
+			),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["predictions"] });
 		},
