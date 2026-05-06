@@ -7,6 +7,7 @@ import { type Column, DataTable } from "@/components/data-display/DataTable";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { UploadDatasetModal } from "@/features/datasets/UploadDatasetModal";
 import { useDatasets, useDeleteDataset } from "@/features/datasets/useDatasets";
+import { OdooStatusCard } from "@/features/odoo/OdooStatusCard";
 import type { Dataset } from "@/types";
 
 const columns: Column<Dataset>[] = [
@@ -73,6 +74,7 @@ export function DatasetsPageClient() {
 					</button>
 				}
 			/>
+			<OdooStatusCard />
 			{isLoading ? (
 				<div className="min-h-[240px] flex items-center justify-center">
 					<Loader2 className="w-6 h-6 animate-spin" />
