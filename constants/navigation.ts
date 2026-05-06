@@ -6,6 +6,7 @@ import {
 	LayoutDashboard,
 	LayoutGrid,
 	type LucideIcon,
+	Plug,
 	Shield,
 	TrendingUp,
 	UserCog,
@@ -51,6 +52,10 @@ export const NAV_SECTIONS: NavSection[] = [
 			{ title: "Reports", href: "/reports", icon: FileText },
 		],
 	},
+	{
+		label: "Integrations",
+		items: [{ title: "Connectors", href: "/integrations/odoo", icon: Plug }],
+	},
 ];
 
 /** Admin navigation (shown only to admin/manager roles) */
@@ -69,6 +74,7 @@ export const ROUTE_PATHS = {
 	canvas: "/canvas",
 	bmc: "/bmc",
 	reports: "/reports",
+	odoo: "/integrations/odoo",
 	adminUsers: "/admin/users",
 	adminRoles: "/admin/roles",
 	adminAccessRequests: "/admin/access-requests",
