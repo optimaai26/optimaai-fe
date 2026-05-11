@@ -12,7 +12,7 @@ import type {
   Dataset,
   Insight,
   Permission,
-  Prediction,
+  PastPrediction,
   Report,
   Role,
   User,
@@ -175,7 +175,7 @@ const initialDatasets: Dataset[] = [
   },
 ];
 
-const initialPredictions: Prediction[] = [
+const initialPredictions: PastPrediction[] = [
   {
     id: 'prediction-1',
     datasetId: 'dataset-1',
@@ -192,20 +192,20 @@ const initialPredictions: Prediction[] = [
     id: 'prediction-2',
     datasetId: 'dataset-2',
     type: 'revenue_forecast',
-    status: 'running',
+    status: 'pending',
     createdAt: '2026-04-01T12:20:00.000Z',
   },
   {
     id: 'prediction-3',
     datasetId: 'dataset-3',
     type: 'growth_scoring',
-    status: 'queued',
+    status: 'pending',
     createdAt: '2026-04-01T12:35:00.000Z',
   },
   {
     id: 'prediction-4',
     datasetId: 'dataset-4',
-    type: 'support_nlp',
+    type: 'churn',
     status: 'completed',
     result: {
       summary: 'Significant spike in login-related issues identified.',
@@ -484,7 +484,7 @@ const initialDashboardOverview: DashboardOverview = {
 };
 
 const STATUSES = ['ready', 'processing', 'failed', 'uploading', 'error'] as const;
-const PREDICTION_TYPES = ['churn', 'revenue_forecast', 'growth_scoring', 'support_nlp'] as const;
+const PREDICTION_TYPES = ['churn', 'revenue_forecast', 'growth_scoring'] as const;
 const DEPARTMENTS = ['engineering', 'finance', 'sales', 'marketing', 'analytics', 'ops'];
 
 // --- BULK SEEDING GENERATOR ---
@@ -524,7 +524,7 @@ for (let i = 1; i <= 25; i++) {
       id: `prediction-seed-${i}`,
       datasetId: `dataset-seed-${i}`,
       type: PREDICTION_TYPES[i % PREDICTION_TYPES.length],
-      status: i % 4 === 0 ? 'failed' : i % 3 === 0 ? 'running' : 'completed',
+      status: i % 4 === 0 ? 'failed' : i % 3 === 0 ? 'pending' : 'completed',
       result:
         i % 3 !== 0 && i % 4 !== 0
           ? {
@@ -729,21 +729,20 @@ export function deleteDataset(id: string): boolean {
   return true;
 }
 
-export function getPredictions(): Prediction[] {
-  return predictions;
+export function getPredictions(): PastPrediction[] {
+  return clone(predictions);
 }
 
-export function getPredictionById(id: string): Prediction | undefined {
-  return predictions.find((prediction) => prediction.id === id);
+export function getPredictionById(id: string): PastPrediction | undefined {
+  return clone(predictions.find((p) => p.id === id));
 }
 
-export function addPrediction(prediction: Omit<Prediction, 'id' | 'createdAt'>): Prediction {
-  const nextPrediction: Prediction = {
+export function addPrediction(prediction: Omit<PastPrediction, 'id' | 'createdAt'>): PastPrediction {
+  const nextPrediction: PastPrediction = {
     ...prediction,
-    id: nextId('prediction'),
+    id: `prediction-${Date.now()}`,
     createdAt: new Date().toISOString(),
   };
-
   predictions.unshift(nextPrediction);
   return nextPrediction;
 }

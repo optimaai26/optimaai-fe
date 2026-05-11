@@ -248,7 +248,10 @@ function RevenueTrendCard({
               borderRadius: 8,
               fontSize: 12,
             }}
-            formatter={(value: number) => [`${currency} ${value.toLocaleString()}`, 'Revenue']}
+            formatter={(value: number | undefined) => [
+              value !== undefined ? `${currency} ${value.toLocaleString()}` : `${currency} 0`,
+              'Revenue',
+            ]}
           />
           <Line
             type="monotone"
@@ -325,7 +328,10 @@ function TopCategoriesCard({
               borderRadius: 8,
               fontSize: 12,
             }}
-            formatter={(value: number) => [`${currency} ${value.toLocaleString()}`, 'Revenue']}
+            formatter={(value: number | undefined) => [
+              value !== undefined ? `${currency} ${value.toLocaleString()}` : `${currency} 0`,
+              'Revenue',
+            ]}
           />
           <Bar dataKey="revenue" fill="var(--primary)" radius={[0, 6, 6, 0]} />
         </BarChart>

@@ -41,10 +41,10 @@ export interface GeneratedReport {
   };
 }
 
-export interface GenerateReportParams {
+export type GenerateReportParams = {
   template_id: string;
   role?: string;
-}
+};
 
 /* ------------------------------------------------------------------ */
 /* Query keys                                                          */

@@ -24,7 +24,7 @@ import {
   updateCanvasBlock,
   updateDataset,
 } from '@/mocks/data';
-import type { ApiResponse, CanvasBlock, Dataset, Prediction } from '@/types';
+import type { ApiResponse, CanvasBlock, Dataset, PastPrediction } from '@/types';
 
 const API_PREFIX = process.env.NEXT_PUBLIC_API_URL || '/api/v1';
 
@@ -178,11 +178,11 @@ export const handlers = [
   }),
 
   http.post(`${API_PREFIX}/predictions`, async ({ request }) => {
-    const body = (await request.json()) as Partial<Prediction>;
+    const body = (await request.json()) as Partial<PastPrediction>;
     const prediction = addPrediction({
       datasetId: body.datasetId ?? 'dataset-1',
       type: body.type ?? 'churn',
-      status: body.status ?? 'queued',
+      status: body.status ?? 'pending',
       result: body.result,
     });
     return HttpResponse.json({ data: prediction }, { status: 201 });

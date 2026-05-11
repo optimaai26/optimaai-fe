@@ -500,13 +500,13 @@ function RevenueResultView({ summary }: { summary: BatchRevenueSummary }) {
       return {
         month: '?',
         historical: null as number | null,
-        forecast: f,
+        forecast: f as number | null,
       };
     }
     return {
       month: f.month,
       historical: null as number | null,
-      forecast: f.predicted_revenue,
+      forecast: f.predicted_revenue as number | null,
     };
   });
 
@@ -517,7 +517,7 @@ function RevenueResultView({ summary }: { summary: BatchRevenueSummary }) {
     forecastPoints.unshift({
       month: last.month,
       historical: null,
-      forecast: last.historical,
+      forecast: last.historical ?? null,
     });
   }
 

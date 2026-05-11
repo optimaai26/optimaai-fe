@@ -39,9 +39,9 @@ export interface BmcResponse {
   message?: string;
 }
 
-export interface GenerateBmcParams {
+export type GenerateBmcParams = {
   business_name?: string;
-}
+};
 
 /** POST /bmc/generate — generate a fresh BMC */
 export function useGenerateBmc() {

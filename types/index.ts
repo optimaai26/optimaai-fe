@@ -69,7 +69,7 @@ export interface DatasetColumn {
 export interface Prediction {
   id: string;
   datasetId: string;
-  type: PredictionType;
+  type: FrontendPredictionType;
   status: 'queued' | 'running' | 'completed' | 'failed';
   result?: PredictionResult;
   createdAt: ISODateString;
@@ -118,7 +118,7 @@ export interface PastPrediction {
   datasetId: string | null;
   type: FrontendPredictionType;
   status: 'completed' | 'pending' | 'failed';
-  result: {
+  result?: {
     summary: string;
     confidence: number;
     data: Record<string, unknown>;

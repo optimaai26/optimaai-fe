@@ -47,6 +47,10 @@ async function getAuthHeaders(): Promise<Record<string, string>> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+export interface RequestOptions extends Omit<RequestInit, 'body'> {
+  body?: unknown;
+}
+
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { body, headers: customHeaders, ...restOptions } = options;
 
