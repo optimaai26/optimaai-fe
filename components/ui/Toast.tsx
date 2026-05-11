@@ -17,17 +17,24 @@ interface Toast {
 
 interface ToastStore {
 	toasts: Toast[];
+	history: Toast[];
 	toast: (props: Omit<Toast, "id">) => void;
 	dismiss: (id: string) => void;
+	clearHistory: () => void;
 }
 
 export const useToast = create<ToastStore>((set) => ({
 	toasts: [],
+	history: [],
 	toast: (props) => {
 		const id = Math.random().toString(36).slice(2, 9);
-		set((state) => ({ toasts: [...state.toasts, { id, ...props }] }));
+		const newToast = { id, ...props };
+		set((state) => ({ 
+			toasts: [...state.toasts, newToast],
+			history: [newToast, ...state.history].slice(0, 50) // keep last 50
+		}));
 
-		// Auto dismiss if not loading
+		// Auto dismiss active toast if not loading
 		if (props.type !== "loading") {
 			const duration = props.duration || 5000;
 			setTimeout(() => {
@@ -41,6 +48,7 @@ export const useToast = create<ToastStore>((set) => ({
 		set((state) => ({
 			toasts: state.toasts.filter((t) => t.id !== id),
 		})),
+	clearHistory: () => set({ history: [] }),
 }));
 
 export function Toaster() {

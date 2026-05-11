@@ -26,7 +26,7 @@ import {
 } from "@/mocks/data";
 import type { ApiResponse, CanvasBlock, Dataset, Prediction } from "@/types";
 
-const API_PREFIX = "/api/v1";
+const API_PREFIX = process.env.NEXT_PUBLIC_API_URL || "/api/v1";
 
 function getBearerToken(request: Request): string | null {
 	const header = request.headers.get("authorization");
@@ -82,7 +82,7 @@ export const handlers = [
 		return HttpResponse.json({ data: user } satisfies ApiResponse<typeof user>);
 	}),
 
-	http.get(`${API_PREFIX}/dashboard`, () => {
+	http.get(`${API_PREFIX}/dashboard/stats`, () => {
 		return HttpResponse.json({ data: getDashboardOverview() });
 	}),
 
@@ -108,7 +108,17 @@ export const handlers = [
 		const pageSize = Number(url.searchParams.get("pageSize") ?? "20");
 		const all = getDatasets();
 		const start = (page - 1) * pageSize;
-		const data = all.slice(start, start + pageSize);
+		const data = all.slice(start, start + pageSize).map((d) => ({
+			id: Number(d.id.replace(/\D/g, "")) || 1,
+			name: d.name,
+			file: d.fileName,
+			table_name: d.fileName.split(".")[0],
+			rows: d.rowCount,
+			columns: d.columnCount,
+			uploaded_at: d.createdAt,
+			status: d.status,
+			user_id: 1,
+		}));
 		return HttpResponse.json({
 			data,
 			total: all.length,

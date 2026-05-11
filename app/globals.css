@@ -249,3 +249,32 @@ body {
 .animate-pulse-subtle {
 	animation: pulse-subtle 2s ease-in-out infinite;
 }
+
+/* ==========================================
+ * Dark mode: native <select> dropdown fix
+ * color-scheme tells the browser to render
+ * the native picker with a dark background.
+ * ========================================== */
+.dark select {
+	color-scheme: dark;
+	background-color: var(--card);
+	color: var(--foreground);
+}
+
+/* ==========================================
+ * Slide-up animation (used by modals)
+ * ========================================== */
+@keyframes slide-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-slide-up {
+	animation: slide-up 0.3s ease-out;
+}

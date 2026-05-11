@@ -9,6 +9,7 @@ import {
 	Settings,
 	Sparkles,
 	User,
+	X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -16,6 +17,7 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { useToast } from "@/components/ui/Toast";
 import { ADMIN_NAV_ITEMS, NAV_SECTIONS } from "@/constants/navigation";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { useGlobalSearch } from "@/hooks/useGlobalSearch";
@@ -113,7 +115,10 @@ export function Topbar() {
 	const { user, logout } = useAuth();
 	const router = useRouter();
 	const [userMenuOpen, setUserMenuOpen] = useState(false);
+	const [notifOpen, setNotifOpen] = useState(false);
 	const menuRef = useRef<HTMLDivElement>(null);
+	const notifRef = useRef<HTMLDivElement>(null);
+	const { toasts, history, dismiss, clearHistory } = useToast();
 
 	const closeMobileSidebar = useCallback(() => {
 		setMobileSidebarOpen(false);
@@ -129,6 +134,9 @@ export function Topbar() {
 		function handleClickOutside(e: MouseEvent) {
 			if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
 				setUserMenuOpen(false);
+			}
+			if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+				setNotifOpen(false);
 			}
 		}
 		document.addEventListener("mousedown", handleClickOutside);
@@ -197,15 +205,78 @@ export function Topbar() {
 						</button>
 
 						{/* Notifications */}
-						<button
-							type="button"
-							className="relative p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-							aria-label="Notifications"
-							suppressHydrationWarning
-						>
-							<Bell className="w-5 h-5" />
-							<span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full" />
-						</button>
+						<div className="relative" ref={notifRef}>
+							<button
+								type="button"
+								onClick={() => setNotifOpen(!notifOpen)}
+								className="relative p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+								aria-label="Notifications"
+								aria-expanded={notifOpen}
+								suppressHydrationWarning
+							>
+								<Bell className="w-5 h-5" />
+								{history.length > 0 && (
+									<span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full" />
+								)}
+							</button>
+
+							{notifOpen && (
+								<div
+									className="absolute right-0 top-12 w-80 rounded-xl bg-popover border border-border shadow-xl py-2 animate-fade-in z-50"
+									role="menu"
+								>
+									<div className="flex items-center justify-between px-4 py-2 border-b border-border">
+										<p className="text-sm font-semibold">Notifications</p>
+										{history.length > 0 && (
+											<button
+												type="button"
+												onClick={() => clearHistory()}
+												className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+											>
+												Clear all
+											</button>
+										)}
+									</div>
+
+									{history.length === 0 ? (
+										<div className="px-4 py-6 text-center">
+											<Bell className="w-8 h-8 mx-auto text-muted-foreground/40 mb-2" />
+											<p className="text-sm text-muted-foreground">No notifications</p>
+										</div>
+									) : (
+										<ul className="max-h-72 overflow-y-auto divide-y divide-border">
+											{history.map((t) => (
+												<li key={t.id} className="flex items-start gap-3 px-4 py-3 hover:bg-muted/50 transition-colors">
+													<span
+														className={cn(
+															"mt-0.5 w-2 h-2 rounded-full shrink-0",
+															t.type === "success" && "bg-success",
+															t.type === "error" && "bg-danger",
+															t.type === "info" && "bg-info",
+															t.type === "loading" && "bg-muted-foreground",
+														)}
+													/>
+													<div className="flex-1 min-w-0">
+														<p className="text-sm font-medium truncate">{t.title}</p>
+														{t.message && (
+															<p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{t.message}</p>
+														)}
+													</div>
+													<button
+														type="button"
+														onClick={() => dismiss(t.id)}
+														className="shrink-0 rounded-full p-1 hover:bg-muted transition-colors"
+														aria-label="Dismiss notification"
+													>
+														<X className="w-3 h-3 text-muted-foreground" />
+													</button>
+												</li>
+											))}
+										</ul>
+									)}
+								</div>
+							)}
+						</div>
 
 						{/* User Menu */}
 						<div className="relative" ref={menuRef}>

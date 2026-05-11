@@ -3,6 +3,7 @@
 import { ChevronLeft, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { NAV_SECTIONS, type NavItem } from "@/constants/navigation";
 import { useUiStore } from "@/lib/stores/ui-store";
 import { cn } from "@/lib/utils/cn";
@@ -59,6 +60,14 @@ function SidebarLink({
 
 export function Sidebar() {
 	const { sidebarCollapsed, toggleSidebar } = useUiStore();
+	const { resolvedTheme } = useTheme();
+
+	// Theme-aware logo selection:
+	// Expanded: full logo (icon + text). Collapsed: icon-only.
+	const fullLogoSrc =
+		resolvedTheme === "dark" ? "/assets/logos/w3.svg" : "/assets/logos/n3.svg";
+	const iconLogoSrc =
+		resolvedTheme === "dark" ? "/assets/logos/w4.svg" : "/assets/logos/n4.svg";
 
 	return (
 		<aside
@@ -71,32 +80,40 @@ export function Sidebar() {
 			)}
 		>
 			{/* Logo + Collapse Toggle */}
-			<div className="flex items-center justify-between h-20 px-4 border-b border-[var(--sidebar-border)]">
+			<div
+				className={cn(
+					"flex items-center h-20 border-b border-[var(--sidebar-border)] relative",
+					sidebarCollapsed ? "justify-center px-0" : "justify-between px-4"
+				)}
+			>
+				{/* Expanded: show full logo (icon + "OptiMayo" text) */}
 				{!sidebarCollapsed && (
-					<Link href="/dashboard" className="flex items-center gap-2">
+					<Link href="/dashboard" className="flex items-center gap-2 min-w-0">
 						<img
-							src="/assets/logos/c3.svg"
-							alt="OptimaAI Logo"
-							className="h-12 w-auto"
+							src={fullLogoSrc}
+							alt="OptiMayo Logo"
+							className="h-11 w-auto"
+							suppressHydrationWarning
 						/>
 					</Link>
 				)}
+				{/* Collapsed: show icon-only circular logo */}
 				{sidebarCollapsed && (
-					<div className="mx-auto flex justify-center">
+					<Link href="/dashboard" className="mx-auto flex justify-center">
 						<img
-							src="/assets/logos/c4.svg"
-							alt="Optima AI Icon"
-							className="h-10 w-10 object-contain"
+							src={iconLogoSrc}
+							alt="OptiMayo Icon"
+							className="h-10 w-10 object-cover object-left"
+							suppressHydrationWarning
 						/>
-					</div>
+					</Link>
 				)}
 				<button
 					type="button"
 					onClick={toggleSidebar}
 					className={cn(
 						"p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground",
-						sidebarCollapsed &&
-							"absolute -right-3 top-5 bg-background border border-border shadow-sm",
+						sidebarCollapsed && "absolute top-1/2 -translate-y-1/2 -right-[14px]",
 					)}
 					aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
 					suppressHydrationWarning

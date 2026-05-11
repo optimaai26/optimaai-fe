@@ -43,7 +43,10 @@ interface DatasetRow {
 function RecentActivity() {
     const { data, isLoading } = useQuery<DatasetRow[], Error>({
         queryKey: ['recent-uploads'],
-        queryFn:  () => apiClient.get<DatasetRow[]>('/datasets/'),
+        queryFn:  async () => {
+            const res = await apiClient.get<any>('/datasets/');
+            return Array.isArray(res) ? res : (res?.data || []);
+        },
         staleTime: 60 * 1000,
     });
 
@@ -62,7 +65,7 @@ function RecentActivity() {
                 </p>
             ) : (
                 <ul className="space-y-2">
-                    {data.slice(0, 5).map((row) => (
+                    {(Array.isArray(data) ? data : []).slice(0, 5).map((row) => (
                         <li
                             key={row.id}
                             className="flex items-center justify-between gap-2 text-sm py-1.5"

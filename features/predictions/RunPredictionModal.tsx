@@ -196,7 +196,7 @@ export function RunPredictionModal({
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md animate-fade-in">
-			<div className="bg-background/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col animate-slide-up max-h-[90vh]">
+			<div className="bg-background/95 dark:bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col animate-slide-up max-h-[90vh]">
 				<div className="flex items-center justify-between p-4 border-b border-border/50 bg-muted/20">
 					<div className="flex items-center gap-2 font-semibold">
 						<Sparkles className="w-5 h-5 text-primary-500" />
@@ -228,11 +228,11 @@ export function RunPredictionModal({
 											e.target.value ? Number(e.target.value) : null,
 										)
 									}
-									className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm"
+									className="w-full bg-background dark:bg-surface-800 text-foreground border border-border rounded-lg px-3 py-2 text-sm dark:[color-scheme:dark]"
 								>
-									<option value="">— Choose a dataset —</option>
+									<option className="dark:bg-surface-800 dark:text-foreground" value="">— Choose a dataset —</option>
 									{datasets.map((d) => (
-										<option key={d.id} value={d.id}>
+										<option className="dark:bg-surface-800 dark:text-foreground" key={d.id} value={d.id}>
 											{d.name} ({d.rowCount} rows)
 										</option>
 									))}
@@ -407,14 +407,14 @@ export function RunPredictionModal({
 														[feature]: e.target.value || null,
 													})
 												}
-												className="bg-background border border-border rounded-md px-2 py-1 text-xs min-w-[140px]"
+												className="bg-background dark:bg-surface-800 text-foreground border border-border rounded-md px-2 py-1 text-xs min-w-[140px] dark:[color-scheme:dark]"
 											>
-												<option value="">— unmapped —</option>
+												<option className="dark:bg-surface-800 dark:text-foreground" value="">— unmapped —</option>
 												{isDerived && (
-													<option value={current ?? ""}>{current}</option>
+													<option className="dark:bg-surface-800 dark:text-foreground" value={current ?? ""}>{current}</option>
 												)}
 												{availableColumns.map((c) => (
-													<option key={c} value={c}>
+													<option className="dark:bg-surface-800 dark:text-foreground" key={c} value={c}>
 														{c}
 													</option>
 												))}

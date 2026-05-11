@@ -51,7 +51,9 @@ export default function SignupPage() {
 		<div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
 			<div className="max-w-md w-full glass-card rounded-2xl p-8 relative z-10 border border-border">
 				<div className="text-center mb-8">
-					<img src="/assets/logos/c4.svg" alt="OptimaAI Icon" className="h-16 w-auto mx-auto mb-4" />
+					<Link href="/" className="inline-flex items-center gap-2 mb-4">
+						<img src="/assets/logos/c3.svg" alt="OptimaAI Logo" className="h-12 w-auto mx-auto" />
+					</Link>
 					<h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
 						Create Account
 					</h1>
