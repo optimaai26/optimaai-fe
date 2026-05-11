@@ -7,6 +7,9 @@ OptimaAI is a high-performance B2B SaaS analytics platform built for high-scale 
 
 ---
 
+## Documentation
+Full platform docs: [optima-ai-documentation.vercel.app](https://optima-ai-documentation.vercel.app)
+
 ## 💎 Core Features
 
 ### 📊 Intelligence Dashboard
