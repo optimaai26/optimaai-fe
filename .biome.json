@@ -1,73 +1,78 @@
 {
-	"root": false,
-	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
-	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"complexity": {
-				"noExtraBooleanCast": "error",
-				"noUselessFragments": "warn"
-			},
-			"correctness": {
-				"noUnusedImports": "warn",
-				"useExhaustiveDependencies": "warn"
-			},
-			"style": {
-				"noNonNullAssertion": "warn",
-				"useConst": "error"
-			},
-			"suspicious": {
-				"noExplicitAny": "off",
-				"noArrayIndexKey": "off"
-			},
-			"a11y": {
-				"useButtonType": "off",
-				"noLabelWithoutControl": "off"
-			}
-		}
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "space",
-		"indentWidth": 2,
-		"lineWidth": 100
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"semicolons": "always",
-			"trailingCommas": "all"
-		}
-	},
-	"css": {
-		"parser": {
-			"cssModules": false,
-			"tailwindDirectives": true
-		},
-		"formatter": {
-			"enabled": true
-		},
-		"linter": {
-			"enabled": true
-		}
-	},
-	"files": {
-		"ignoreUnknown": true,
-		"ignore": [
-			"./app/globals.css",
-			"./public/mockServiceWorker.js",
-			"./node_modules",
-			"./.next",
-			"./dist",
-			"./coverage"
-		]
-	}
+  "root": true,
+  "$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noExtraBooleanCast": "error",
+        "noUselessFragments": "warn"
+      },
+      "correctness": {
+        "noUnusedImports": "warn",
+        "useExhaustiveDependencies": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "useConst": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        "useButtonType": "off",
+        "noLabelWithoutControl": "off",
+        "useSemanticElements": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": false,
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!./app/globals.css",
+      "!./public/mockServiceWorker.js",
+      "!./node_modules/**",
+      "!./.next/**",
+      "!./dist/**",
+      "!./coverage/**"
+    ]
+  }
 }

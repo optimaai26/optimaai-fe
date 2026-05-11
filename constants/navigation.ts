@@ -1,61 +1,61 @@
 import {
-	BookOpen,
-	BrainCircuit,
-	Database,
-	FileText,
-	LayoutDashboard,
-	LayoutGrid,
-	type LucideIcon,
-	Plug,
-	Shield,
-	TrendingUp,
-	UserCog,
-	Users,
-} from "lucide-react";
+  BookOpen,
+  BrainCircuit,
+  Database,
+  FileText,
+  LayoutDashboard,
+  LayoutGrid,
+  type LucideIcon,
+  Plug,
+  Shield,
+  TrendingUp,
+  UserCog,
+  Users,
+} from 'lucide-react';
 
 /* ==========================================
  * Sidebar / Navigation Configuration
  * ========================================== */
 
 export interface NavItem {
-	title: string;
-	href: string;
-	icon: LucideIcon;
-	badge?: string;
-	disabled?: boolean;
+  title: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string;
+  disabled?: boolean;
 }
 
 export interface NavSection {
-	label: string;
-	items: NavItem[];
+  label: string;
+  items: NavItem[];
 }
 
 /** Primary navigation sections for the sidebar */
 export const NAV_SECTIONS: NavSection[] = [
-	{
-		label: "Overview",
-		items: [{ title: "Dashboard", href: "/dashboard", icon: LayoutDashboard }],
-	},
-	{
-		label: "Data",
-		items: [
-			{ title: "Datasets", href: "/datasets", icon: Database },
-			{ title: "Predictions", href: "/predictions", icon: TrendingUp },
-		],
-	},
-	{
-		label: "AI & Insights",
-		items: [
-			{ title: "Insights", href: "/insights", icon: BrainCircuit },
-			// Auto-generated BMC inferred from uploaded data (read-only, one-click)
-			{ title: "AI Canvas", href: "/bmc", icon: LayoutGrid },
-			{ title: "Reports", href: "/reports", icon: FileText },
-		],
-	},
-	{
-		label: "Integrations",
-		items: [{ title: "Connectors", href: "/integrations/odoo", icon: Plug }],
-	},
+  {
+    label: 'Overview',
+    items: [{ title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }],
+  },
+  {
+    label: 'Data',
+    items: [
+      { title: 'Datasets', href: '/datasets', icon: Database },
+      { title: 'Predictions', href: '/predictions', icon: TrendingUp },
+    ],
+  },
+  {
+    label: 'AI & Insights',
+    items: [
+      { title: 'Insights', href: '/insights', icon: BrainCircuit },
+      // Auto-generated BMC inferred from uploaded data (read-only, one-click)
+      { title: 'AI Canvas', href: '/bmc', icon: LayoutGrid },
+      { title: 'Reports', href: '/reports', icon: FileText },
+    ],
+  },
+  {
+    label: 'Integrations',
+    items: [{ title: 'Connectors', href: '/integrations/odoo', icon: Plug }],
+  },
 ];
 
 /** Admin navigation (shown only to admin/manager roles) */
@@ -63,19 +63,19 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [];
 
 /** Quick-access routes */
 export const ROUTE_PATHS = {
-	home: "/",
-	login: "/login",
-	signup: "/signup",
-	dashboard: "/dashboard",
-	datasets: "/datasets",
-	datasetDetail: (id: string) => `/datasets/${id}` as const,
-	predictions: "/predictions",
-	insights: "/insights",
-	canvas: "/canvas",
-	bmc: "/bmc",
-	reports: "/reports",
-	odoo: "/integrations/odoo",
-	adminUsers: "/admin/users",
-	adminRoles: "/admin/roles",
-	adminAccessRequests: "/admin/access-requests",
+  home: '/',
+  login: '/login',
+  signup: '/signup',
+  dashboard: '/dashboard',
+  datasets: '/datasets',
+  datasetDetail: (id: string) => `/datasets/${id}` as const,
+  predictions: '/predictions',
+  insights: '/insights',
+  canvas: '/canvas',
+  bmc: '/bmc',
+  reports: '/reports',
+  odoo: '/integrations/odoo',
+  adminUsers: '/admin/users',
+  adminRoles: '/admin/roles',
+  adminAccessRequests: '/admin/access-requests',
 } as const;

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { ChevronLeft, Settings } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { NAV_SECTIONS, type NavItem } from "@/constants/navigation";
-import { useUiStore } from "@/lib/stores/ui-store";
-import { cn } from "@/lib/utils/cn";
+import { ChevronLeft, Settings } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { NAV_SECTIONS, type NavItem } from '@/constants/navigation';
+import { useUiStore } from '@/lib/stores/ui-store';
+import { cn } from '@/lib/utils/cn';
 
 /* ==========================================
  * Sidebar Component
@@ -17,145 +17,125 @@ import { cn } from "@/lib/utils/cn";
  * To add the BMC entry, edit that file (NOT this one).
  * ========================================== */
 
-function SidebarLink({
-	item,
-	collapsed,
-}: {
-	item: NavItem;
-	collapsed: boolean;
-}) {
-	const pathname = usePathname();
-	const isActive =
-		pathname === item.href || pathname.startsWith(`${item.href}/`);
+function SidebarLink({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
+  const pathname = usePathname();
+  const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-	return (
-		<Link
-			href={item.href}
-			className={cn(
-				"group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
-				collapsed && "justify-center px-2",
-				isActive
-					? "bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300"
-					: "text-muted-foreground hover:bg-muted hover:text-foreground",
-			)}
-			title={collapsed ? item.title : undefined}
-		>
-			<item.icon
-				className={cn(
-					"w-5 h-5 shrink-0 transition-colors",
-					isActive
-						? "text-primary-500"
-						: "text-muted-foreground group-hover:text-foreground",
-				)}
-			/>
-			{!collapsed && <span className="truncate">{item.title}</span>}
-			{!collapsed && item.badge && (
-				<span className="ml-auto text-xs bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full">
-					{item.badge}
-				</span>
-			)}
-		</Link>
-	);
+  return (
+    <Link
+      href={item.href}
+      className={cn(
+        'group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
+        collapsed && 'justify-center px-2',
+        isActive
+          ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-300'
+          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+      )}
+      title={collapsed ? item.title : undefined}
+    >
+      <item.icon
+        className={cn(
+          'w-5 h-5 shrink-0 transition-colors',
+          isActive ? 'text-primary-500' : 'text-muted-foreground group-hover:text-foreground',
+        )}
+      />
+      {!collapsed && <span className="truncate">{item.title}</span>}
+      {!collapsed && item.badge && (
+        <span className="ml-auto text-xs bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full">
+          {item.badge}
+        </span>
+      )}
+    </Link>
+  );
 }
 
 export function Sidebar() {
-	const { sidebarCollapsed, toggleSidebar } = useUiStore();
-	const { resolvedTheme } = useTheme();
+  const { sidebarCollapsed, toggleSidebar } = useUiStore();
+  const { resolvedTheme } = useTheme();
 
-	// Theme-aware logo selection:
-	// Expanded: full logo (icon + text). Collapsed: icon-only.
-	const fullLogoSrc =
-		resolvedTheme === "dark" ? "/assets/logos/w3.svg" : "/assets/logos/n3.svg";
-	const iconLogoSrc =
-		resolvedTheme === "dark" ? "/assets/logos/w4.svg" : "/assets/logos/n4.svg";
+  // Theme-aware logo selection:
+  // Expanded: full logo (icon + text). Collapsed: icon-only.
+  const fullLogoSrc = resolvedTheme === 'dark' ? '/assets/logos/w3.svg' : '/assets/logos/n3.svg';
+  const iconLogoSrc = resolvedTheme === 'dark' ? '/assets/logos/w4.svg' : '/assets/logos/n4.svg';
 
-	return (
-		<aside
-			className={cn(
-				"hidden lg:flex flex-col fixed left-0 top-0 bottom-0 z-40 border-r transition-all duration-300 ease-in-out",
-				"bg-[var(--sidebar-bg)] border-[var(--sidebar-border)]",
-				sidebarCollapsed
-					? "w-[var(--sidebar-collapsed-width)]"
-					: "w-[var(--sidebar-width)]",
-			)}
-		>
-			{/* Logo + Collapse Toggle */}
-			<div
-				className={cn(
-					"flex items-center h-20 border-b border-[var(--sidebar-border)] relative",
-					sidebarCollapsed ? "justify-center px-0" : "justify-between px-4"
-				)}
-			>
-				{/* Expanded: show full logo (icon + "OptiMayo" text) */}
-				{!sidebarCollapsed && (
-					<Link href="/dashboard" className="flex items-center gap-2 min-w-0">
-						<img
-							src={fullLogoSrc}
-							alt="OptiMayo Logo"
-							className="h-11 w-auto"
-							suppressHydrationWarning
-						/>
-					</Link>
-				)}
-				{/* Collapsed: show icon-only circular logo */}
-				{sidebarCollapsed && (
-					<Link href="/dashboard" className="mx-auto flex justify-center">
-						<img
-							src={iconLogoSrc}
-							alt="OptiMayo Icon"
-							className="h-10 w-10 object-cover object-left"
-							suppressHydrationWarning
-						/>
-					</Link>
-				)}
-				<button
-					type="button"
-					onClick={toggleSidebar}
-					className={cn(
-						"p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground",
-						sidebarCollapsed && "absolute top-1/2 -translate-y-1/2 -right-[14px]",
-					)}
-					aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-					suppressHydrationWarning
-				>
-					<ChevronLeft
-						className={cn(
-							"w-4 h-4 transition-transform",
-							sidebarCollapsed && "rotate-180",
-						)}
-					/>
-				</button>
-			</div>
+  return (
+    <aside
+      className={cn(
+        'hidden lg:flex flex-col fixed left-0 top-0 bottom-0 z-40 border-r transition-all duration-300 ease-in-out',
+        'bg-[var(--sidebar-bg)] border-[var(--sidebar-border)]',
+        sidebarCollapsed ? 'w-[var(--sidebar-collapsed-width)]' : 'w-[var(--sidebar-width)]',
+      )}
+    >
+      {/* Logo + Collapse Toggle */}
+      <div
+        className={cn(
+          'flex items-center h-20 border-b border-[var(--sidebar-border)] relative',
+          sidebarCollapsed ? 'justify-center px-0' : 'justify-between px-4',
+        )}
+      >
+        {/* Expanded: show full logo (icon + "OptiMayo" text) */}
+        {!sidebarCollapsed && (
+          <Link href="/dashboard" className="flex items-center gap-2 min-w-0">
+            <img
+              src={fullLogoSrc}
+              alt="OptiMayo Logo"
+              className="h-11 w-auto"
+              suppressHydrationWarning
+            />
+          </Link>
+        )}
+        {/* Collapsed: show icon-only circular logo */}
+        {sidebarCollapsed && (
+          <Link href="/dashboard" className="mx-auto flex justify-center">
+            <img
+              src={iconLogoSrc}
+              alt="OptiMayo Icon"
+              className="h-10 w-10 object-cover object-left"
+              suppressHydrationWarning
+            />
+          </Link>
+        )}
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          className={cn(
+            'p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground',
+            sidebarCollapsed && 'absolute top-1/2 -translate-y-1/2 -right-[14px]',
+          )}
+          aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          suppressHydrationWarning
+        >
+          <ChevronLeft
+            className={cn('w-4 h-4 transition-transform', sidebarCollapsed && 'rotate-180')}
+          />
+        </button>
+      </div>
 
-			{/* Navigation Sections */}
-			<nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
-				{NAV_SECTIONS.map((section) => (
-					<div key={section.label}>
-						{!sidebarCollapsed && (
-							<p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
-								{section.label}
-							</p>
-						)}
-						<div className="space-y-1">
-							{section.items.map((item) => (
-								<SidebarLink
-									key={item.href}
-									item={item}
-									collapsed={sidebarCollapsed}
-								/>
-							))}
-						</div>
-					</div>
-				))}
-			</nav>
+      {/* Navigation Sections */}
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+        {NAV_SECTIONS.map((section) => (
+          <div key={section.label}>
+            {!sidebarCollapsed && (
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-3 mb-2">
+                {section.label}
+              </p>
+            )}
+            <div className="space-y-1">
+              {section.items.map((item) => (
+                <SidebarLink key={item.href} item={item} collapsed={sidebarCollapsed} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </nav>
 
-			{/* Settings Footer */}
-			<div className="border-t border-[var(--sidebar-border)] p-3">
-				<SidebarLink
-					item={{ title: "Settings", href: "/settings", icon: Settings }}
-					collapsed={sidebarCollapsed}
-				/>
-			</div>
-		</aside>
-	);
+      {/* Settings Footer */}
+      <div className="border-t border-[var(--sidebar-border)] p-3">
+        <SidebarLink
+          item={{ title: 'Settings', href: '/settings', icon: Settings }}
+          collapsed={sidebarCollapsed}
+        />
+      </div>
+    </aside>
+  );
 }

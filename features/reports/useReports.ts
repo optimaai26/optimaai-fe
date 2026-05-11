@@ -12,38 +12,38 @@ import { apiClient } from '@/lib/api/api-client';
 /* ------------------------------------------------------------------ */
 
 export interface ReportTemplate {
-    id: string;
-    title: string;
-    description: string;
-    icon: string;
-    section_count: number;
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  section_count: number;
 }
 
 export interface ReportSection {
-    id: string;
-    title: string;
-    content_md: string;
+  id: string;
+  title: string;
+  content_md: string;
 }
 
 export interface GeneratedReport {
-    status: string;
-    report_id: string;
-    template: string;
-    title: string;
-    role: string;
-    generated_at: string;
-    sections: ReportSection[];
-    markdown: string;
-    files: {
-        docx: string;
-        pdf: string;
-        md: string;
-    };
+  status: string;
+  report_id: string;
+  template: string;
+  title: string;
+  role: string;
+  generated_at: string;
+  sections: ReportSection[];
+  markdown: string;
+  files: {
+    docx: string;
+    pdf: string;
+    md: string;
+  };
 }
 
 export interface GenerateReportParams {
-    template_id: string;
-    role?: string;
+  template_id: string;
+  role?: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -59,19 +59,18 @@ const TEMPLATES_KEY = [...REPORTS_KEY, 'templates'] as const;
 
 /** GET /reports/templates — list available templates */
 export function useReportTemplates() {
-    return useQuery<{ templates: ReportTemplate[] }>({
-        queryKey: TEMPLATES_KEY,
-        queryFn: () => apiClient.get<{ templates: ReportTemplate[] }>('/reports/templates'),
-        staleTime: 5 * 60_000, // 5 minutes — templates rarely change
-    });
+  return useQuery<{ templates: ReportTemplate[] }>({
+    queryKey: TEMPLATES_KEY,
+    queryFn: () => apiClient.get<{ templates: ReportTemplate[] }>('/reports/templates'),
+    staleTime: 5 * 60_000, // 5 minutes — templates rarely change
+  });
 }
 
 /** POST /reports/generate — generate a new report */
 export function useGenerateReport() {
-    return useMutation<GeneratedReport, Error, GenerateReportParams>({
-        mutationFn: (params) =>
-            apiClient.post<GeneratedReport>('/reports/generate', params),
-    });
+  return useMutation<GeneratedReport, Error, GenerateReportParams>({
+    mutationFn: (params) => apiClient.post<GeneratedReport>('/reports/generate', params),
+  });
 }
 
 /**
@@ -80,6 +79,6 @@ export function useGenerateReport() {
  * triggers the browser to download with the proper filename.
  */
 export function getReportDownloadUrl(reportId: string, fmt: 'docx' | 'pdf' | 'md'): string {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? '/api/v1';
-    return `${base}/reports/${reportId}/file/${fmt}`;
+  const base = process.env.NEXT_PUBLIC_API_URL ?? '/api/v1';
+  return `${base}/reports/${reportId}/file/${fmt}`;
 }
