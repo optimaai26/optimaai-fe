@@ -5,6 +5,7 @@
 
 OptimaAI is a high-performance B2B SaaS analytics platform built for high-scale business intelligence. It integrates Predictive ML models, LLM-powered strategic insights, and an interactive Business Model Canvas into a seamless, glassmorphic experience.
 
+Live demo: https://www.optimaai.software/login
 ---
 
 ## 📚  Documentation
